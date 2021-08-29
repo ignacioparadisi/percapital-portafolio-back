@@ -1,7 +1,10 @@
 const path = require('path');
 
 module.exports = {
+  devtool: 'source-map',
+  target: 'node',
   entry: './src/server.ts',
+  mode: process.env.NODE_ENV || 'development',
   module: {
     rules: [
       {
