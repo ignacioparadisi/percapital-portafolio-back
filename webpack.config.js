@@ -17,6 +17,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    alias: {
+      "@Common": path.resolve(process.cwd(), './src/common'),
+      "@Logic": path.resolve(process.cwd(), "./src/logic"),
+      "@Persistence": path.resolve(process.cwd(), "./src/persistence")
+
+    }
   },
   output: {
     filename: 'server.js',

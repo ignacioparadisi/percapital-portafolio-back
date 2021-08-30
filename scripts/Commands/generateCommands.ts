@@ -1,11 +1,11 @@
-import {removeDoctive, snakeToCamelCase} from '../../src/common/utils/auxiliaries';
+import { removeDoctive, snakeToCamelCase } from '../../src/common/utils/auxiliaries';
 import {
     addBaseCommandsToFactory, addManyToOneCommandToFactory,
     addOneToManyCommandToFactory,
     createBaseCommandFiles, createManyToOneCommandFile,
     createOneToManyCommandFile, getFactory
 } from './getFiles';
-import {writeFileSync, existsSync, mkdirSync} from 'fs'
+import { writeFileSync, existsSync, mkdirSync } from 'fs'
 
 export const generateCommand = async (path: string, tableName: string, oneToMany: any[], manyToOne: any[]) => {
     let className = removeDoctive(tableName);
@@ -38,7 +38,7 @@ export const generateCommand = async (path: string, tableName: string, oneToMany
 
 }
 
-const addRelationFile = (value: any, className: string, path: string, commandPath: string, fileFunction: Function, factoryFunction: Function, manyToOne?:boolean) => {
+const addRelationFile = (value: any, className: string, path: string, commandPath: string, fileFunction: Function, factoryFunction: Function, manyToOne?: boolean) => {
     let parentName = removeDoctive(value.foreign_table_name);
     parentName = snakeToCamelCase(parentName);
     const variableName = snakeToCamelCase(value.column_name);

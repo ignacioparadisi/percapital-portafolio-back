@@ -1,5 +1,5 @@
-import {removeDoctive, snakeToCamelCase} from '../src/common/utils/auxiliaries';
-import {existsSync, mkdirSync, writeFileSync } from 'fs';
+import { removeDoctive, snakeToCamelCase } from '../src/common/utils/auxiliaries';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 export const generateDAO = async (path: string, tableName: string) => {
     let className = removeDoctive(tableName);
@@ -65,8 +65,8 @@ export interface I${className}DAO extends IDAO {
 };
 
 const addFactory = (className: string) => {
-    factories.abstract = factories.abstract.substring(0, factories.abstract.length-2);
-    factories.concrete = factories.concrete.substring(0, factories.concrete.length-2);
+    factories.abstract = factories.abstract.substring(0, factories.abstract.length - 2);
+    factories.concrete = factories.concrete.substring(0, factories.concrete.length - 2);
     factories.abstract = `import {I${className}DAO} from '@Persistence/DAO/${className}/I${className}DAO';\n${factories.abstract}`;
     factories.concrete = `import {${className}DAO} from '@Persistence/DAO/${className}/${className}DAO';\n${factories.concrete}`;
 

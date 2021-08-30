@@ -1,9 +1,9 @@
 import { writeFileSync } from 'fs';
 // @ts-ignore
-import {minimizeFirstLetter, removeDoctive, snakeToCamelCase} from "../../src/Common/Utils/auxiliaries";
+import { minimizeFirstLetter, removeDoctive, snakeToCamelCase } from "../../src/Common/Utils/auxiliaries";
 
 enum dataTypes {
-    'integer'= 'number',
+    'integer' = 'number',
     'character varying' = 'string',
     'boolean' = 'boolean',
     'date' = 'Date'
@@ -23,13 +23,13 @@ export const generateEntities = async (columns: any[], path: string, tableName: 
         const columnName = column.column_name;
         const dataType = column.data_type;
         if (columnName !== 'id') {
-           const variableName = snakeToCamelCase(columnName);
+            const variableName = snakeToCamelCase(columnName);
             // @ts-ignore
             file += `\n    ${variableName}?: ${dataTypes[dataType]};`;
             constructor += `\n        this.${variableName} = entity ? entity.${variableName} : undefined;`
         }
     });
-    constructor +=`\n   }`;
+    constructor += `\n   }`;
     oneToMany.map(value => {
         let dataType;
         [dataType, file] = addImport(value, file, className);

@@ -1,11 +1,11 @@
-import {minimizeFirstLetter, removeDoctive, snakeToCamelCase} from '../../src/common/utils/auxiliaries';
-import {writeFileSync} from "fs";
+import { minimizeFirstLetter, removeDoctive, snakeToCamelCase } from '../../src/common/utils/auxiliaries';
+import { writeFileSync } from "fs";
 
 export const generateResolvers = async (path: string, tableName: string, oneToMany: any[], manyToOne: any[]) => {
     let className = removeDoctive(tableName);
     className = snakeToCamelCase(className);
     const resolverPath = `Services/resolvers/${className}.ts`;
-    let {file, mutations} = createInitialFile(className);
+    let { file, mutations } = createInitialFile(className);
     oneToMany.map(value => {
         file = addRelationFile(value, className, createOneToManyFile, file);
     });
@@ -32,8 +32,8 @@ const addRelationFile = (value: any, className: string, fileFunction: Function, 
     return file;
 }
 
-const createInitialFile = (className:string) => {
-    const file =  `import {${className}} from '@Common/Entities/${className}';
+const createInitialFile = (className: string) => {
+    const file = `import {${className}} from '@Common/Entities/${className}';
 import {CommandFactory} from '@Logic/Commands/CommandFactory';
 import {GraphQLMutation, GraphQLQuery} from '../graphQLTypes';
 export const ${className}Resolver = {
@@ -69,7 +69,7 @@ export const ${className}Resolver = {
     }
 }
 `
-    return {file, mutations};
+    return { file, mutations };
 }
 
 const createManyToOneFile = (className: string, relationName: string) => {
@@ -97,7 +97,7 @@ const createOneToManyFile = (className: string, relationName: string) => {
 const addToIndexFile = (className: string) => {
     indexFile = indexFile.replace('\n\nexport', `\nimport {${className}Resolver} from './${className}';
 export`);
-    indexFile = indexFile.slice(0, indexFile.length-3);
+    indexFile = indexFile.slice(0, indexFile.length - 3);
     indexFile += !first ? `,\n    ${className}Resolver\n])` : `    ${className}Resolver\n])`;
     first = false;
 }

@@ -175,10 +175,10 @@ export const getValueForFlureeQuery = (value: any) => {
   return typeof value === 'string'
     ? `"${value}"`
     : Array.isArray(value)
-    ? typeof value[0] === 'string'
-      ? `"${value[0]}"`
-      : value[0]
-    : value;
+      ? typeof value[0] === 'string'
+        ? `"${value[0]}"`
+        : value[0]
+      : value;
 };
 export const getCaseInsensitiveName = (value: string) => {
   const accents = ['aá', 'eé', 'ií', 'oó', 'uú'];

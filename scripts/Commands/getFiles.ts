@@ -118,7 +118,7 @@ import {${names.read}} from '@Logic/Commands/${className}/${names.read}';
 import {${names.update}} from '@Logic/Commands/${className}/${names.update}';
 import {${names.delete}} from '@Logic/Commands/${className}/${names.delete}';
 ${factory}`;
-    factory = factory.slice(0,factory.length-2);
+    factory = factory.slice(0, factory.length - 2);
     factory += `    static create${names.create}(insertData: ${className}) {
         return new ${names.create}(insertData)
     }
@@ -136,8 +136,8 @@ ${factory}`;
 }
 
 export const addOneToManyCommandToFactory = (className: string, parentName: string, name: string) => {
-    factory =  `import {${name}} from '@Logic/Commands/${className}/${name}';\n${factory}`;
-    factory = factory.slice(0, factory.length-2);
+    factory = `import {${name}} from '@Logic/Commands/${className}/${name}';\n${factory}`;
+    factory = factory.slice(0, factory.length - 2);
     factory += `    static create${name} (where: ${className}, parent: ${parentName}) {
         return new ${name}(where, parent);
     }
@@ -146,9 +146,9 @@ export const addOneToManyCommandToFactory = (className: string, parentName: stri
 }
 
 export const addManyToOneCommandToFactory = (className: string, parentName: string, name: string) => {
-    factory =  `import {${name}} from '@Logic/Commands/${className}/${name}';\n${factory}`;
-    factory = factory.slice(0, factory.length-2);
-    factory +=`    static create${name}(where: ${className}, parent: ${parentName}, limit?:number) {
+    factory = `import {${name}} from '@Logic/Commands/${className}/${name}';\n${factory}`;
+    factory = factory.slice(0, factory.length - 2);
+    factory += `    static create${name}(where: ${className}, parent: ${parentName}, limit?:number) {
         return new ${name}(where, parent, limit);
     }
 }

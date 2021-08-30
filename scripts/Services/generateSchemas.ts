@@ -1,8 +1,8 @@
-import {minimizeFirstLetter, removeDoctive, snakeToCamelCase} from '../../src/common/utils/auxiliaries';
-import {writeFileSync} from 'fs';
+import { minimizeFirstLetter, removeDoctive, snakeToCamelCase } from '../../src/common/utils/auxiliaries';
+import { writeFileSync } from 'fs';
 
 enum DataTypes {
-    'integer'= 'Int',
+    'integer' = 'Int',
     'character varying' = 'String',
     'boolean' = 'Boolean',
     'date' = 'String'
@@ -72,7 +72,7 @@ const createFinalData = (className: string) => {
 const addToIndexFile = (className: string) => {
     indexFile = indexFile.replace('\n\nexport', `\nimport {${className}TypeDef} from './${className}';
 export`);
-    indexFile = indexFile.slice(0, indexFile.length-3);
+    indexFile = indexFile.slice(0, indexFile.length - 3);
     indexFile += !first ? `,\n    ${className}TypeDef\n])` : `    ${className}TypeDef\n])`;
     first = false;
 }
