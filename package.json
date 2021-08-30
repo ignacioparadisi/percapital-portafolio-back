@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-    "start": "webpack --config webpack.config.js && node dist/server.js"
+    "start": "webpack --config webpack.config.js && node dist/server.js",
+    "gen-arch": "tsc scripts/generateArchitecture.ts && scripts/generateArchitecture.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,8 @@
   "dependencies": {
     "apollo-server": "^3.3.0",
     "dotenv": "^10.0.0",
-    "graphql": "^15.5.1"
+    "graphql": "^15.5.1",
+    "pg": "^8.7.1"
   },
   "devDependencies": {
     "ts-loader": "^9.2.5",
