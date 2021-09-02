@@ -16,7 +16,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.mjs', '.js'],
     alias: {
       "@Common": path.resolve(process.cwd(), './src/common'),
       "@Logic": path.resolve(process.cwd(), "./src/logic"),
