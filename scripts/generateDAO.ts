@@ -1,4 +1,4 @@
-import { removeDoctive, snakeToCamelCase } from '../src/common/utils/auxiliaries';
+import { removeDoctive, snakeToCamelCase } from '../src/Common/Utils/auxiliaries';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 export const generateDAO = async (path: string, tableName: string) => {

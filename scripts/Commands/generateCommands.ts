@@ -1,4 +1,4 @@
-import { removeDoctive, snakeToCamelCase } from '../../src/common/utils/auxiliaries';
+import { removeDoctive, snakeToCamelCase } from '../../src/Common/Utils/auxiliaries';
 import {
     addBaseCommandsToFactory, addManyToOneCommandToFactory,
     addOneToManyCommandToFactory,

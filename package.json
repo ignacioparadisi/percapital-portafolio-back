@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "start": "webpack --config webpack.config.js && node dist/server.js",
-    "gen-arch": "tsc scripts/generateArchitecture.ts && scripts/generateArchitecture.js"
+    "gen-arch": "tsc scripts/generateArchitecture.ts --downlevelIteration && node scripts/generateArchitecture.js"
   },
   "repository": {
     "type": "git",

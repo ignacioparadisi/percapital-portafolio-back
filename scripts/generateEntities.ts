@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs';
 // @ts-ignore
-import { minimizeFirstLetter, removeDoctive, snakeToCamelCase } from "../../src/Common/Utils/auxiliaries";
+import { minimizeFirstLetter, removeDoctive, snakeToCamelCase } from "../src/Common/Utils/auxiliaries";
 
 enum dataTypes {
     'integer' = 'number',

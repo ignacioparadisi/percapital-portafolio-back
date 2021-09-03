@@ -1,4 +1,4 @@
-import { minimizeFirstLetter, removeDoctive, snakeToCamelCase } from '../../src/common/utils/auxiliaries';
+import { minimizeFirstLetter, removeDoctive, snakeToCamelCase } from '../../src/Common/Utils/auxiliaries';
 import { writeFileSync } from "fs";
 
 export const generateResolvers = async (path: string, tableName: string, oneToMany: any[], manyToOne: any[]) => {

@@ -1,4 +1,4 @@
-import { removeDoctive, snakeToCamelCase } from '../src/common/utils/auxiliaries';
+import { removeDoctive, snakeToCamelCase } from '../src/Common/Utils/auxiliaries';
 import { writeFileSync } from 'fs';
 
 export const generateLoader = (path: string, tableName: string) => {
