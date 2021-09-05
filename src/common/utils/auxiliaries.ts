@@ -4,8 +4,12 @@ export type queryBuilder<T extends Entity> = {
   readonly [P in keyof T]?: string;
 } & { _id: string };
 
-export const snakeToCamelCase = (snakeCase: string) => {
-  const aux: string[] = snakeCase.split('_');
+export const snakeToCamelCase = (snakeCase: string, slice: boolean = false) => {
+  var snakeCaseAux = snakeCase;
+  if (slice) {
+    snakeCaseAux = snakeCase.slice(4, snakeCaseAux.length);
+  }
+  const aux: string[] = snakeCaseAux.split('_');
   let variableName: string = '';
   aux.map((value: string, index: number) => {
     if (index !== 0) {

@@ -1,26 +1,24 @@
 import {gql} from 'apollo-server';
 export const PriceRvTypeDef = gql`
     type PriceRv {
-        prId: undefined
-        prStId: undefined
-        prErId: undefined
-        prBolivaresprice: undefined
-        prCreationdate: undefined
-        prClosedate: undefined
-        operations(where: OperationInput, limit: Int): [Operation]
-        operations(where: OperationInput, limit: Int): [Operation]
+        id: Int
+        setId: Int
+        exrId: Int
+        bolivaresPrice: Float
+        createdAt: String
+        closeDate: String
         operations(where: OperationInput, limit: Int): [Operation]
         exchangeRate(where: ExchangeRateInput): ExchangeRate
         stockExchangeTitle(where: StockExchangeTitleInput): StockExchangeTitle
     }
 
     input PriceRvInput {
-        prId: undefined
-        prStId: undefined
-        prErId: undefined
-        prBolivaresprice: undefined
-        prCreationdate: undefined
-        prClosedate: undefined
+        id: Int
+        setId: Int
+        exrId: Int
+        bolivaresPrice: Float
+        createdAt: String
+        closeDate: String
     }
 
     type Query {

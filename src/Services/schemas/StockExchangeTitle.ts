@@ -1,18 +1,18 @@
 import {gql} from 'apollo-server';
 export const StockExchangeTitleTypeDef = gql`
     type StockExchangeTitle {
-        stId: undefined
-        stDescription: undefined
-        stValue: String
-        stCreationdate: undefined
+        id: Int
+        description: String
+        value: String
+        createdAt: String
         priceRvs(where: PriceRvInput, limit: Int): [PriceRv]
     }
 
     input StockExchangeTitleInput {
-        stId: undefined
-        stDescription: undefined
-        stValue: String
-        stCreationdate: undefined
+        id: Int
+        description: String
+        value: String
+        createdAt: String
     }
 
     type Query {

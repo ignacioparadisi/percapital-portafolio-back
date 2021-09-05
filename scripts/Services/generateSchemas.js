@@ -58,9 +58,13 @@ var fs_1 = require("fs");
 var DataTypes;
 (function (DataTypes) {
     DataTypes["integer"] = "Int";
+    DataTypes["bigint"] = "Int";
+    DataTypes["numeric"] = "Float";
     DataTypes["character varying"] = "String";
+    DataTypes["text"] = "String";
     DataTypes["boolean"] = "Boolean";
     DataTypes["date"] = "String";
+    DataTypes["timestamp without time zone"] = "String";
 })(DataTypes || (DataTypes = {}));
 var generateSchemas = function (columns, path, tableName, oneToMany, manyToOne) { return __awaiter(void 0, void 0, void 0, function () {
     var className, schemaPath, _a, file, inputFile;
@@ -73,7 +77,7 @@ var generateSchemas = function (columns, path, tableName, oneToMany, manyToOne) 
         columns.map(function (column) {
             var dataType = column.data_type;
             var name = column.column_name;
-            var variableName = (0, auxiliaries_1.snakeToCamelCase)(name);
+            var variableName = (0, auxiliaries_1.snakeToCamelCase)(name, true);
             // @ts-ignore
             file += "\n        " + variableName + ": " + DataTypes[dataType];
             // @ts-ignore

@@ -1,8 +1,6 @@
 import {StockExchangeTitle} from '@Common/Entities/StockExchangeTitle';
 import {ExchangeRate} from '@Common/Entities/ExchangeRate';
 import {Operation} from '@Common/Entities/Operation';
-import {Operation} from '@Common/Entities/Operation';
-import {Operation} from '@Common/Entities/Operation';
 import {PriceRv} from '@Common/Entities/PriceRv';
 import {CommandFactory} from '@Logic/Commands/CommandFactory';
 import {GraphQLMutation, GraphQLQuery} from '../graphQLTypes';
@@ -16,18 +14,6 @@ export const PriceRvResolver = {
         }
     },
     PriceRv: {
-        operations: async (parent: PriceRv, args: GraphQLQuery) => {
-            console.info('operations parent: ', parent, 'args: ',args)
-            const where = new Operation(args.where);
-            const command = CommandFactory.createGetOperationsByPriceRvCommand(where, parent, args.limit);
-            return command.execute();
-        },
-        operations: async (parent: PriceRv, args: GraphQLQuery) => {
-            console.info('operations parent: ', parent, 'args: ',args)
-            const where = new Operation(args.where);
-            const command = CommandFactory.createGetOperationsByPriceRvCommand(where, parent, args.limit);
-            return command.execute();
-        },
         operations: async (parent: PriceRv, args: GraphQLQuery) => {
             console.info('operations parent: ', parent, 'args: ',args)
             const where = new Operation(args.where);

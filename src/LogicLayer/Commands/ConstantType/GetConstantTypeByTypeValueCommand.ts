@@ -7,7 +7,7 @@ export class GetConstantTypeByTypeValueCommand extends Command<ConstantType>{
         super();
     }
     async execute(): Promise<ConstantType> {
-        const parent = {id: this.parent.tvCtId};
+        const parent = {id: this.parent.tvaCotId};
         const loader = ConstantTypeLoader.getInstance();
         return await loader.load(parent, this.where) as ConstantType;
     }

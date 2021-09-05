@@ -105,19 +105,13 @@
   ],
   "paths": {
     "@Common/*": [
-      "common/*"
+      "Common/*"
     ],
     "@Logic/*": [
-      "logic/*"
+      "LogicLayer/*"
     ],
     "@Persistence/*": [
-      "persistence/*"
-    ],
-    "@Components/*": [
-      "components/*"
-    ],
-    "@Sync": [
-      "sync"
+      "Persistence/*"
     ]
   }
 }

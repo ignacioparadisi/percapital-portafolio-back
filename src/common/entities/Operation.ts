@@ -1,29 +1,23 @@
 import {PriceRv} from '@Common/Entities/PriceRv';
-import {PriceRv} from '@Common/Entities/PriceRv';
-import {PriceRv} from '@Common/Entities/PriceRv';
+import {OperationType} from '@Common/Entities/OperationType';
 import {Entity} from '@Common/Entities/Entity';
 export class Operation extends Entity {
-    opId?: undefined;
-    opPId?: undefined;
-    opStId?: undefined;
-    opErId?: undefined;
-    opCreationdate?: undefined;
-    opNumberofactions?: undefined;
-    opPrice?: undefined;
-    opType?: string;
-    priceRv?: PriceRv;
-    priceRv?: PriceRv;
+    id?: number;
+    prvId?: number;
+    createdAt?: Date;
+    stockAmount?: number;
+    stockPrice?: number;
+    typeId?: number;
+    operationType?: OperationType;
     priceRv?: PriceRv;
 
    constructor(entity?: Operation) {
         super(entity);
-        this.opId = entity ? entity.opId : undefined;
-        this.opPId = entity ? entity.opPId : undefined;
-        this.opStId = entity ? entity.opStId : undefined;
-        this.opErId = entity ? entity.opErId : undefined;
-        this.opCreationdate = entity ? entity.opCreationdate : undefined;
-        this.opNumberofactions = entity ? entity.opNumberofactions : undefined;
-        this.opPrice = entity ? entity.opPrice : undefined;
-        this.opType = entity ? entity.opType : undefined;
+        this.id = entity ? entity.id : undefined;
+        this.prvId = entity ? entity.prvId : undefined;
+        this.createdAt = entity ? entity.createdAt : undefined;
+        this.stockAmount = entity ? entity.stockAmount : undefined;
+        this.stockPrice = entity ? entity.stockPrice : undefined;
+        this.typeId = entity ? entity.typeId : undefined;
    }
 }

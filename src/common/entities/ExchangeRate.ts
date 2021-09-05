@@ -1,15 +1,15 @@
 import {PriceRv} from '@Common/Entities/PriceRv';
 import {Entity} from '@Common/Entities/Entity';
 export class ExchangeRate extends Entity {
-    erId?: undefined;
-    erValue?: undefined;
-    erCreationdate?: undefined;
+    id?: number;
+    value?: number;
+    createdAt?: Date;
     priceRvs?: PriceRv[];
 
    constructor(entity?: ExchangeRate) {
         super(entity);
-        this.erId = entity ? entity.erId : undefined;
-        this.erValue = entity ? entity.erValue : undefined;
-        this.erCreationdate = entity ? entity.erCreationdate : undefined;
+        this.id = entity ? entity.id : undefined;
+        this.value = entity ? entity.value : undefined;
+        this.createdAt = entity ? entity.createdAt : undefined;
    }
 }

@@ -1,18 +1,18 @@
 import {gql} from 'apollo-server';
 export const TypeValueTypeDef = gql`
     type TypeValue {
-        tvId: undefined
-        tvCtId: undefined
-        tvValue: undefined
-        tvCreationdate: undefined
+        id: Int
+        cotId: Int
+        value: Float
+        createdAt: String
         constantType(where: ConstantTypeInput): ConstantType
     }
 
     input TypeValueInput {
-        tvId: undefined
-        tvCtId: undefined
-        tvValue: undefined
-        tvCreationdate: undefined
+        id: Int
+        cotId: Int
+        value: Float
+        createdAt: String
     }
 
     type Query {

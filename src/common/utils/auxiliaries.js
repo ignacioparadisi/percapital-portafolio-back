@@ -37,8 +37,13 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 exports.__esModule = true;
 exports.getCaseInsensitiveName = exports.getValueForFlureeQuery = exports.toFlureeId = exports.getInQueryFromBatch = exports.getOrderByFromObject = exports.getWhereStatementFromObject = exports.removeId = exports.stripUndefined = exports.getRelationEntityFromDB = exports.getEntityFromDB = exports.getQueryFromEntity = exports.capitalizeFirstLetter = exports.minimizeFirstLetter = exports.addDoctive = exports.removeDoctive = exports.camelToSnakeCase = exports.snakeToCamelCase = void 0;
-var snakeToCamelCase = function (snakeCase) {
-    var aux = snakeCase.split('_');
+var snakeToCamelCase = function (snakeCase, slice) {
+    if (slice === void 0) { slice = false; }
+    var snakeCaseAux = snakeCase;
+    if (slice) {
+        snakeCaseAux = snakeCase.slice(4, snakeCaseAux.length);
+    }
+    var aux = snakeCaseAux.split('_');
     var variableName = '';
     aux.map(function (value, index) {
         if (index !== 0) {

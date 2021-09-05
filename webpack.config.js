@@ -18,9 +18,9 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.mjs', '.js'],
     alias: {
-      "@Common": path.resolve(process.cwd(), './src/common'),
-      "@Logic": path.resolve(process.cwd(), "./src/logic"),
-      "@Persistence": path.resolve(process.cwd(), "./src/persistence")
+      "@Common": path.resolve(process.cwd(), './src/Common'),
+      "@Logic": path.resolve(process.cwd(), "./src/LogicLayer"),
+      "@Persistence": path.resolve(process.cwd(), "./src/Persistence")
 
     }
   },

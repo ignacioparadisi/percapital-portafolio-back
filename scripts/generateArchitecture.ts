@@ -54,7 +54,7 @@ const client = new Client({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: parseInt(process.env.DB_PORT as string, 10),
+    port: parseInt(process.env.DB_PORT as string, 5432),
 })
 
 const projectPath = resolve(process.cwd(), './src');

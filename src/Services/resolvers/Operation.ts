@@ -1,6 +1,5 @@
 import {PriceRv} from '@Common/Entities/PriceRv';
-import {PriceRv} from '@Common/Entities/PriceRv';
-import {PriceRv} from '@Common/Entities/PriceRv';
+import {OperationType} from '@Common/Entities/OperationType';
 import {Operation} from '@Common/Entities/Operation';
 import {CommandFactory} from '@Logic/Commands/CommandFactory';
 import {GraphQLMutation, GraphQLQuery} from '../graphQLTypes';
@@ -14,16 +13,10 @@ export const OperationResolver = {
         }
     },
     Operation: {
-        priceRv: async (parent: Operation, args: GraphQLQuery) => {
-            console.info('priceRv parent: ', parent, 'args: ',args)
-            const where = new PriceRv(args.where);
-            const command = CommandFactory.createGetPriceRvByOperationCommand(where, parent);
-            return command.execute();
-        },
-        priceRv: async (parent: Operation, args: GraphQLQuery) => {
-            console.info('priceRv parent: ', parent, 'args: ',args)
-            const where = new PriceRv(args.where);
-            const command = CommandFactory.createGetPriceRvByOperationCommand(where, parent);
+        operationType: async (parent: Operation, args: GraphQLQuery) => {
+            console.info('operationType parent: ', parent, 'args: ',args)
+            const where = new OperationType(args.where);
+            const command = CommandFactory.createGetOperationTypeByOperationCommand(where, parent);
             return command.execute();
         },
         priceRv: async (parent: Operation, args: GraphQLQuery) => {

@@ -7,7 +7,7 @@ export class GetOperationsByPriceRvCommand extends Command<Operation> {
         super();
     }
     async execute(): Promise<Operation[]> {
-        const parent = {opErId: this.parent.id};
+        const parent = {opePrvId: this.parent.id};
         const loader = OperationLoader.getInstance();
         return await loader.load(parent, this.where, this.limit) as Operation[];
     }

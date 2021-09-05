@@ -4,9 +4,13 @@ import { minimizeFirstLetter, removeDoctive, snakeToCamelCase } from "../src/Com
 
 enum dataTypes {
     'integer' = 'number',
+    'bigint' = 'number',
+    'numeric' = 'number',
     'character varying' = 'string',
+    'text' = 'string',
     'boolean' = 'boolean',
-    'date' = 'Date'
+    'date' = 'Date',
+    'timestamp without time zone' = 'Date'
 }
 
 export const generateEntities = async (columns: any[], path: string, tableName: string, oneToMany: any[], manyToOne: any[]) => {
@@ -23,7 +27,7 @@ export const generateEntities = async (columns: any[], path: string, tableName: 
         const columnName = column.column_name;
         const dataType = column.data_type;
         if (columnName !== 'id') {
-            const variableName = snakeToCamelCase(columnName);
+            var variableName = snakeToCamelCase(columnName, true);
             // @ts-ignore
             file += `\n    ${variableName}?: ${dataTypes[dataType]};`;
             constructor += `\n        this.${variableName} = entity ? entity.${variableName} : undefined;`

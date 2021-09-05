@@ -1,28 +1,23 @@
 import {gql} from 'apollo-server';
 export const OperationTypeDef = gql`
     type Operation {
-        opId: undefined
-        opPId: undefined
-        opStId: undefined
-        opErId: undefined
-        opCreationdate: undefined
-        opNumberofactions: undefined
-        opPrice: undefined
-        opType: String
-        priceRv(where: PriceRvInput): PriceRv
-        priceRv(where: PriceRvInput): PriceRv
+        id: Int
+        prvId: Int
+        createdAt: String
+        stockAmount: Float
+        stockPrice: Float
+        typeId: Int
+        operationType(where: OperationTypeInput): OperationType
         priceRv(where: PriceRvInput): PriceRv
     }
 
     input OperationInput {
-        opId: undefined
-        opPId: undefined
-        opStId: undefined
-        opErId: undefined
-        opCreationdate: undefined
-        opNumberofactions: undefined
-        opPrice: undefined
-        opType: String
+        id: Int
+        prvId: Int
+        createdAt: String
+        stockAmount: Float
+        stockPrice: Float
+        typeId: Int
     }
 
     type Query {

@@ -7,7 +7,7 @@ export class GetStockExchangeTitleByPriceRvCommand extends Command<StockExchange
         super();
     }
     async execute(): Promise<StockExchangeTitle> {
-        const parent = {id: this.parent.prStId};
+        const parent = {id: this.parent.prvSetId};
         const loader = StockExchangeTitleLoader.getInstance();
         return await loader.load(parent, this.where) as StockExchangeTitle;
     }

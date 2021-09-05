@@ -1,14 +1,16 @@
 import {gql} from 'apollo-server';
 export const ConstantTypeTypeDef = gql`
     type ConstantType {
-        ctId: undefined
-        ctName: String
+        id: Int
+        name: String
+        createdAt: String
         typeValues(where: TypeValueInput, limit: Int): [TypeValue]
     }
 
     input ConstantTypeInput {
-        ctId: undefined
-        ctName: String
+        id: Int
+        name: String
+        createdAt: String
     }
 
     type Query {

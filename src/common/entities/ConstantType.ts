@@ -1,13 +1,15 @@
 import {TypeValue} from '@Common/Entities/TypeValue';
 import {Entity} from '@Common/Entities/Entity';
 export class ConstantType extends Entity {
-    ctId?: undefined;
-    ctName?: string;
+    id?: number;
+    name?: string;
+    createdAt?: Date;
     typeValues?: TypeValue[];
 
    constructor(entity?: ConstantType) {
         super(entity);
-        this.ctId = entity ? entity.ctId : undefined;
-        this.ctName = entity ? entity.ctName : undefined;
+        this.id = entity ? entity.id : undefined;
+        this.name = entity ? entity.name : undefined;
+        this.createdAt = entity ? entity.createdAt : undefined;
    }
 }

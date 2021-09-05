@@ -3,9 +3,13 @@ import { writeFileSync } from 'fs';
 
 enum DataTypes {
     'integer' = 'Int',
+    'bigint' = 'Int',
+    'numeric' = 'Float',
     'character varying' = 'String',
+    'text' = 'String',
     'boolean' = 'Boolean',
-    'date' = 'String'
+    'date' = 'String',
+    'timestamp without time zone' = 'String'
 }
 
 export const generateSchemas = async (columns: any[], path: string, tableName: string, oneToMany: any[], manyToOne: any[]) => {
@@ -19,7 +23,7 @@ export const generateSchemas = async (columns: any[], path: string, tableName: s
     columns.map(column => {
         const dataType = column.data_type;
         const name = column.column_name;
-        const variableName = snakeToCamelCase(name);
+        const variableName = snakeToCamelCase(name, true);
         // @ts-ignore
         file += `\n        ${variableName}: ${DataTypes[dataType]}`;
         // @ts-ignore

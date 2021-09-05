@@ -7,7 +7,7 @@ export class GetPriceRvsByStockExchangeTitleCommand extends Command<PriceRv> {
         super();
     }
     async execute(): Promise<PriceRv[]> {
-        const parent = {prStId: this.parent.id};
+        const parent = {prvSetId: this.parent.id};
         const loader = PriceRvLoader.getInstance();
         return await loader.load(parent, this.where, this.limit) as PriceRv[];
     }

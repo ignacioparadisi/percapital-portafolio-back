@@ -7,7 +7,7 @@ export class GetExchangeRateByPriceRvCommand extends Command<ExchangeRate>{
         super();
     }
     async execute(): Promise<ExchangeRate> {
-        const parent = {id: this.parent.prErId};
+        const parent = {id: this.parent.prvExrId};
         const loader = ExchangeRateLoader.getInstance();
         return await loader.load(parent, this.where) as ExchangeRate;
     }

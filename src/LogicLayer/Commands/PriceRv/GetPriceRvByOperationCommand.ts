@@ -7,7 +7,7 @@ export class GetPriceRvByOperationCommand extends Command<PriceRv>{
         super();
     }
     async execute(): Promise<PriceRv> {
-        const parent = {id: this.parent.opErId};
+        const parent = {id: this.parent.opePrvId};
         const loader = PriceRvLoader.getInstance();
         return await loader.load(parent, this.where) as PriceRv;
     }

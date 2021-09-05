@@ -1,11 +1,3 @@
-import {GetOperationsByPriceRvCommand} from '@Logic/Commands/Operation/GetOperationsByPriceRvCommand';
-import {GetOperationsByPriceRvCommand} from '@Logic/Commands/Operation/GetOperationsByPriceRvCommand';
-import {GetOperationsByPriceRvCommand} from '@Logic/Commands/Operation/GetOperationsByPriceRvCommand';
-import {Operation} from '@Common/Entities/Operation';
-import {CreateOperationCommand} from '@Logic/Commands/Operation/CreateOperationCommand';
-import {GetOperationsCommand} from '@Logic/Commands/Operation/GetOperationsCommand';
-import {UpdateOperationCommand} from '@Logic/Commands/Operation/UpdateOperationCommand';
-import {DeleteOperationCommand} from '@Logic/Commands/Operation/DeleteOperationCommand';
 import {GetExchangeRateByPriceRvCommand} from '@Logic/Commands/ExchangeRate/GetExchangeRateByPriceRvCommand';
 import {ExchangeRate} from '@Common/Entities/ExchangeRate';
 import {CreateExchangeRateCommand} from '@Logic/Commands/ExchangeRate/CreateExchangeRateCommand';
@@ -14,8 +6,6 @@ import {UpdateExchangeRateCommand} from '@Logic/Commands/ExchangeRate/UpdateExch
 import {DeleteExchangeRateCommand} from '@Logic/Commands/ExchangeRate/DeleteExchangeRateCommand';
 import {GetPriceRvsByStockExchangeTitleCommand} from '@Logic/Commands/PriceRv/GetPriceRvsByStockExchangeTitleCommand';
 import {GetPriceRvsByExchangeRateCommand} from '@Logic/Commands/PriceRv/GetPriceRvsByExchangeRateCommand';
-import {GetPriceRvByOperationCommand} from '@Logic/Commands/PriceRv/GetPriceRvByOperationCommand';
-import {GetPriceRvByOperationCommand} from '@Logic/Commands/PriceRv/GetPriceRvByOperationCommand';
 import {GetPriceRvByOperationCommand} from '@Logic/Commands/PriceRv/GetPriceRvByOperationCommand';
 import {PriceRv} from '@Common/Entities/PriceRv';
 import {CreatePriceRvCommand} from '@Logic/Commands/PriceRv/CreatePriceRvCommand';
@@ -28,6 +18,19 @@ import {CreateStockExchangeTitleCommand} from '@Logic/Commands/StockExchangeTitl
 import {GetStockExchangeTitlesCommand} from '@Logic/Commands/StockExchangeTitle/GetStockExchangeTitlesCommand';
 import {UpdateStockExchangeTitleCommand} from '@Logic/Commands/StockExchangeTitle/UpdateStockExchangeTitleCommand';
 import {DeleteStockExchangeTitleCommand} from '@Logic/Commands/StockExchangeTitle/DeleteStockExchangeTitleCommand';
+import {GetOperationTypeByOperationCommand} from '@Logic/Commands/OperationType/GetOperationTypeByOperationCommand';
+import {OperationType} from '@Common/Entities/OperationType';
+import {CreateOperationTypeCommand} from '@Logic/Commands/OperationType/CreateOperationTypeCommand';
+import {GetOperationTypesCommand} from '@Logic/Commands/OperationType/GetOperationTypesCommand';
+import {UpdateOperationTypeCommand} from '@Logic/Commands/OperationType/UpdateOperationTypeCommand';
+import {DeleteOperationTypeCommand} from '@Logic/Commands/OperationType/DeleteOperationTypeCommand';
+import {GetOperationsByPriceRvCommand} from '@Logic/Commands/Operation/GetOperationsByPriceRvCommand';
+import {GetOperationsByOperationTypeCommand} from '@Logic/Commands/Operation/GetOperationsByOperationTypeCommand';
+import {Operation} from '@Common/Entities/Operation';
+import {CreateOperationCommand} from '@Logic/Commands/Operation/CreateOperationCommand';
+import {GetOperationsCommand} from '@Logic/Commands/Operation/GetOperationsCommand';
+import {UpdateOperationCommand} from '@Logic/Commands/Operation/UpdateOperationCommand';
+import {DeleteOperationCommand} from '@Logic/Commands/Operation/DeleteOperationCommand';
 import {GetTypeValuesByConstantTypeCommand} from '@Logic/Commands/TypeValue/GetTypeValuesByConstantTypeCommand';
 import {TypeValue} from '@Common/Entities/TypeValue';
 import {CreateTypeValueCommand} from '@Logic/Commands/TypeValue/CreateTypeValueCommand';
@@ -73,6 +76,39 @@ export class CommandFactory {
     static createGetTypeValuesByConstantTypeCommand(where: TypeValue, parent: ConstantType, limit?:number) {
         return new GetTypeValuesByConstantTypeCommand(where, parent, limit);
     }
+    static createCreateOperationCommand(insertData: Operation) {
+        return new CreateOperationCommand(insertData)
+    }
+    static createGetOperationsCommand(where: Operation, limit?: number, skip?: number) {
+       return new GetOperationsCommand(where, limit, skip);
+    }
+    static createUpdateOperationCommand(where: Operation, updateData: Operation) {
+       return new UpdateOperationCommand(where, updateData);
+    }
+    static createDeleteOperationCommand(deleteData: Operation) {
+        return new DeleteOperationCommand(deleteData);
+    }
+    static createGetOperationsByOperationTypeCommand(where: Operation, parent: OperationType, limit?:number) {
+        return new GetOperationsByOperationTypeCommand(where, parent, limit);
+    }
+    static createGetOperationsByPriceRvCommand(where: Operation, parent: PriceRv, limit?:number) {
+        return new GetOperationsByPriceRvCommand(where, parent, limit);
+    }
+    static createCreateOperationTypeCommand(insertData: OperationType) {
+        return new CreateOperationTypeCommand(insertData)
+    }
+    static createGetOperationTypesCommand(where: OperationType, limit?: number, skip?: number) {
+       return new GetOperationTypesCommand(where, limit, skip);
+    }
+    static createUpdateOperationTypeCommand(where: OperationType, updateData: OperationType) {
+       return new UpdateOperationTypeCommand(where, updateData);
+    }
+    static createDeleteOperationTypeCommand(deleteData: OperationType) {
+        return new DeleteOperationTypeCommand(deleteData);
+    }
+    static createGetOperationTypeByOperationCommand (where: OperationType, parent: Operation) {
+        return new GetOperationTypeByOperationCommand(where, parent);
+    }
     static createCreateStockExchangeTitleCommand(insertData: StockExchangeTitle) {
         return new CreateStockExchangeTitleCommand(insertData)
     }
@@ -103,12 +139,6 @@ export class CommandFactory {
     static createGetPriceRvByOperationCommand (where: PriceRv, parent: Operation) {
         return new GetPriceRvByOperationCommand(where, parent);
     }
-    static createGetPriceRvByOperationCommand (where: PriceRv, parent: Operation) {
-        return new GetPriceRvByOperationCommand(where, parent);
-    }
-    static createGetPriceRvByOperationCommand (where: PriceRv, parent: Operation) {
-        return new GetPriceRvByOperationCommand(where, parent);
-    }
     static createGetPriceRvsByExchangeRateCommand(where: PriceRv, parent: ExchangeRate, limit?:number) {
         return new GetPriceRvsByExchangeRateCommand(where, parent, limit);
     }
@@ -129,26 +159,5 @@ export class CommandFactory {
     }
     static createGetExchangeRateByPriceRvCommand (where: ExchangeRate, parent: PriceRv) {
         return new GetExchangeRateByPriceRvCommand(where, parent);
-    }
-    static createCreateOperationCommand(insertData: Operation) {
-        return new CreateOperationCommand(insertData)
-    }
-    static createGetOperationsCommand(where: Operation, limit?: number, skip?: number) {
-       return new GetOperationsCommand(where, limit, skip);
-    }
-    static createUpdateOperationCommand(where: Operation, updateData: Operation) {
-       return new UpdateOperationCommand(where, updateData);
-    }
-    static createDeleteOperationCommand(deleteData: Operation) {
-        return new DeleteOperationCommand(deleteData);
-    }
-    static createGetOperationsByPriceRvCommand(where: Operation, parent: PriceRv, limit?:number) {
-        return new GetOperationsByPriceRvCommand(where, parent, limit);
-    }
-    static createGetOperationsByPriceRvCommand(where: Operation, parent: PriceRv, limit?:number) {
-        return new GetOperationsByPriceRvCommand(where, parent, limit);
-    }
-    static createGetOperationsByPriceRvCommand(where: Operation, parent: PriceRv, limit?:number) {
-        return new GetOperationsByPriceRvCommand(where, parent, limit);
     }
 }

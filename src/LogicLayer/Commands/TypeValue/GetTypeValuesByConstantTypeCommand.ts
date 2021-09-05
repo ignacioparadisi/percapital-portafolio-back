@@ -7,7 +7,7 @@ export class GetTypeValuesByConstantTypeCommand extends Command<TypeValue> {
         super();
     }
     async execute(): Promise<TypeValue[]> {
-        const parent = {tvCtId: this.parent.id};
+        const parent = {tvaCotId: this.parent.id};
         const loader = TypeValueLoader.getInstance();
         return await loader.load(parent, this.where, this.limit) as TypeValue[];
     }

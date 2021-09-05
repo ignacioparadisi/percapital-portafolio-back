@@ -1,17 +1,17 @@
 import {ConstantType} from '@Common/Entities/ConstantType';
 import {Entity} from '@Common/Entities/Entity';
 export class TypeValue extends Entity {
-    tvId?: undefined;
-    tvCtId?: undefined;
-    tvValue?: undefined;
-    tvCreationdate?: undefined;
+    id?: number;
+    cotId?: number;
+    value?: number;
+    createdAt?: Date;
     constantType?: ConstantType;
 
    constructor(entity?: TypeValue) {
         super(entity);
-        this.tvId = entity ? entity.tvId : undefined;
-        this.tvCtId = entity ? entity.tvCtId : undefined;
-        this.tvValue = entity ? entity.tvValue : undefined;
-        this.tvCreationdate = entity ? entity.tvCreationdate : undefined;
+        this.id = entity ? entity.id : undefined;
+        this.cotId = entity ? entity.cotId : undefined;
+        this.value = entity ? entity.value : undefined;
+        this.createdAt = entity ? entity.createdAt : undefined;
    }
 }
