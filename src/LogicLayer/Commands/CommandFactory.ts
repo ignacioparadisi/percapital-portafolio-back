@@ -7,13 +7,13 @@ import { StockExchangeTitle } from "@Common/Entities/StockExchangeTitle";
 import { TypeValue } from "@Common/Entities/TypeValue";
 import { getDBInstance } from "@Persistence/Database/DB";
 import { KnexQueryBuilder } from "@Persistence/Database/KnexQueryBuilder";
+import { CreateConstantTypeCommand } from "./CreateConstantTypeCommand";
 
 
 export class CommandFactory {
     private constructor() {}
-    static createCreateConstantTypeCommand(insertData: ConstantType) {
-        let db = new KnexQueryBuilder(insertData, getDBInstance());
-        return db.create(insertData);
+    static createCreateConstantTypeCommand(input: ConstantType) {
+        return new CreateConstantTypeCommand(input);
     }
     static createGetConstantTypesCommand(where: ConstantType, limit?: number, skip?: number) {
        return null;

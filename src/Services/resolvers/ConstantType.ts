@@ -24,7 +24,7 @@ export const ConstantTypeResolver = {
             console.info('createConstantType parent: ', parent, 'args: ',args);
             const createData = new ConstantType(args.insertData);
             const command = CommandFactory.createCreateConstantTypeCommand(createData);
-            return command;
+            return command.execute();
         },
         updateConstantType: async (parent: any, args: GraphQLMutation) => {
             console.info('updateConstantType parent: ', parent, 'args: ',args);
