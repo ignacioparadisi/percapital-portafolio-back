@@ -19,4 +19,3 @@ const port = process.env.PORT || 4000
 server.listen({ port }).then(() => {
     console.info(`🚀 Server ready at ${port}`);
 });
-
