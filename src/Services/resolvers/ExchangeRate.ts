@@ -8,7 +8,7 @@ export const ExchangeRateResolver = {
             console.info('getExchangeRates parent:', parent, 'args: ',args);
             const where = new ExchangeRate(args.where)
             const command = CommandFactory.createGetExchangeRatesCommand(where, args.limit, args.skip);
-            return command.execute();
+            return null;
         }
     },
     ExchangeRate: {
@@ -16,7 +16,7 @@ export const ExchangeRateResolver = {
             console.info('priceRvs parent: ', parent, 'args: ',args)
             const where = new PriceRv(args.where);
             const command = CommandFactory.createGetPriceRvsByExchangeRateCommand(where, parent, args.limit);
-            return command.execute();
+            return null;
         },
     },
     Mutation: {
@@ -24,20 +24,20 @@ export const ExchangeRateResolver = {
             console.info('createExchangeRate parent: ', parent, 'args: ',args);
             const createData = new ExchangeRate(args.insertData);
             const command = CommandFactory.createCreateExchangeRateCommand(createData);
-            return command.execute();
+            return null;
         },
         updateExchangeRate: async (parent: any, args: GraphQLMutation) => {
             console.info('updateExchangeRate parent: ', parent, 'args: ',args);
             const where = new ExchangeRate(args.where);
             const updateData = new ExchangeRate(args.updateData)
             const command = CommandFactory.createUpdateExchangeRateCommand(where, updateData);
-            return command.execute();
+            return null;
         },
         deleteExchangeRate: async (parent: any, args: GraphQLMutation) => {
             console.info('deleteExchangeRate parent: ', parent, 'args: ',args);
             const deleteData = new ExchangeRate(args.deleteData);
             const command = CommandFactory.createDeleteExchangeRateCommand(deleteData);
-            return command.execute();
+            return null;
         }
     }
 }

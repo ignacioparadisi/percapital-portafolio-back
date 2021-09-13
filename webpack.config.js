@@ -20,7 +20,8 @@ module.exports = {
     alias: {
       "@Common": path.resolve(process.cwd(), './src/Common'),
       "@Logic": path.resolve(process.cwd(), "./src/LogicLayer"),
-      "@Persistence": path.resolve(process.cwd(), "./src/Persistence")
+      "@Persistence": path.resolve(process.cwd(), "./src/Persistence"),
+      "@Services": path.resolve(process.cwd(), './src/Services')
 
     }
   },
@@ -28,4 +29,5 @@ module.exports = {
     filename: 'server.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  externals: { knex: 'commonjs knex' }
 };

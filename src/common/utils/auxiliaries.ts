@@ -1,15 +1,11 @@
-import { Entity } from '../entities/Entity';
+import { Entity } from '@Common/Entities/Entity';
 
 export type queryBuilder<T extends Entity> = {
   readonly [P in keyof T]?: string;
 } & { _id: string };
 
-export const snakeToCamelCase = (snakeCase: string, slice: boolean = false) => {
-  var snakeCaseAux = snakeCase;
-  if (slice) {
-    snakeCaseAux = snakeCase.slice(4, snakeCaseAux.length);
-  }
-  const aux: string[] = snakeCaseAux.split('_');
+export const snakeToCamelCase = (snakeCase: string) => {
+  const aux: string[] = snakeCase.split('_');
   let variableName: string = '';
   aux.map((value: string, index: number) => {
     if (index !== 0) {
@@ -37,13 +33,6 @@ export const camelToSnakeCase = (camelCase: string) => {
   }
   return snakeCase;
 };
-
-export const removeDoctive = (value: string) => {
-  const returnValue = value.replace('doctive_', '');
-  return returnValue.charAt(0).toUpperCase() + returnValue.slice(1);
-};
-
-export const addDoctive = (value: string) => 'doctive_' + value;
 
 export const minimizeFirstLetter = (value: string) =>
   value.charAt(0).toLowerCase() + value.slice(1);
@@ -179,10 +168,10 @@ export const getValueForFlureeQuery = (value: any) => {
   return typeof value === 'string'
     ? `"${value}"`
     : Array.isArray(value)
-      ? typeof value[0] === 'string'
-        ? `"${value[0]}"`
-        : value[0]
-      : value;
+    ? typeof value[0] === 'string'
+      ? `"${value[0]}"`
+      : value[0]
+    : value;
 };
 export const getCaseInsensitiveName = (value: string) => {
   const accents = ['aá', 'eé', 'ií', 'oó', 'uú'];

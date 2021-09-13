@@ -8,7 +8,7 @@ export const OperationTypeResolver = {
             console.info('getOperationTypes parent:', parent, 'args: ',args);
             const where = new OperationType(args.where)
             const command = CommandFactory.createGetOperationTypesCommand(where, args.limit, args.skip);
-            return command.execute();
+            return null;
         }
     },
     OperationType: {
@@ -16,7 +16,7 @@ export const OperationTypeResolver = {
             console.info('operations parent: ', parent, 'args: ',args)
             const where = new Operation(args.where);
             const command = CommandFactory.createGetOperationsByOperationTypeCommand(where, parent, args.limit);
-            return command.execute();
+            return null;
         },
     },
     Mutation: {
@@ -24,20 +24,20 @@ export const OperationTypeResolver = {
             console.info('createOperationType parent: ', parent, 'args: ',args);
             const createData = new OperationType(args.insertData);
             const command = CommandFactory.createCreateOperationTypeCommand(createData);
-            return command.execute();
+            return null;
         },
         updateOperationType: async (parent: any, args: GraphQLMutation) => {
             console.info('updateOperationType parent: ', parent, 'args: ',args);
             const where = new OperationType(args.where);
             const updateData = new OperationType(args.updateData)
             const command = CommandFactory.createUpdateOperationTypeCommand(where, updateData);
-            return command.execute();
+            return null;
         },
         deleteOperationType: async (parent: any, args: GraphQLMutation) => {
             console.info('deleteOperationType parent: ', parent, 'args: ',args);
             const deleteData = new OperationType(args.deleteData);
             const command = CommandFactory.createDeleteOperationTypeCommand(deleteData);
-            return command.execute();
+            return null;
         }
     }
 }

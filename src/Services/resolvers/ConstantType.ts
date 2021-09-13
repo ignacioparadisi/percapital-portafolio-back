@@ -8,7 +8,7 @@ export const ConstantTypeResolver = {
             console.info('getConstantTypes parent:', parent, 'args: ',args);
             const where = new ConstantType(args.where)
             const command = CommandFactory.createGetConstantTypesCommand(where, args.limit, args.skip);
-            return command.execute();
+            return null;
         }
     },
     ConstantType: {
@@ -16,7 +16,7 @@ export const ConstantTypeResolver = {
             console.info('typeValues parent: ', parent, 'args: ',args)
             const where = new TypeValue(args.where);
             const command = CommandFactory.createGetTypeValuesByConstantTypeCommand(where, parent, args.limit);
-            return command.execute();
+            return null;
         },
     },
     Mutation: {
@@ -24,20 +24,20 @@ export const ConstantTypeResolver = {
             console.info('createConstantType parent: ', parent, 'args: ',args);
             const createData = new ConstantType(args.insertData);
             const command = CommandFactory.createCreateConstantTypeCommand(createData);
-            return command.execute();
+            return command;
         },
         updateConstantType: async (parent: any, args: GraphQLMutation) => {
             console.info('updateConstantType parent: ', parent, 'args: ',args);
             const where = new ConstantType(args.where);
             const updateData = new ConstantType(args.updateData)
             const command = CommandFactory.createUpdateConstantTypeCommand(where, updateData);
-            return command.execute();
+            return null;
         },
         deleteConstantType: async (parent: any, args: GraphQLMutation) => {
             console.info('deleteConstantType parent: ', parent, 'args: ',args);
             const deleteData = new ConstantType(args.deleteData);
             const command = CommandFactory.createDeleteConstantTypeCommand(deleteData);
-            return command.execute();
+            return null;
         }
     }
 }

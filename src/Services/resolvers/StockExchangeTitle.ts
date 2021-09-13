@@ -8,7 +8,7 @@ export const StockExchangeTitleResolver = {
             console.info('getStockExchangeTitles parent:', parent, 'args: ',args);
             const where = new StockExchangeTitle(args.where)
             const command = CommandFactory.createGetStockExchangeTitlesCommand(where, args.limit, args.skip);
-            return command.execute();
+            return null;
         }
     },
     StockExchangeTitle: {
@@ -16,7 +16,7 @@ export const StockExchangeTitleResolver = {
             console.info('priceRvs parent: ', parent, 'args: ',args)
             const where = new PriceRv(args.where);
             const command = CommandFactory.createGetPriceRvsByStockExchangeTitleCommand(where, parent, args.limit);
-            return command.execute();
+            return null;
         },
     },
     Mutation: {
@@ -24,20 +24,20 @@ export const StockExchangeTitleResolver = {
             console.info('createStockExchangeTitle parent: ', parent, 'args: ',args);
             const createData = new StockExchangeTitle(args.insertData);
             const command = CommandFactory.createCreateStockExchangeTitleCommand(createData);
-            return command.execute();
+            return null;
         },
         updateStockExchangeTitle: async (parent: any, args: GraphQLMutation) => {
             console.info('updateStockExchangeTitle parent: ', parent, 'args: ',args);
             const where = new StockExchangeTitle(args.where);
             const updateData = new StockExchangeTitle(args.updateData)
             const command = CommandFactory.createUpdateStockExchangeTitleCommand(where, updateData);
-            return command.execute();
+            return null;
         },
         deleteStockExchangeTitle: async (parent: any, args: GraphQLMutation) => {
             console.info('deleteStockExchangeTitle parent: ', parent, 'args: ',args);
             const deleteData = new StockExchangeTitle(args.deleteData);
             const command = CommandFactory.createDeleteStockExchangeTitleCommand(deleteData);
-            return command.execute();
+            return null;
         }
     }
 }

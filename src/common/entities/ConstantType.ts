@@ -1,5 +1,5 @@
-import {TypeValue} from '@Common/Entities/TypeValue';
-import {Entity} from '@Common/Entities/Entity';
+import { TypeValue } from '@Common/Entities/TypeValue';
+import { Entity } from '@Common/Entities/Entity';
 export class ConstantType extends Entity {
     id?: number;
     name?: string;

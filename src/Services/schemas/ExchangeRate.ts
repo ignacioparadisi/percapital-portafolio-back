@@ -14,7 +14,7 @@ export const ExchangeRateTypeDef = gql`
     }
 
     type Query {
-        getExchangeRates(id: Int!, skip:Int, limit: Int): [ExchangeRate]
+        getExchangeRates(id: Int!, skip: Int, limit: Int): [ExchangeRate]
     }
     type Mutation {
         createExchangeRate(insertData: ExchangeRateInput!): ExchangeRate

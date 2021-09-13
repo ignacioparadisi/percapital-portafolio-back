@@ -105,3 +105,4 @@ dist
 
 # Scripts
 scripts/**/*.js
+scripts/*.js

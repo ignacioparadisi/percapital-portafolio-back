@@ -9,7 +9,7 @@ export const OperationResolver = {
             console.info('getOperations parent:', parent, 'args: ',args);
             const where = new Operation(args.where)
             const command = CommandFactory.createGetOperationsCommand(where, args.limit, args.skip);
-            return command.execute();
+            return null;
         }
     },
     Operation: {
@@ -17,13 +17,13 @@ export const OperationResolver = {
             console.info('operationType parent: ', parent, 'args: ',args)
             const where = new OperationType(args.where);
             const command = CommandFactory.createGetOperationTypeByOperationCommand(where, parent);
-            return command.execute();
+            return null;
         },
         priceRv: async (parent: Operation, args: GraphQLQuery) => {
             console.info('priceRv parent: ', parent, 'args: ',args)
             const where = new PriceRv(args.where);
             const command = CommandFactory.createGetPriceRvByOperationCommand(where, parent);
-            return command.execute();
+            return null;
         },
     },
     Mutation: {
@@ -31,20 +31,20 @@ export const OperationResolver = {
             console.info('createOperation parent: ', parent, 'args: ',args);
             const createData = new Operation(args.insertData);
             const command = CommandFactory.createCreateOperationCommand(createData);
-            return command.execute();
+            return null;
         },
         updateOperation: async (parent: any, args: GraphQLMutation) => {
             console.info('updateOperation parent: ', parent, 'args: ',args);
             const where = new Operation(args.where);
             const updateData = new Operation(args.updateData)
             const command = CommandFactory.createUpdateOperationCommand(where, updateData);
-            return command.execute();
+            return null;
         },
         deleteOperation: async (parent: any, args: GraphQLMutation) => {
             console.info('deleteOperation parent: ', parent, 'args: ',args);
             const deleteData = new Operation(args.deleteData);
             const command = CommandFactory.createDeleteOperationCommand(deleteData);
-            return command.execute();
+            return null;
         }
     }
 }

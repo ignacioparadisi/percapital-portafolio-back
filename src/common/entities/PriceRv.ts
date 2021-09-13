@@ -4,8 +4,8 @@ import {Operation} from '@Common/Entities/Operation';
 import {Entity} from '@Common/Entities/Entity';
 export class PriceRv extends Entity {
     id?: number;
-    setId?: number;
-    exrId?: number;
+    titleId?: number;
+    exchangeRateId?: number;
     bolivaresPrice?: number;
     createdAt?: Date;
     closeDate?: Date;
@@ -16,8 +16,8 @@ export class PriceRv extends Entity {
    constructor(entity?: PriceRv) {
         super(entity);
         this.id = entity ? entity.id : undefined;
-        this.setId = entity ? entity.setId : undefined;
-        this.exrId = entity ? entity.exrId : undefined;
+        this.titleId = entity ? entity.titleId : undefined;
+        this.exchangeRateId = entity ? entity.exchangeRateId : undefined;
         this.bolivaresPrice = entity ? entity.bolivaresPrice : undefined;
         this.createdAt = entity ? entity.createdAt : undefined;
         this.closeDate = entity ? entity.closeDate : undefined;

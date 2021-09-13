@@ -10,7 +10,7 @@ export const PriceRvResolver = {
             console.info('getPriceRvs parent:', parent, 'args: ',args);
             const where = new PriceRv(args.where)
             const command = CommandFactory.createGetPriceRvsCommand(where, args.limit, args.skip);
-            return command.execute();
+            return null;
         }
     },
     PriceRv: {
@@ -18,19 +18,19 @@ export const PriceRvResolver = {
             console.info('operations parent: ', parent, 'args: ',args)
             const where = new Operation(args.where);
             const command = CommandFactory.createGetOperationsByPriceRvCommand(where, parent, args.limit);
-            return command.execute();
+            return null;
         },
         exchangeRate: async (parent: PriceRv, args: GraphQLQuery) => {
             console.info('exchangeRate parent: ', parent, 'args: ',args)
             const where = new ExchangeRate(args.where);
             const command = CommandFactory.createGetExchangeRateByPriceRvCommand(where, parent);
-            return command.execute();
+            return null;
         },
         stockExchangeTitle: async (parent: PriceRv, args: GraphQLQuery) => {
             console.info('stockExchangeTitle parent: ', parent, 'args: ',args)
             const where = new StockExchangeTitle(args.where);
             const command = CommandFactory.createGetStockExchangeTitleByPriceRvCommand(where, parent);
-            return command.execute();
+            return null;
         },
     },
     Mutation: {
@@ -38,20 +38,20 @@ export const PriceRvResolver = {
             console.info('createPriceRv parent: ', parent, 'args: ',args);
             const createData = new PriceRv(args.insertData);
             const command = CommandFactory.createCreatePriceRvCommand(createData);
-            return command.execute();
+            return null;
         },
         updatePriceRv: async (parent: any, args: GraphQLMutation) => {
             console.info('updatePriceRv parent: ', parent, 'args: ',args);
             const where = new PriceRv(args.where);
             const updateData = new PriceRv(args.updateData)
             const command = CommandFactory.createUpdatePriceRvCommand(where, updateData);
-            return command.execute();
+            return null;
         },
         deletePriceRv: async (parent: any, args: GraphQLMutation) => {
             console.info('deletePriceRv parent: ', parent, 'args: ',args);
             const deleteData = new PriceRv(args.deleteData);
             const command = CommandFactory.createDeletePriceRvCommand(deleteData);
-            return command.execute();
+            return null;
         }
     }
 }
