@@ -21,7 +21,6 @@ export class KnexQueryBuilder<T extends Entity> implements QueryBuilder<T> {
       this.queryModel[key] = camelToSnakeCase(key);
     });
     this.tableName = camelToSnakeCase(entity.constructor.name);
-    // this.database = getDBInstance();
     console.info(this.tableName, this.queryModel);
   }
 
