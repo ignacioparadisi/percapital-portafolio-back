@@ -1,14 +1,10 @@
-CREATE DATABASE IF NOT EXISTS percapital;
-
-\c percapital
-
 CREATE TABLE Constant_Type(
     id SERIAL PRIMARY KEY,
     name  VARCHAR(100) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Type_Value(
+CREATE TABLE Constant_Value(
     id SERIAL PRIMARY KEY,
     constant_type_id BIGINT NOT NULL,
     value NUMERIC NOT NULL,

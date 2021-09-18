@@ -10,7 +10,7 @@ export interface IConstantTypeDAO extends IDAO<ConstantType> {
     limit?: number,
     skip?: number,
     batch?: BatchQueryData,
-    block?: string,
+    block?: string
   ): Promise<ConstantType[]>;
 
   update(where: ConstantType, entity: ConstantType): Promise<ConstantType>;

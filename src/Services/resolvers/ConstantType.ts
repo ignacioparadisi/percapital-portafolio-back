@@ -1,4 +1,4 @@
-import {TypeValue} from '@Common/Entities/TypeValue';
+import {ConstantValue} from '@Common/Entities/ConstantValue';
 import {ConstantType} from '@Common/Entities/ConstantType';
 import {CommandFactory} from '@Logic/Commands/CommandFactory';
 import {GraphQLMutation, GraphQLQuery} from '../graphQLTypes';
@@ -14,7 +14,7 @@ export const ConstantTypeResolver = {
     ConstantType: {
         typeValues: async (parent: ConstantType, args: GraphQLQuery) => {
             console.info('typeValues parent: ', parent, 'args: ',args)
-            const where = new TypeValue(args.where);
+            const where = new ConstantValue(args.where);
             const command = CommandFactory.createGetTypeValuesByConstantTypeCommand(where, parent, args.limit);
             return null;
         },

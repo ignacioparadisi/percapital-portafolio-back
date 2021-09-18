@@ -1,10 +1,10 @@
-import { TypeValue } from '@Common/Entities/TypeValue';
+import { ConstantValue } from '@Common/Entities/ConstantValue';
 import { Entity } from '@Common/Entities/Entity';
 export class ConstantType extends Entity {
     id?: number;
     name?: string;
     createdAt?: Date;
-    typeValues?: TypeValue[];
+    typeValues?: ConstantValue[];
 
    constructor(entity?: ConstantType) {
         super(entity);

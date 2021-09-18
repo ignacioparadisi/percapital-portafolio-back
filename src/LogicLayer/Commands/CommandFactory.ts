@@ -4,9 +4,8 @@ import { Operation } from "@Common/Entities/Operation";
 import { OperationType } from "@Common/Entities/OperationType";
 import { PriceRv } from "@Common/Entities/PriceRv";
 import { StockExchangeTitle } from "@Common/Entities/StockExchangeTitle";
-import { TypeValue } from "@Common/Entities/TypeValue";
+import { ConstantValue } from "@Common/Entities/ConstantValue";
 import { getDBInstance } from "@Persistence/Database/DB";
-import { KnexQueryBuilder } from "@Persistence/Database/KnexQueryBuilder";
 import { CreateConstantTypeCommand } from "./CreateConstantTypeCommand";
 
 
@@ -24,22 +23,22 @@ export class CommandFactory {
     static createDeleteConstantTypeCommand(deleteData: ConstantType) {
         return null;
     }
-    static createGetConstantTypeByTypeValueCommand (where: ConstantType, parent: TypeValue) {
+    static createGetConstantTypeByTypeValueCommand (where: ConstantType, parent: ConstantValue) {
         return null;
     }
-    static createCreateTypeValueCommand(insertData: TypeValue) {
+    static createCreateTypeValueCommand(insertData: ConstantValue) {
         return null;
     }
-    static createGetTypeValuesCommand(where: TypeValue, limit?: number, skip?: number) {
+    static createGetTypeValuesCommand(where: ConstantValue, limit?: number, skip?: number) {
        return null;
     }
-    static createUpdateTypeValueCommand(where: TypeValue, updateData: TypeValue) {
+    static createUpdateTypeValueCommand(where: ConstantValue, updateData: ConstantValue) {
        return null;
     }
-    static createDeleteTypeValueCommand(deleteData: TypeValue) {
+    static createDeleteTypeValueCommand(deleteData: ConstantValue) {
         return null;
     }
-    static createGetTypeValuesByConstantTypeCommand(where: TypeValue, parent: ConstantType, limit?:number) {
+    static createGetTypeValuesByConstantTypeCommand(where: ConstantValue, parent: ConstantType, limit?:number) {
         return null;
     }
     static createCreateOperationCommand(insertData: Operation) {

@@ -1,10 +1,10 @@
 export abstract class Entity {
-    _id?: number;
+    id?: number;
 
     protected constructor(
         entity?: Entity,
         public readonly PREDICATE_NAME?: string
     ) {
-        this._id = entity?._id ? Number(entity._id) : undefined;
+        this.id = entity?.id ? Number(entity.id) : undefined;
     }
 }
