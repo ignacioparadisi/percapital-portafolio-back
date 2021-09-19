@@ -17,7 +17,6 @@ export const ConstantTypeTypeDef = gql`
         getConstantTypes(where: ConstantTypeInput, skip:Int, limit: Int): [ConstantType]
     }
     type Mutation {
-        createConstantType(insertData: ConstantTypeInput!): ConstantType
         updateConstantType(where: ConstantTypeInput! updateData: ConstantTypeInput!): [ConstantType]
         deleteConstantType(deleteData: ConstantTypeInput): Int
     }

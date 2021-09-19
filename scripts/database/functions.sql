@@ -1,30 +1,30 @@
 /* Get constant types function with all the values associated.
 If id passed is null then it will return all constant types with their constant values associated*/ 
 
-create or replace function get_constant_types (c_type_id integer) 
-    returns table ( 
-        ct_id int,
-        ct_name varchar,
-        ct_created_at timestamp,
-        cv_id int,
-        cv_value numeric,
-        cv_created_at timestamp
+CREATE OR REPLACE function get_constant_types (c_type_id INTEGER) 
+    RETURNS TABLE ( 
+        ct_id INTEGER,
+        ct_name VARCHAR,
+        ct_created_at TIMESTAMP,
+        cv_id INTEGER,
+        cv_value NUMERIC,
+        cv_created_at TIMESTAMP
     ) 
-    language plpgsql
-as $$
-declare 
-begin
-    if c_type_id is null then
-        return query
-            select constant_type.id, constant_type.name, constant_type.created_at, 
-	        constant_value.id, constant_value.value, constant_value.created_at from constant_type, constant_value 
-	        where constant_type.id = constant_value.constant_type_id order by constant_type.id;
-    end if;
+    LANGUAGE plpgsql
+AS $$
+DECLARE 
+BEGIN
+    IF c_type_id IS NULL THEN
+        RETURN query
+            SELECT constant_type.id, constant_type.name, constant_type.created_at, 
+	        constant_value.id, constant_value.value, constant_value.created_at FROM constant_type, constant_value 
+	        WHERE constant_type.id = constant_value.constant_type_id ORDER BY constant_type.id;
+    END IF;
 
-    return query
-            select constant_type.id, constant_type.name, constant_type.created_at, 
-	        constant_value.id, constant_value.value, constant_value.created_at from constant_type, constant_value 
-	        where constant_type.id = c_type_id and constant_type.id = constant_value.constant_type_id order by constant_type.id;
+    RETURN query
+            SELECT constant_type.id, constant_type.name, constant_type.created_at, 
+	        constant_value.id, constant_value.value, constant_value.created_at FROM constant_type, constant_value 
+	        WHERE constant_type.id = c_type_id AND constant_type.id = constant_value.constant_type_id ORDER BY constant_type.id;
 
 end; $$ 
 

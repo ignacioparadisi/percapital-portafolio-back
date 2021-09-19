@@ -2,3 +2,4 @@ psql -U percapital -tc "SELECT 1 FROM pg_database WHERE datname = 'percapital';"
 psql percapital -U percapital -f drop.sql
 psql percapital -U percapital -f create.sql
 psql percapital -U percapital -f insert.sql
+psql percapital -U percapital -f functions.sql

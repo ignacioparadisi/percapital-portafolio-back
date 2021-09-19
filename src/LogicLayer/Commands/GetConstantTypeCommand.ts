@@ -2,7 +2,7 @@ import { ConstantType } from "@Common/Entities/ConstantType";
 import { ConstantTypeDAO } from "@Persistence/DAO/ConstantType/ConstantTypeDAO";
 import { Command } from "./Command";
 
-export class CreateConstantTypeCommand extends Command<ConstantType, ConstantType> {
+export class GetConstantTypeCommand extends Command<ConstantType, ConstantType> {
 
     private constantType: ConstantType;
 
@@ -12,6 +12,6 @@ export class CreateConstantTypeCommand extends Command<ConstantType, ConstantTyp
     }
 
     execute() {
-        return new ConstantTypeDAO().create(this.constantType);
+        return new ConstantTypeDAO().get(this.constantType);
     }
 }
