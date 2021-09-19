@@ -27,3 +27,20 @@ begin
 	        where constant_type.id = c_type_id and constant_type.id = constant_value.constant_type_id order by constant_type.id;
 
 end; $$ 
+
+/* Get constant values function from a constant type id*/ 
+create or replace function get_constant_values (c_type_id integer) 
+    returns table (
+        cv_id int,
+        cv_value numeric,
+        cv_created_at timestamp
+    ) 
+    language plpgsql
+as $$
+declare 
+begin
+    return query
+            select id, value, created_at from constant_value 
+	        where id = c_type_id;
+
+end; $$ 
