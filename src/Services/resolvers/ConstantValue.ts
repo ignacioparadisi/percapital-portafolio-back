@@ -6,7 +6,7 @@ export const TypeValueResolver = {
     Query: {
         getTypeValues: async (parent: any, args: GraphQLQuery) => {
             console.info('getTypeValues parent:', parent, 'args: ',args);
-            const where = new ConstantValue(args.where)
+            const where = new ConstantValue(args.where as ConstantValue)
             const command = CommandFactory.createGetTypeValuesCommand(where, args.limit, args.skip);
             return null;
         }
@@ -22,20 +22,20 @@ export const TypeValueResolver = {
     Mutation: {
         createTypeValue: async (parent: any, args: GraphQLMutation) => {
             console.info('createTypeValue parent: ', parent, 'args: ',args);
-            const createData = new ConstantValue(args.insertData);
+            const createData = new ConstantValue(args.insertData as ConstantValue);
             const command = CommandFactory.createCreateTypeValueCommand(createData);
             return null;
         },
         updateTypeValue: async (parent: any, args: GraphQLMutation) => {
             console.info('updateTypeValue parent: ', parent, 'args: ',args);
-            const where = new ConstantValue(args.where);
-            const updateData = new ConstantValue(args.updateData)
+            const where = new ConstantValue(args.where as ConstantValue);
+            const updateData = new ConstantValue(args.updateData as ConstantValue);
             const command = CommandFactory.createUpdateTypeValueCommand(where, updateData);
             return null;
         },
         deleteTypeValue: async (parent: any, args: GraphQLMutation) => {
             console.info('deleteTypeValue parent: ', parent, 'args: ',args);
-            const deleteData = new ConstantValue(args.deleteData);
+            const deleteData = new ConstantValue(args.deleteData as ConstantValue);
             const command = CommandFactory.createDeleteTypeValueCommand(deleteData);
             return null;
         }

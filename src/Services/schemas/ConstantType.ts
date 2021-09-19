@@ -4,7 +4,7 @@ export const ConstantTypeTypeDef = gql`
         id: Int
         name: String
         createdAt: String
-        typeValues(where: TypeValueInput, limit: Int): [TypeValue]
+        values(where: TypeValueInput, limit: Int): [TypeValue]
     }
 
     input ConstantTypeInput {

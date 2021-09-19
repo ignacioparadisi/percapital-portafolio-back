@@ -12,11 +12,11 @@ export const ConstantTypeResolver = {
         }
     },
     ConstantType: {
-        typeValues: async (parent: ConstantType, args: GraphQLQuery) => {
-            console.info('typeValues parent: ', parent, 'args: ',args)
-            const where = new ConstantValue(args.where);
+        values: async (parent: ConstantType, args: GraphQLQuery) => {
+            console.info('Constant Values parent: ', parent, 'args: ',args)
+            const where = new ConstantValue(args.where as ConstantValue);
             const command = CommandFactory.createGetTypeValuesByConstantTypeCommand(where, parent, args.limit);
-            return null;
+            return command.execute();
         },
     },
     Mutation: {

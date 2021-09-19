@@ -7,7 +7,7 @@ export class ConstantType  extends Entity implements Decodable {
     id?: number;
     name?: string;
     createdAt?: Date;
-    typeValues?: ConstantValue[];
+    values?: ConstantValue[];
 
     codingKeys: CodingKey<ConstantType> = {
          id: 'ct_id',

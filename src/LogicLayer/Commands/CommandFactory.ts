@@ -5,7 +5,8 @@ import { OperationType } from "@Common/Entities/OperationType";
 import { PriceRv } from "@Common/Entities/PriceRv";
 import { StockExchangeTitle } from "@Common/Entities/StockExchangeTitle";
 import { ConstantValue } from "@Common/Entities/ConstantValue";
-import { GetConstantTypeCommand } from "./GetConstantTypeCommand";
+import { GetConstantTypeCommand } from "./Constants/GetConstantTypeCommand";
+import { GetConstantValueCommand } from "./Constants/GetConstantValueCommand";
 
 
 export class CommandFactory {
@@ -35,7 +36,7 @@ export class CommandFactory {
         return null;
     }
     static createGetTypeValuesByConstantTypeCommand(where: ConstantValue, parent: ConstantType, limit?:number) {
-        return null;
+        return new GetConstantValueCommand(parent);
     }
     static createCreateOperationCommand(insertData: Operation) {
         return null;
