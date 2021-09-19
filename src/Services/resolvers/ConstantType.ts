@@ -8,7 +8,7 @@ export const ConstantTypeResolver = {
             console.info('getConstantTypes parent:', parent, 'args: ',args);
             const where = new ConstantType(args.where)
             const command = CommandFactory.createGetConstantTypesCommand(where, args.limit, args.skip);
-            return null;
+            return command.execute();
         }
     },
     ConstantType: {
@@ -20,12 +20,6 @@ export const ConstantTypeResolver = {
         },
     },
     Mutation: {
-        createConstantType: async (parent: any, args: GraphQLMutation) => {
-            console.info('createConstantType parent: ', parent, 'args: ',args);
-            const createData = new ConstantType(args.insertData);
-            const command = CommandFactory.createCreateConstantTypeCommand(createData);
-            return command.execute();
-        },
         updateConstantType: async (parent: any, args: GraphQLMutation) => {
             console.info('updateConstantType parent: ', parent, 'args: ',args);
             const where = new ConstantType(args.where);

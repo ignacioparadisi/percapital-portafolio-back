@@ -5,16 +5,13 @@ import { OperationType } from "@Common/Entities/OperationType";
 import { PriceRv } from "@Common/Entities/PriceRv";
 import { StockExchangeTitle } from "@Common/Entities/StockExchangeTitle";
 import { ConstantValue } from "@Common/Entities/ConstantValue";
-import { CreateConstantTypeCommand } from "./CreateConstantTypeCommand";
+import { GetConstantTypeCommand } from "./GetConstantTypeCommand";
 
 
 export class CommandFactory {
     private constructor() {}
-    static createCreateConstantTypeCommand(input: ConstantType) {
-        return new CreateConstantTypeCommand(input);
-    }
     static createGetConstantTypesCommand(where: ConstantType, limit?: number, skip?: number) {
-       return null;
+       return new GetConstantTypeCommand(where);
     }
     static createUpdateConstantTypeCommand(where: ConstantType, updateData: ConstantType) {
        return null;
