@@ -14,7 +14,7 @@ export const TypeValueResolver = {
     TypeValue: {
         constantType: async (parent: ConstantValue, args: GraphQLQuery) => {
             console.info('constantType parent: ', parent, 'args: ',args)
-            const where = new ConstantType(args.where);
+            const where = new ConstantType(args.where as ConstantType);
             const command = CommandFactory.createGetConstantTypeByTypeValueCommand(where, parent);
             return null;
         },

@@ -1,4 +1,5 @@
 import { ConstantType } from "@Common/Entities/ConstantType";
+import { decode } from "@Common/Utils/decodable";
 import { Database } from "@Persistence/Database/DB";
 import { ConstantDBFunctions } from "@Persistence/Database/Functions/ConstantDBFunctions";
 import { DAO } from "../DAO";
@@ -15,7 +16,9 @@ export class ConstantTypeDAO extends DAO<ConstantType> implements IConstantTypeD
     async get(where?: ConstantType, limit?: number, skip?: number): Promise<ConstantType[]> {
         let query = ConstantDBFunctions.getConstants(where?.id);
         let result = await Database.shared.execute(query);
-        return result as ConstantType[];
+        return result.map(res => {
+            return decode(res, ConstantType)
+        })
     }
 
     async update(where: ConstantType, entity: ConstantType): Promise<ConstantType> {

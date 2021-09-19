@@ -6,7 +6,7 @@ export const ConstantTypeResolver = {
     Query: {
         getConstantTypes: async (parent: any, args: GraphQLQuery) => {
             console.info('getConstantTypes parent:', parent, 'args: ',args);
-            const where = new ConstantType(args.where)
+            const where = new ConstantType(args.where as ConstantType)
             const command = CommandFactory.createGetConstantTypesCommand(where, args.limit, args.skip);
             return command.execute();
         }
@@ -22,14 +22,14 @@ export const ConstantTypeResolver = {
     Mutation: {
         updateConstantType: async (parent: any, args: GraphQLMutation) => {
             console.info('updateConstantType parent: ', parent, 'args: ',args);
-            const where = new ConstantType(args.where);
-            const updateData = new ConstantType(args.updateData)
+            const where = new ConstantType(args.where as ConstantType);
+            const updateData = new ConstantType(args.updateData as ConstantType)
             const command = CommandFactory.createUpdateConstantTypeCommand(where, updateData);
             return null;
         },
         deleteConstantType: async (parent: any, args: GraphQLMutation) => {
             console.info('deleteConstantType parent: ', parent, 'args: ',args);
-            const deleteData = new ConstantType(args.deleteData);
+            const deleteData = new ConstantType(args.deleteData as ConstantType);
             const command = CommandFactory.createDeleteConstantTypeCommand(deleteData);
             return null;
         }
