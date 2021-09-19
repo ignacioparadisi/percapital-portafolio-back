@@ -1,5 +1,4 @@
 import { ConstantType } from '@Common/Entities/ConstantType';
-import { BatchQueryData } from '@Persistence/Database/QueryBuilder';
 import { IDAO } from '../IDAO';
 
 export interface IConstantTypeDAO extends IDAO<ConstantType> {
@@ -8,9 +7,7 @@ export interface IConstantTypeDAO extends IDAO<ConstantType> {
   get(
     where?: ConstantType,
     limit?: number,
-    skip?: number,
-    batch?: BatchQueryData,
-    block?: string
+    skip?: number
   ): Promise<ConstantType[]>;
 
   update(where: ConstantType, entity: ConstantType): Promise<ConstantType>;

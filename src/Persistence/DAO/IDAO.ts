@@ -1,5 +1,4 @@
 import { Entity } from '@Common/Entities/Entity';
-import { BatchQueryData } from '@Persistence/Database/QueryBuilder';
 
 export interface IDAO<T extends Entity> {
   create(entity: T): Promise<T>;
@@ -7,9 +6,7 @@ export interface IDAO<T extends Entity> {
   get(
     where?: T,
     limit?: number,
-    skip?: number,
-    batch?: BatchQueryData,
-    block?: string,
+    skip?: number
   ): Promise<T[]>;
 
   update(where: T, entity: T): Promise<T>;

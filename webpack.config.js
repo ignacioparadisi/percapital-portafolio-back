@@ -21,7 +21,7 @@ module.exports = {
       "@Common": path.resolve(process.cwd(), './src/Common'),
       "@Logic": path.resolve(process.cwd(), "./src/LogicLayer"),
       "@Persistence": path.resolve(process.cwd(), "./src/Persistence"),
-      "@Services": path.resolve(process.cwd(), './src/Services')
+      "@Services": path.resolve(process.cwd(), './src/Services'),
 
     }
   },

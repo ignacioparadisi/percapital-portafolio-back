@@ -23,11 +23,10 @@
     "apollo-server": "^3.3.0",
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
-    "knex": "^0.95.11",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "pg-native": "^3.0.0"
   },
   "devDependencies": {
-    "@types/knex": "^0.16.1",
     "@types/pg": "^8.6.1",
     "ts-loader": "^9.2.5",
     "tslint": "^6.1.3",

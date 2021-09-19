@@ -1,19 +1,17 @@
 import { ConstantType } from "@Common/Entities/ConstantType";
 import { ConstantTypeDAO } from "@Persistence/DAO/ConstantType/ConstantTypeDAO";
-import { getDBInstance } from "@Persistence/Database/DB";
-import { KnexQueryBuilder } from "@Persistence/Database/KnexQueryBuilder";
 import { Command } from "./Command";
 
 export class CreateConstantTypeCommand extends Command<ConstantType, ConstantType> {
 
-    private input: ConstantType;
+    private constantType: ConstantType;
 
-    constructor(input: ConstantType) {
-        super(input);
-        this.input = input;
+    constructor(constantType: ConstantType) {
+        super(constantType);
+        this.constantType = constantType;
     }
 
     execute() {
-        return new ConstantTypeDAO().create(this.input);
+        return new ConstantTypeDAO().create(this.constantType);
     }
 }

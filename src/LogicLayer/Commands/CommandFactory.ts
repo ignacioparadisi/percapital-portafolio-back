@@ -5,7 +5,6 @@ import { OperationType } from "@Common/Entities/OperationType";
 import { PriceRv } from "@Common/Entities/PriceRv";
 import { StockExchangeTitle } from "@Common/Entities/StockExchangeTitle";
 import { ConstantValue } from "@Common/Entities/ConstantValue";
-import { getDBInstance } from "@Persistence/Database/DB";
 import { CreateConstantTypeCommand } from "./CreateConstantTypeCommand";
 
 
