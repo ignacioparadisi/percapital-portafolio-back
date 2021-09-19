@@ -1,5 +1,5 @@
 /* Get constant types function with all the values associated.
-If id passed is -1 then it will return all constant types with their constant values associated*/ 
+If id passed is null then it will return all constant types with their constant values associated*/ 
 
 create or replace function get_constant_types (c_type_id integer) 
     returns table ( 
@@ -14,7 +14,7 @@ create or replace function get_constant_types (c_type_id integer)
 as $$
 declare 
 begin
-    if c_type_id = -1 then
+    if c_type_id is null then
         return query
             select constant_type.id, constant_type.name, constant_type.created_at, 
 	        constant_value.id, constant_value.value, constant_value.created_at from constant_type, constant_value 
