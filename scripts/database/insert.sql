@@ -16,7 +16,8 @@ INSERT INTO Role(value) VALUES
 
 -- EXCHANGE RATE
 INSERT INTO Exchange_Rate(value) VALUES 
-    (730.29);
+    (730.29),
+    (31603.73);
 
 -- EXCHANGE RATE
 INSERT INTO Stock_Exchange_Title(description, value) VALUES 
@@ -34,9 +35,11 @@ INSERT INTO Percapital_User(role_id, first_name, last_name, email, phone_number)
 
 -- PRICE RV
 INSERT INTO Price_RV(title_id, exchange_rate_id, bolivares_price, close_date, close_price) VALUES 
-    (1, 1, 390, '2021-09-19', 27499);
+    (1, 1, 390, '2021-09-19', 27499),
+    (1, 2, 390, '2021-09-19', 27499);
 
 -- OPERATION
 INSERT INTO Operation(price_rv_id, user_id, stock_amount, stock_price, type_id) VALUES 
     (1, 1, 89, 2800, 1),
-    (1, 1, 89, 2800, 2);
+    (1, 1, 89, 2800, 2),
+    (2, 1, 18, 15000, 2);
