@@ -2,6 +2,10 @@ import { Decodable } from "@Common/Utils/decodable";
 import { Entity } from "./Entity";
 
 export class Role extends Entity implements Decodable {
+
+    static ADMIN = 2;
+    static USER = 1;
+
     id?: number;
     name?: string;
 
