@@ -16,6 +16,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+--- Get list of users or a user by id
+CREATE OR REPLACE FUNCTION get_users(user_id INTEGER)
+    RETURNS TABLE (
+        usr_id INTEGER,
+        usr_name VARCHAR,
+        usr_email VARCHAR,
+        usr_role_id BIGINT,
+        usr_created_at TIMESTAMP
+    )
+AS $$
+BEGIN
+    IF user_id IS NULL THEN
+        RETURN QUERY SELECT id, name, email, role_id, created_at FROM Percapital_User;
+    ELSE
+        RETURN QUERY SELECT id, name, email, role_id, created_at FROM Percapital_User WHERE id = user_id;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Gets all the roles if the `role_id` is NULL and a single role if an id is passed.
 -- params:
 ---- `role_id`: Optional id of the role.

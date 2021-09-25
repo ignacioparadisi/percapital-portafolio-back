@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS Constant_Type;
 DROP TABLE IF EXISTS Percapital_Role;
 
 DROP FUNCTION login(VARCHAR, VARCHAR);
+DROP FUNCTION get_users(INTEGER);
 DROP FUNCTION get_roles(INTEGER);
 DROP FUNCTION get_constant_types(INTEGER);
 DROP FUNCTION get_constant_values(INTEGER);

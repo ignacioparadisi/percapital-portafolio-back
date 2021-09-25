@@ -34,8 +34,11 @@ export class UserDAO extends DAO<User> implements IUserDAO {
         return Promise.reject('Method not implemented');
     }
 
-    get(where?: User, limit?: number, skip?: number): Promise<User[]> {
-        return Promise.reject('Method not implemented');
+    async get(where?: User, limit?: number, skip?: number): Promise<User[]> {
+        console.info(`Getting users`, where?.id);
+        let query = UserDBFunctions.getUsers(where?.id);
+        let results = await Database.shared.execute(query);
+        return decodeMultiple(results, User);
     }
 
     update(where: User, entity: User): Promise<User> {

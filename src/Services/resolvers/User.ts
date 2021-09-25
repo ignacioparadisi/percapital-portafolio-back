@@ -5,6 +5,12 @@ import { GraphQLMutation, GraphQLQuery } from "@Services/graphQLTypes";
 
 export const UserResolver = {
     Query: {
+        getUsers: async (parent: any, args: GraphQLQuery) => {
+            console.info('getUsers parent:', parent, 'args: ',args);
+            const where = new User(args.where as User)
+            const command = UserCommandFactory.createGetUsersCommand(where);
+            return command.execute();
+        },
         login: async (parent: any, args: GraphQLQuery) => {
             console.info('login parent:', parent, 'args: ',args);
             const where = new User(args.where as User)

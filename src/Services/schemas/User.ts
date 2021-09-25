@@ -20,6 +20,7 @@ export const UserTypeDef = gql`
 
     type Query {
         login(where: UserInput!, skip: Int, limit: Int): User
+        getUsers(where: UserInput, skip: Int, limit: Int): [User]
     }
     type Mutation {
         updateUser(where: UserInput! updateData: UserInput!): [User]
