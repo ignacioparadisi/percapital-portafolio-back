@@ -1,5 +1,5 @@
 import { ConstantValue } from "@Common/Entities/ConstantValue";
-import { decode } from "@Common/Utils/decodable";
+import { decodeMultiple } from "@Common/Utils/decodable";
 import { Database } from "@Persistence/Database/DB";
 import { ConstantDBFunctions } from "@Persistence/Database/Functions/ConstantDBFunctions";
 import { DAO } from "../DAO";
@@ -19,9 +19,7 @@ export class ConstantValueDAO extends DAO<ConstantValue> implements IConstantVal
         }
         let query = ConstantDBFunctions.getValues(where!.constantTypeId!);
         let result = await Database.shared.execute(query);
-        return result.map(res => {
-            return decode(res, ConstantValue)
-        })
+        return decodeMultiple(result, ConstantValue);
     }
 
     async update(where: ConstantValue, entity: ConstantValue): Promise<ConstantValue> {

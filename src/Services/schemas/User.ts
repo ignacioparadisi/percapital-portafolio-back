@@ -6,7 +6,7 @@ export const UserTypeDef = gql`
         email: String
         password: String
         createdAt: String
-        roles(where: RoleInput!, limit: Int): [Role]
+        roles(where: UserInput, limit: Int): [Role]
     }
 
     input UserInput {

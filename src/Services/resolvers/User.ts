@@ -1,22 +1,22 @@
 import { Role } from "@Common/Entities/Role";
 import { User } from "@Common/Entities/User";
+import { UserCommandFactory } from "@Logic/Commands/User/UserCommandFactory";
 import { GraphQLMutation, GraphQLQuery } from "@Services/graphQLTypes";
 
 export const UserResolver = {
     Query: {
         login: async (parent: any, args: GraphQLQuery) => {
-            console.info('getUser parent:', parent, 'args: ',args);
+            console.info('login parent:', parent, 'args: ',args);
             const where = new User(args.where as User)
-            // const command = CommandFactory.createGetStockExchangeTitlesCommand(where, args.limit, args.skip);
-            return null;
+            const command = UserCommandFactory.createLoginCommand(where);
+            return command.execute();
         }
     },
     User: {
         roles: async (parent: User, args: GraphQLQuery) => {
             console.info('role parent: ', parent, 'args: ', args)
-            const where = new Role(args.where as Role);
-            // const command = CommandFactory.createGetPriceRvsByStockExchangeTitleCommand(where, parent, args.limit);
-            return null;
+            const command = UserCommandFactory.createGetRolesCommand(parent);
+            return command.execute();
         },
     },
     // Mutation: {

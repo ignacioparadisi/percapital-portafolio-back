@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION login(user_email VARCHAR, user_password VARCHAR)
         usr_id INTEGER,
         usr_name VARCHAR,
         usr_email VARCHAR,
-        usr_role_id INTEGER
+        usr_role_id BIGINT
     )
 AS $$
 BEGIN
@@ -27,9 +27,9 @@ CREATE OR REPLACE FUNCTION get_roles(role_id INTEGER)
 AS $$
 BEGIN
     IF role_id IS NULL THEN
-        RETURN QUERY SELECT id, name FROM Percapital_Role WHERE id = role_id;
-    ELSE
         RETURN QUERY SELECT id, name FROM Percapital_Role;
+    ELSE
+        RETURN QUERY SELECT id, name FROM Percapital_Role WHERE id = role_id;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
