@@ -38,6 +38,7 @@ export class UserDAO extends DAO<User> implements IUserDAO {
         console.info(`Getting users`, where?.id);
         let query = UserDBFunctions.getUsers(where?.id);
         let results = await Database.shared.execute(query);
+        console.log(results);
         return decodeMultiple(results, User);
     }
 

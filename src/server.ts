@@ -15,15 +15,20 @@ const server = new ApolloServer({
     plugins: [
        ApolloServerPluginLandingPageGraphQLPlayground(),
     ],
-    context: ({ req }) => {
-        console.log('Includes', req.body.query.includes('login'));
+    context: async ({ req }) => {
         if (!req.body.query.includes('login')) {
             const userId = req.headers.authorization;
-            if (!userId) throw new Error('you must be logged in');
+            if (!userId) {
+                throw new Error('Permission Denied');
+            }
             const headerUser = new User();
             headerUser.id = Number(userId);
-            const user = UserCommandFactory.createGetUsersCommand(headerUser);
-            return { user };
+            const command =  UserCommandFactory.createGetUsersCommand(headerUser);
+            const users = await command.execute();
+            if (users.length == 1) {
+                return { user: users[0] };
+            }
+            throw new Error('Permission Denied');
         }
     }
 });
