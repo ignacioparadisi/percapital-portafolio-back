@@ -6,10 +6,12 @@ DROP TABLE IF EXISTS Stock_Exchange_Title;
 DROP TABLE IF EXISTS Exchange_Rate;
 DROP TABLE IF EXISTS Constant_Value;
 DROP TABLE IF EXISTS Constant_Type;
-DROP TABLE IF EXISTS Role;
+DROP TABLE IF EXISTS Percapital_Role;
 
-DROP FUNCTION get_constant_types(integer);
-DROP FUNCTION get_constant_values(integer);
-DROP FUNCTION get_last_value_constant(integer);
+DROP FUNCTION login(VARCHAR, VARCHAR);
+DROP FUNCTION get_roles(INTEGER);
+DROP FUNCTION get_constant_types(INTEGER);
+DROP FUNCTION get_constant_values(INTEGER);
+DROP FUNCTION get_last_value_constant(INTEGER);
 DROP FUNCTION get_sell_value(NUMERIC, NUMERIC);
-DROP FUNCTION get_sell_operations(integer);
+DROP FUNCTION get_sell_operations(INTEGER);
