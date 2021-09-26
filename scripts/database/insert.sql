@@ -1,18 +1,18 @@
 -- OPERATION TYPE
-INSERT INTO Operation_Type(name) VALUES 
-    ('Compra'), 
-    ('Venta');
+INSERT INTO Operation_Type(id, name) VALUES 
+    (1, 'Compra'), 
+    (2, 'Venta');
 
 -- CONSTANT TYPE
-INSERT INTO Constant_Type(name) VALUES 
-    ('IVA'), 
-    ('Comisión'), 
-    ('Registro');
+INSERT INTO Constant_Type(id, name) VALUES 
+    (1, 'IVA'), 
+    (2, 'Comisión'), 
+    (3, 'Registro');
 
 -- ROLE
-INSERT INTO Role(value) VALUES 
-    ('Usuario'), 
-    ('Admin');
+INSERT INTO Percapital_Role(id, name) VALUES 
+    (1, 'Usuario'), 
+    (2, 'Administrador');
 
 -- EXCHANGE RATE
 INSERT INTO Exchange_Rate(value) VALUES 
@@ -32,9 +32,10 @@ INSERT INTO Constant_Value(constant_type_id, value) VALUES
     (2, 0.04), -- Comisión
     (3, 0.001); -- Registro
 
-INSERT INTO Percapital_User(role_id, first_name, last_name, email, phone_number) VALUES
-    (2, 'Angel', 'Rivero', 'angelantonio3000@gmail.com', '+525618703049'),
-    (2, 'Ignacio', 'Paradisi', 'ignaciotfw@gmail.com', '+525618703049');
+INSERT INTO Percapital_User(role_id, name, email, password) VALUES
+    (2, 'Angel Rivero', 'angelantonio3000@gmail.com', '123456'),
+    (2, 'Ignacio Paradisi', 'ignaciotfw@gmail.com', '123456'),
+    (1, 'Usuario Normal', 'user@percapital.com', '123456');
 
 -- PRICE RV
 INSERT INTO Price_RV(title_id, exchange_rate_id, bolivares_price, close_date, close_price) VALUES 

@@ -6,6 +6,8 @@ import { OperationTypeTypeDef } from "@Services/schemas/OperationType";
 import { StockExchangeTitleTypeDef } from "@Services/schemas/StockExchangeTitle";
 import { PriceRvTypeDef } from "@Services/schemas/PriceRv";
 import { ExchangeRateTypeDef } from "@Services/schemas/ExchangeRate";
+import { UserTypeDef } from "./User";
+import { RoleTypeDef } from "./Role";
 
 export const typeDefs = mergeTypeDefs([
     ConstantTypeTypeDef,
@@ -14,5 +16,7 @@ export const typeDefs = mergeTypeDefs([
     OperationTypeTypeDef,
     StockExchangeTitleTypeDef,
     PriceRvTypeDef,
-    ExchangeRateTypeDef
+    ExchangeRateTypeDef,
+    UserTypeDef,
+    RoleTypeDef
 ])

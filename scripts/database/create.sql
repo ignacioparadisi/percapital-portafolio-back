@@ -25,20 +25,20 @@ CREATE TABLE Stock_Exchange_Title(
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Role(
+CREATE TABLE Percapital_Role(
     id SERIAL PRIMARY KEY,
-    value VARCHAR(250) NOT NULL
+    name VARCHAR(250) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Percapital_User(
     id SERIAL PRIMARY KEY,
     role_id BIGINT NOT NULL,
-    first_name VARCHAR(250) NOT NULL,
-    last_name VARCHAR(250) NOT NULL,
+    name VARCHAR(250) NOT NULL,
     email VARCHAR(250) NOT NULL UNIQUE,
-    phone_number VARCHAR(250),
+    password VARCHAR(250),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_user_role_id FOREIGN KEY (role_id) REFERENCES Role(id)
+    CONSTRAINT fk_user_role_id FOREIGN KEY (role_id) REFERENCES Percapital_Role(id)
 );
 
 CREATE TABLE Price_RV(

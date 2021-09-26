@@ -26,3 +26,9 @@ export function decode<T extends Decodable>(entity: Entity, type: { new(): T }):
     })
     return instance;
 }
+
+export function decodeMultiple<T extends Decodable>(entities: Entity[], type: { new(): T }): T[] {
+    return entities.map(entity => {
+        return decode(entity, type);
+    });
+}
