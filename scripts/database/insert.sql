@@ -44,8 +44,8 @@ INSERT INTO Price_RV(title_id, exchange_rate_id, bolivares_price, close_date, cl
     (2, 3, 590, '2021-09-19', 16300);
 
 -- OPERATION
-INSERT INTO Operation(price_rv_id, user_id, stock_amount, stock_price, type_id) VALUES 
-    (1, 1, 89, 2800, 1),
-    (1, 1, 89, 2800, 2),
-    (2, 1, 18, 15000, 2),
-    (3, 1, 218, 11500, 1);
+INSERT INTO Operation(price_rv_id, user_id, stock_amount, stock_price, type_id, iva_cv_id, comission_cv_id, register_cv_id) VALUES 
+    (1, 1, 89, 2800, 1, 1, 2, 3),
+    (1, 1, 89, 2800, 2, 1, 2, 3),
+    (2, 1, 18, 15000, 2, 1, 2, 3),
+    (3, 1, 218, 11500, 1, 1, 2, 3);

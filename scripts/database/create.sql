@@ -66,7 +66,13 @@ CREATE TABLE Operation(
     stock_amount NUMERIC NOT NULL,
     stock_price NUMERIC NOT NULL,
     type_id BIGINT NOT NULL,
+    register_cv_id BIGINT NOT NULL,
+    iva_cv_id BIGINT NOT NULL,
+    comission_cv_id BIGINT NOT NULL,
     CONSTRAINT fk_ope_prv_id FOREIGN KEY (price_rv_id) REFERENCES Price_RV(id),
     CONSTRAINT fk_ope_type_id FOREIGN KEY (type_id) REFERENCES Operation_Type(id),
-    CONSTRAINT fk_ope_user_id FOREIGN KEY (user_id) REFERENCES Percapital_User(id)
+    CONSTRAINT fk_ope_user_id FOREIGN KEY (user_id) REFERENCES Percapital_User(id),
+    CONSTRAINT fk_ope_register_cv_id FOREIGN KEY (register_cv_id) REFERENCES Constant_Value(id),
+    CONSTRAINT fk_ope_iva_cv_id FOREIGN KEY (iva_cv_id) REFERENCES Constant_Value(id),
+    CONSTRAINT fk_ope_comission_cv_id FOREIGN KEY (comission_cv_id) REFERENCES Constant_Value(id)
 );

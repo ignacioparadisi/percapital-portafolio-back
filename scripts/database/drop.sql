@@ -20,3 +20,4 @@ DROP FUNCTION get_latest_exchange_rate();
 DROP FUNCTION get_sell_operations(INTEGER);
 DROP FUNCTION get_buy_operations(INTEGER);
 DROP FUNCTION get_price_rv(INTEGER);
+DROP FUNCTION get_total_computed_value(NUMERIC, NUMERIC, NUMERIC, NUMERIC, NUMERIC, INTEGER);
