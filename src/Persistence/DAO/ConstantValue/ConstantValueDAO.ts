@@ -17,8 +17,8 @@ export class ConstantValueDAO extends DAO<ConstantValue> implements IConstantVal
             return []
         }
         let query = ConstantDBFunctions.getValues(where!.constantTypeId!);
-        let result = await Database.shared.execute(query);
-        return decodeMultiple(result, ConstantValue);
+        let result = await Database.shared.execute(query, ConstantValue);
+        return result;
     }
 
     async update(where: ConstantValue, entity: ConstantValue): Promise<ConstantValue> {

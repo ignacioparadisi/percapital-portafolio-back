@@ -14,18 +14,14 @@ export type QueryData = {
 
 export class DatabaseError extends GeneralError {
   constructor(
-    public queryData: QueryData,
+    public query: string,
     inner?: Error | unknown,
     message?: string,
     code?: string
   ) {
     super(
       message ||
-        `Error making database action to ${
-          queryData.query instanceof Entity
-            ? queryData.query.constructor.name
-            : queryData.query.where.constructor.name
-        }`,
+        `Error executing query ${ query }`,
       inner,
       code
     );

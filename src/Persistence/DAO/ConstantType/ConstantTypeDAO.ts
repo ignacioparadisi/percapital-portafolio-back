@@ -14,10 +14,8 @@ export class ConstantTypeDAO extends DAO<ConstantType> implements IConstantTypeD
 
     async get(where?: ConstantType, limit?: number, skip?: number): Promise<ConstantType[]> {
         let query = ConstantDBFunctions.getConstants(where?.id);
-        let result = await Database.shared.execute(query);
-        return result.map(res => {
-            return decode(res, ConstantType)
-        })
+        let result = await Database.shared.execute(query, ConstantType);
+        return result;
     }
 
     async update(where: ConstantType, entity: ConstantType): Promise<ConstantType> {

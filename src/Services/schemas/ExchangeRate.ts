@@ -5,7 +5,7 @@ export const ExchangeRateTypeDef = gql`
         id: Int
         value: Float
         createdAt: String
-        priceRvs(where: PriceRvInput, limit: Int): [PriceRV]
+        priceRvs(where: PriceRVInput, limit: Int): [PriceRV]
     }
 
     input ExchangeRateInput {

@@ -6,7 +6,7 @@ export const StockExchangeTitleTypeDef = gql`
         description: String
         value: String
         createdAt: String
-        priceRvs(where: PriceRvInput, limit: Int): [PriceRV]
+        priceRvs(where: PriceRVInput, limit: Int): [PriceRV]
     }
 
     input StockExchangeTitleInput {

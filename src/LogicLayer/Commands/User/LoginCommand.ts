@@ -4,14 +4,7 @@ import { Command } from "../Command";
 
 export class LoginCommand extends Command<User, User> {
 
-    private user: User;
-
-    constructor(user: User) {
-        super(user);
-        this.user = user;
-    }
-
     execute() {
-        return new UserDAO().login(this.user);
+        return new UserDAO().login(this.params);
     }
 }

@@ -24,8 +24,8 @@ export class OpertaionsDAO implements IOperationsDAO {
         } else {
             return Promise.reject('Operation type is not valid');
         }
-        let results = await Database.shared.execute(query);
-        return decodeMultiple(results, Operation);
+        let result = await Database.shared.execute(query, Operation);
+        return result;
     }
 
     update(where: Operation, entity: Operation): Promise<Operation> {

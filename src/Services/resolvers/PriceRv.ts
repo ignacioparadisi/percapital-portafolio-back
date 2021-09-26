@@ -6,13 +6,13 @@ import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
 export const PriceRVResolver = {
     Query: {
-        getPriceRvs: async (parent: any, args: GraphQLQuery) => {
+        getPriceRVs: async (parent: any, args: GraphQLQuery) => {
             console.info('getPriceRvs parent:', parent, 'args: ',args);
-            const where = new PriceRV(args.where)
+            const where = new PriceRV(args.where as PriceRV)
             return null;
         }
     },
-    PriceRv: {
+    PriceRV: {
         operations: async (parent: PriceRV, args: GraphQLQuery) => {
             console.info('operations parent: ', parent, 'args: ',args)
             const where = new Operation(args.where as Operation);
@@ -30,20 +30,20 @@ export const PriceRVResolver = {
         },
     },
     Mutation: {
-        createPriceRv: async (parent: any, args: GraphQLMutation) => {
+        createPriceRV: async (parent: any, args: GraphQLMutation) => {
             console.info('createPriceRv parent: ', parent, 'args: ',args);
-            const createData = new PriceRV(args.insertData);
+            const createData = new PriceRV(args.insertData as PriceRV);
             return null;
         },
-        updatePriceRv: async (parent: any, args: GraphQLMutation) => {
+        updatePriceRV: async (parent: any, args: GraphQLMutation) => {
             console.info('updatePriceRv parent: ', parent, 'args: ',args);
-            const where = new PriceRV(args.where);
-            const updateData = new PriceRV(args.updateData)
+            const where = new PriceRV(args.where as PriceRV);
+            const updateData = new PriceRV(args.updateData as PriceRV)
             return null;
         },
-        deletePriceRv: async (parent: any, args: GraphQLMutation) => {
+        deletePriceRV: async (parent: any, args: GraphQLMutation) => {
             console.info('deletePriceRv parent: ', parent, 'args: ',args);
-            const deleteData = new PriceRV(args.deleteData);
+            const deleteData = new PriceRV(args.deleteData as PriceRV);
             return null;
         }
     }

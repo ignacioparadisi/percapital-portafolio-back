@@ -1,6 +1,7 @@
 import { Role } from "@Common/Entities/Role";
 import { User } from "@Common/Entities/User";
 import { GeneralError } from "@Common/Errors/GeneralError";
+import { RequiredFieldError } from "@Common/Errors/RequiredFieldError";
 import { decode, decodeMultiple } from "@Common/Utils/decodable";
 import { Database } from "@Persistence/Database/DB";
 import { UserDBFunctions } from "@Persistence/Database/Functions/UserDBFunctions";
@@ -14,12 +15,12 @@ export class UserDAO extends DAO<User> implements IUserDAO {
         let email = where.email;
         let password = where.password;
         if (!email || !password) {
-            return Promise.reject('Email or password empty');
+            throw new RequiredFieldError('email and password');
         }
-        let result = await Database.shared.execute(UserDBFunctions.login(email, password));
-        console.log(result)
+        let query = UserDBFunctions.login(email, password);
+        let result = await Database.shared.execute(query, User);
         if (result.length > 0) {
-            return decode(result[0], User);
+            return result[0];
         }
         return Promise.reject('Email or password empty')
     }
@@ -27,16 +28,15 @@ export class UserDAO extends DAO<User> implements IUserDAO {
     async getRoles(where?: User): Promise<Role[]> {
         console.info(`Getting roles`, where?.roleId);
         let query = UserDBFunctions.getRoles(where?.roleId);
-        let result = await Database.shared.execute(query);
-        return decodeMultiple(result, Role);
+        let result = await Database.shared.execute(query, Role);
+        return result;
     }
 
     async get(where?: User, limit?: number, skip?: number): Promise<User[]> {
         console.info(`Getting users`, where?.id);
         let query = UserDBFunctions.getUsers(where?.id);
-        let results = await Database.shared.execute(query);
-        console.log(results);
-        return decodeMultiple(results, User);
+        let result = await Database.shared.execute(query, User);
+        return result;
     }
 
     create(entity: User): Promise<User> {

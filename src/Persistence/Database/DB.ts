@@ -1,5 +1,6 @@
 import { Entity } from '@Common/Entities/Entity';
 import { DatabaseError } from '@Common/Errors/DatabaseError';
+import { Decodable, decodeMultiple } from '@Common/Utils/decodable';
 import { Pool, QueryResult } from 'pg';
 
 export class Database {
@@ -36,15 +37,17 @@ export class Database {
    * @param query Query to be executed in the database
    * @returns rows returned as the Entity desired.
    */
-  public async execute<T extends Entity>(query: string): Promise<T[]> {
+  public async execute<T extends Entity & Decodable>(query: string, type: { new(): T }): Promise<T[]> {
     console.info(`Executing query: ${query}`);
     let client = await this.pool.connect();
     try {
       let queryResult: T[] | QueryResult;
       queryResult = await client.query(query);
       queryResult = (queryResult as QueryResult).rows ? (queryResult as QueryResult).rows : queryResult;
-      queryResult = queryResult as T[];
+      queryResult = decodeMultiple(queryResult as T[], type);
       return queryResult;
+    } catch (error) {
+      throw new DatabaseError(query);
     } finally {
       client.release();
     }

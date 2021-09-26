@@ -6,6 +6,7 @@ export const PriceRVTypeDef = gql`
         setId: Int
         exrId: Int
         bolivaresPrice: Float
+        closePrice: Float
         createdAt: String
         closeDate: String
         operations(where: OperationInput, limit: Int): [Operation]
@@ -28,7 +29,7 @@ export const PriceRVTypeDef = gql`
 
     type Mutation {
         createPriceRV(insertData: PriceRVInput!): PriceRV
-        updatePriceRV(where: PriceRvInput!, updateData: PriceRvInput!): [PriceRV]
+        updatePriceRV(where: PriceRVInput!, updateData: PriceRVInput!): [PriceRV]
         deletePriceRV(deleteData: PriceRVInput): Int
     }
 `

@@ -5,14 +5,7 @@ import { Command } from "../Command";
 
 export class GetRolesCommand extends Command<User, Role[]> {
 
-    private user: User;
-
-    constructor(user: User) {
-        super(user);
-        this.user = user;
-    }
-
     execute() {
-        return new UserDAO().getRoles(this.user);
+        return new UserDAO().getRoles(this.params);
     }
 }

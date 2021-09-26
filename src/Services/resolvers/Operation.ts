@@ -4,6 +4,7 @@ import { Operation } from '@Common/Entities/Operation';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { OperationsCommandFactory } from '@Logic/Commands/Operations/OperationsCommandFactory';
 import { ExecutionContext } from 'graphql/execution/execute';
+import { PriceRVCommandFactory } from '@Logic/Commands/PriceRV/PriceRVCommandFactory';
 
 export const OperationResolver = {
     Query: {
@@ -22,9 +23,15 @@ export const OperationResolver = {
             const where = new OperationType(args.where);
             return null;
         },
-        priceRv: async (parent: Operation, args: GraphQLQuery) => {
-            console.info('priceRv parent: ', parent, 'args: ',args)
-            const where = new PriceRV(args.where);
+        priceRV: async (parent: Operation, args: GraphQLQuery) => {
+            console.info('priceRv parent: ', parent, 'args: ',args);
+            const where = new PriceRV();
+            where.id = parent.priceRvId;
+            const command = PriceRVCommandFactory.createGetPriceRVCommand(where);
+            let result = await command.execute();
+            if (result.length > 0) {
+                return result[0];
+            }
             return null;
         },
     },

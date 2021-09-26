@@ -11,7 +11,7 @@ export class Operation extends Entity implements Decodable {
     stockPrice?: number;
     typeId?: number;
     operationType?: OperationType;
-    priceRv?: PriceRV;
+    priceRV?: PriceRV;
 
    constructor(entity?: Operation) {
         super(entity);
