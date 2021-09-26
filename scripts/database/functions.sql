@@ -375,3 +375,20 @@ BEGIN
 
 END; 
 $$ LANGUAGE plpgsql;
+
+-- Get Price RV by Operation
+-- params:
+---- `operation_id`: The ID of the operation
+CREATE OR REPLACE FUNCTION get_price_rv(price_rv_id INTEGER) 
+    RETURNS TABLE(
+        pr_id INTEGER,
+        pr_title_id BIGINT,
+        pr_bolivares_price NUMERIC,
+        pr_created_at TIMESTAMP,
+        pr_close_date TIMESTAMP
+    )
+AS $$
+BEGIN 
+    RETURN QUERY SELECT id, title_id, bolivares_price, created_at, close_date FROM Price_RV WHERE id = price_rv_id;
+END;
+$$ LANGUAGE plpgsql;
