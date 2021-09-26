@@ -1,10 +1,10 @@
-import {mergeTypeDefs} from "@graphql-tools/merge";
+import { mergeTypeDefs } from "@graphql-tools/merge";
 import { ConstantTypeTypeDef } from "@Services/schemas/ConstantType";
 import { TypeValueTypeDef } from "@Services/schemas/TypeValue";
 import { OperationTypeDef } from "@Services/schemas/Operation";
 import { OperationTypeTypeDef } from "@Services/schemas/OperationType";
 import { StockExchangeTitleTypeDef } from "@Services/schemas/StockExchangeTitle";
-import { PriceRvTypeDef } from "@Services/schemas/PriceRv";
+import { PriceRVTypeDef } from "@Services/schemas/PriceRV";
 import { ExchangeRateTypeDef } from "@Services/schemas/ExchangeRate";
 import { UserTypeDef } from "./User";
 import { RoleTypeDef } from "./Role";
@@ -15,7 +15,7 @@ export const typeDefs = mergeTypeDefs([
     OperationTypeDef,
     OperationTypeTypeDef,
     StockExchangeTitleTypeDef,
-    PriceRvTypeDef,
+    PriceRVTypeDef,
     ExchangeRateTypeDef,
     UserTypeDef,
     RoleTypeDef

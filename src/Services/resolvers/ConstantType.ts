@@ -1,9 +1,9 @@
-import {ConstantValue} from '@Common/Entities/ConstantValue';
-import {ConstantType} from '@Common/Entities/ConstantType';
-import {CommandFactory} from '@Logic/Commands/CommandFactory';
-import {GraphQLMutation, GraphQLQuery} from '../graphQLTypes';
+import { ConstantValue } from '@Common/Entities/ConstantValue';
+import { ConstantType } from '@Common/Entities/ConstantType';
+import { CommandFactory } from '@Logic/Commands/CommandFactory';
+import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { ExecutionContext } from 'graphql/execution/execute';
-import { Role } from '@Common/Entities/Role';
+
 export const ConstantTypeResolver = {
     Query: {
         getConstantTypes: async (parent: any, args: GraphQLQuery, context: ExecutionContext) => {
@@ -26,13 +26,11 @@ export const ConstantTypeResolver = {
             console.info('updateConstantType parent: ', parent, 'args: ',args);
             const where = new ConstantType(args.where as ConstantType);
             const updateData = new ConstantType(args.updateData as ConstantType)
-            const command = CommandFactory.createUpdateConstantTypeCommand(where, updateData);
             return null;
         },
         deleteConstantType: async (parent: any, args: GraphQLMutation) => {
             console.info('deleteConstantType parent: ', parent, 'args: ',args);
             const deleteData = new ConstantType(args.deleteData as ConstantType);
-            const command = CommandFactory.createDeleteConstantTypeCommand(deleteData);
             return null;
         }
     }

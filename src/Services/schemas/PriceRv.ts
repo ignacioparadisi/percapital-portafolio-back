@@ -1,6 +1,7 @@
 import {gql} from 'apollo-server';
-export const PriceRvTypeDef = gql`
-    type PriceRv {
+
+export const PriceRVTypeDef = gql`
+    type PriceRV {
         id: Int
         setId: Int
         exrId: Int
@@ -12,7 +13,7 @@ export const PriceRvTypeDef = gql`
         stockExchangeTitle(where: StockExchangeTitleInput): StockExchangeTitle
     }
 
-    input PriceRvInput {
+    input PriceRVInput {
         id: Int
         setId: Int
         exrId: Int
@@ -22,11 +23,12 @@ export const PriceRvTypeDef = gql`
     }
 
     type Query {
-        getPriceRvs(where: PriceRvInput, skip:Int, limit: Int): [PriceRv]
+        getPriceRVs(where: PriceRVInput, skip: Int, limit: Int): [PriceRV]
     }
+
     type Mutation {
-        createPriceRv(insertData: PriceRvInput!): PriceRv
-        updatePriceRv(where: PriceRvInput! updateData: PriceRvInput!): [PriceRv]
-        deletePriceRv(deleteData: PriceRvInput): Int
+        createPriceRV(insertData: PriceRVInput!): PriceRV
+        updatePriceRV(where: PriceRvInput!, updateData: PriceRvInput!): [PriceRV]
+        deletePriceRV(deleteData: PriceRVInput): Int
     }
 `

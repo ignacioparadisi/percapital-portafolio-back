@@ -1,4 +1,5 @@
-import {gql} from 'apollo-server';
+import { gql } from 'apollo-server';
+
 export const OperationTypeDef = gql`
     type Operation {
         id: Int
@@ -9,7 +10,7 @@ export const OperationTypeDef = gql`
         stockPrice: Float
         typeId: Int
         operationType(where: OperationTypeInput): OperationType
-        priceRv(where: PriceRvInput): PriceRv
+        priceRv(where: PriceRVInput): PriceRV
     }
 
     input OperationInput {
@@ -23,11 +24,12 @@ export const OperationTypeDef = gql`
     }
 
     type Query {
-        getOperations(where: OperationInput, skip:Int, limit: Int): [Operation]
+        getOperations(where: OperationInput, skip: Int, limit: Int): [Operation]
     }
+
     type Mutation {
         createOperation(insertData: OperationInput!): Operation
-        updateOperation(where: OperationInput! updateData: OperationInput!): [Operation]
+        updateOperation(where: OperationInput!, updateData: OperationInput!): [Operation]
         deleteOperation(deleteData: OperationInput): Int
     }
 `

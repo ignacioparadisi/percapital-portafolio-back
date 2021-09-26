@@ -1,8 +1,8 @@
-import {StockExchangeTitle} from '@Common/Entities/StockExchangeTitle';
-import {ExchangeRate} from '@Common/Entities/ExchangeRate';
-import {Operation} from '@Common/Entities/Operation';
-import {Entity} from '@Common/Entities/Entity';
-export class PriceRv extends Entity {
+import { StockExchangeTitle } from '@Common/Entities/StockExchangeTitle';
+import { ExchangeRate } from '@Common/Entities/ExchangeRate';
+import { Operation } from '@Common/Entities/Operation';
+import { Entity } from '@Common/Entities/Entity';
+export class PriceRV extends Entity {
     id?: number;
     titleId?: number;
     exchangeRateId?: number;
@@ -13,7 +13,7 @@ export class PriceRv extends Entity {
     exchangeRate?: ExchangeRate;
     stockExchangeTitle?: StockExchangeTitle;
 
-   constructor(entity?: PriceRv) {
+   constructor(entity?: PriceRV) {
         super(entity);
         this.id = entity ? entity.id : undefined;
         this.titleId = entity ? entity.titleId : undefined;

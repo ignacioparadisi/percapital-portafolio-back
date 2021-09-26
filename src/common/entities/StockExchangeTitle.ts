@@ -1,11 +1,11 @@
-import {PriceRv} from '@Common/Entities/PriceRv';
-import {Entity} from '@Common/Entities/Entity';
+import { PriceRV } from '@Common/Entities/PriceRV';
+import { Entity } from '@Common/Entities/Entity';
 export class StockExchangeTitle extends Entity {
     id?: number;
     description?: string;
     value?: string;
     createdAt?: Date;
-    priceRvs?: PriceRv[];
+    priceRvs?: PriceRV[];
 
    constructor(entity?: StockExchangeTitle) {
         super(entity);

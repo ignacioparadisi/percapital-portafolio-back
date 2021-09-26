@@ -1,10 +1,10 @@
-import {PriceRv} from '@Common/Entities/PriceRv';
-import {Entity} from '@Common/Entities/Entity';
+import { PriceRV } from '@Common/Entities/PriceRV';
+import { Entity } from '@Common/Entities/Entity';
 export class ExchangeRate extends Entity {
     id?: number;
     value?: number;
     createdAt?: Date;
-    priceRvs?: PriceRv[];
+    priceRvs?: PriceRV[];
 
    constructor(entity?: ExchangeRate) {
         super(entity);
