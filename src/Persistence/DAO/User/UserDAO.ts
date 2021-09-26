@@ -1,5 +1,6 @@
 import { Role } from "@Common/Entities/Role";
 import { User } from "@Common/Entities/User";
+import { GeneralError } from "@Common/Errors/GeneralError";
 import { decode, decodeMultiple } from "@Common/Utils/decodable";
 import { Database } from "@Persistence/Database/DB";
 import { UserDBFunctions } from "@Persistence/Database/Functions/UserDBFunctions";
@@ -30,10 +31,6 @@ export class UserDAO extends DAO<User> implements IUserDAO {
         return decodeMultiple(result, Role);
     }
 
-    create(entity: User): Promise<User> {
-        return Promise.reject('Method not implemented');
-    }
-
     async get(where?: User, limit?: number, skip?: number): Promise<User[]> {
         console.info(`Getting users`, where?.id);
         let query = UserDBFunctions.getUsers(where?.id);
@@ -42,11 +39,15 @@ export class UserDAO extends DAO<User> implements IUserDAO {
         return decodeMultiple(results, User);
     }
 
+    create(entity: User): Promise<User> {
+        throw GeneralError.METHOD_NOT_IMPLEMENTED;
+    }
+
     update(where: User, entity: User): Promise<User> {
-        return Promise.reject('Method not implemented');
+        throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }
 
     delete(entity: User): Promise<number> {
-        return Promise.reject('Method not implemented');
+        throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }
 }

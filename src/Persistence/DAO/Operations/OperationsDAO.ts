@@ -1,5 +1,6 @@
 import { Operation } from "@Common/Entities/Operation";
 import { OperationType } from "@Common/Entities/OperationType";
+import { GeneralError } from "@Common/Errors/GeneralError";
 import { decodeMultiple } from "@Common/Utils/decodable";
 import { Database } from "@Persistence/Database/DB";
 import { OperationsDBFunctions } from "@Persistence/Database/Functions/OperationsDBFunctions";
@@ -7,7 +8,7 @@ import { IOperationsDAO } from "./IOperationsDAO";
 
 export class OpertaionsDAO implements IOperationsDAO {
     create(entity: Operation): Promise<Operation> {
-        return Promise.reject('Method not implemented');
+        throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }
 
     async get(where?: Operation, limit?: number, skip?: number): Promise<Operation[]> {
@@ -28,10 +29,10 @@ export class OpertaionsDAO implements IOperationsDAO {
     }
 
     update(where: Operation, entity: Operation): Promise<Operation> {
-        return Promise.reject('Method not implemented');
+        throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }
 
     delete(entity: Operation): Promise<number> {
-        return Promise.reject('Method not implemented');
+        throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }
 }
