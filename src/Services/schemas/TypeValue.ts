@@ -1,4 +1,5 @@
-import {gql} from 'apollo-server';
+import { gql } from 'apollo-server';
+
 export const TypeValueTypeDef = gql`
     type TypeValue {
         id: Int
@@ -16,11 +17,12 @@ export const TypeValueTypeDef = gql`
     }
 
     type Query {
-        getTypeValues(where: TypeValueInput, skip:Int, limit: Int): [TypeValue]
+        getTypeValues(where: TypeValueInput, skip: Int, limit: Int): [TypeValue]
     }
+
     type Mutation {
         createTypeValue(insertData: TypeValueInput!): TypeValue
-        updateTypeValue(where: TypeValueInput! updateData: TypeValueInput!): [TypeValue]
+        updateTypeValue(where: TypeValueInput!, updateData: TypeValueInput!): [TypeValue]
         deleteTypeValue(deleteData: TypeValueInput): Int
     }
 `

@@ -1,4 +1,5 @@
-import {gql} from 'apollo-server';
+import { gql } from 'apollo-server';
+
 export const OperationTypeTypeDef = gql`
     type OperationType {
         id: Int
@@ -12,11 +13,12 @@ export const OperationTypeTypeDef = gql`
     }
 
     type Query {
-        getOperationTypes(where: OperationTypeInput, skip:Int, limit: Int): [OperationType]
+        getOperationTypes(where: OperationTypeInput, skip: Int, limit: Int): [OperationType]
     }
+
     type Mutation {
         createOperationType(insertData: OperationTypeInput!): OperationType
-        updateOperationType(where: OperationTypeInput! updateData: OperationTypeInput!): [OperationType]
+        updateOperationType(where: OperationTypeInput!, updateData: OperationTypeInput!): [OperationType]
         deleteOperationType(deleteData: OperationTypeInput): Int
     }
 `

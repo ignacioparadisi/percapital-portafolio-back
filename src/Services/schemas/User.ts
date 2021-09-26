@@ -1,4 +1,5 @@
-import {gql} from 'apollo-server';
+import { gql } from 'apollo-server';
+
 export const UserTypeDef = gql`
     type User {
         id: Int
@@ -22,8 +23,9 @@ export const UserTypeDef = gql`
         login(where: UserInput!, skip: Int, limit: Int): User
         getUsers(where: UserInput, skip: Int, limit: Int): [User]
     }
+
     type Mutation {
-        updateUser(where: UserInput! updateData: UserInput!): [User]
+        updateUser(where: UserInput!, updateData: UserInput!): [User]
         deleteUser(deleteData: UserInput): Int
     }
 `

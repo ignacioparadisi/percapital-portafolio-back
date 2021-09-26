@@ -4,14 +4,7 @@ import { Command } from "../Command";
 
 export class GetConstantTypeCommand extends Command<ConstantType, ConstantType> {
 
-    private constantType: ConstantType;
-
-    constructor(constantType: ConstantType) {
-        super(constantType);
-        this.constantType = constantType;
-    }
-
     execute() {
-        return new ConstantTypeDAO().get(this.constantType);
+        return new ConstantTypeDAO().get(this.params);
     }
 }

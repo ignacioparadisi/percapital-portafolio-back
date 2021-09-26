@@ -1,4 +1,5 @@
-import {gql} from 'apollo-server';
+import { gql } from 'apollo-server';
+
 export const ConstantTypeTypeDef = gql`
     type ConstantType {
         id: Int
@@ -14,10 +15,11 @@ export const ConstantTypeTypeDef = gql`
     }
 
     type Query {
-        getConstantTypes(where: ConstantTypeInput, skip:Int, limit: Int): [ConstantType]
+        getConstantTypes(where: ConstantTypeInput, skip: Int, limit: Int): [ConstantType]
     }
+
     type Mutation {
-        updateConstantType(where: ConstantTypeInput! updateData: ConstantTypeInput!): [ConstantType]
+        updateConstantType(where: ConstantTypeInput!, updateData: ConstantTypeInput!): [ConstantType]
         deleteConstantType(deleteData: ConstantTypeInput): Int
     }
 `

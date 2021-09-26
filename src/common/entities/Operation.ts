@@ -1,6 +1,6 @@
-import {PriceRv} from '@Common/Entities/PriceRv';
-import {OperationType} from '@Common/Entities/OperationType';
-import {Entity} from '@Common/Entities/Entity';
+import { PriceRV } from '@Common/Entities/PriceRV';
+import { OperationType } from '@Common/Entities/OperationType';
+import { Entity } from '@Common/Entities/Entity';
 import { Decodable } from '@Common/Utils/decodable';
 export class Operation extends Entity implements Decodable {
     id?: number;
@@ -11,7 +11,7 @@ export class Operation extends Entity implements Decodable {
     stockPrice?: number;
     typeId?: number;
     operationType?: OperationType;
-    priceRv?: PriceRv;
+    priceRV?: PriceRV;
 
    constructor(entity?: Operation) {
         super(entity);
