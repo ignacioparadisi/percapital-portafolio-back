@@ -1,7 +1,8 @@
 import {PriceRv} from '@Common/Entities/PriceRv';
 import {OperationType} from '@Common/Entities/OperationType';
 import {Entity} from '@Common/Entities/Entity';
-export class Operation extends Entity {
+import { Decodable } from '@Common/Utils/decodable';
+export class Operation extends Entity implements Decodable {
     id?: number;
     priceRvId?: number;
     createdAt?: Date;
