@@ -205,6 +205,9 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION get_sell_operations(p_user_id INTEGER)
     RETURNS TABLE (
         op_id INTEGER,
+        op_price_rv_id BIGINT,
+        op_user_id BIGINT,
+        op_type_id BIGINT,
         op_created_at TIMESTAMP,
         op_title_value VARCHAR,
         op_stock_amount NUMERIC,
@@ -230,7 +233,8 @@ BEGIN
     register_constant := get_last_value_constant(3);
 
     RETURN QUERY
-        SELECT operation.id, operation.created_at, stock_exchange_title.value, operation.stock_amount,
+        SELECT operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
+        stock_exchange_title.value, operation.stock_amount,
         operation.stock_price, get_computed_value(operation.stock_price, operation.stock_amount) AS sell_value, 
         get_computed_value(operation.stock_price, operation.stock_amount) * comission_constant AS comission, 
 	    get_computed_value(operation.stock_price, operation.stock_amount) * comission_constant * iva_constant AS iva, 

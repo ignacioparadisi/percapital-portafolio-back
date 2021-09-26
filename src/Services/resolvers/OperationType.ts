@@ -14,7 +14,7 @@ export const OperationTypeResolver = {
     OperationType: {
         operations: async (parent: OperationType, args: GraphQLQuery) => {
             console.info('operations parent: ', parent, 'args: ',args)
-            const where = new Operation(args.where);
+            const where = new Operation(args.where as Operation);
             const command = CommandFactory.createGetOperationsByOperationTypeCommand(where, parent, args.limit);
             return null;
         },
