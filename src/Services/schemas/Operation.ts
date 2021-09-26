@@ -2,7 +2,8 @@ import {gql} from 'apollo-server';
 export const OperationTypeDef = gql`
     type Operation {
         id: Int
-        prvId: Int
+        userId: Int
+        priceRvId: Int
         createdAt: String
         stockAmount: Float
         stockPrice: Float
@@ -13,7 +14,8 @@ export const OperationTypeDef = gql`
 
     input OperationInput {
         id: Int
-        prvId: Int
+        userId: Int
+        priceRvId: Int
         createdAt: String
         stockAmount: Float
         stockPrice: Float
