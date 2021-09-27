@@ -1,6 +1,7 @@
 import { Operation } from "@Common/Entities/Operation";
 import { OperationType } from "@Common/Entities/OperationType";
 import { GeneralError } from "@Common/Errors/GeneralError";
+import { RequiredFieldError } from "@Common/Errors/RequiredFieldError";
 import { decodeMultiple } from "@Common/Utils/decodable";
 import { Database } from "@Persistence/Database/DB";
 import { OperationsDBFunctions } from "@Persistence/Database/Functions/OperationsDBFunctions";
@@ -13,10 +14,10 @@ export class OpertaionsDAO implements IOperationsDAO {
 
     async get(where?: Operation, limit?: number, skip?: number): Promise<Operation[]> {
         if (!where?.userId) {
-            return Promise.reject('User ID is required');
+            throw new RequiredFieldError('userId');
         }
         if (!where?.typeId) {
-            return Promise.reject('Operation type ID is required');
+            throw new RequiredFieldError('typeId');
         }
         let query = '';
         if (where.typeId == OperationType.SELL) {
