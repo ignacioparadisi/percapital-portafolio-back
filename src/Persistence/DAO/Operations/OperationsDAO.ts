@@ -22,6 +22,8 @@ export class OpertaionsDAO implements IOperationsDAO {
         let query = '';
         if (where.typeId == OperationType.SELL) {
             query = OperationsDBFunctions.getSellOperations(where.userId, limit, skip);
+        } else if (where.typeId == OperationType.BUY) {
+            query = OperationsDBFunctions.getBuyOperations(where.userId, limit, skip);
         } else {
             return Promise.reject('Operation type is not valid');
         }
