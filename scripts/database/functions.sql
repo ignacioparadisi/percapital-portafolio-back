@@ -327,7 +327,7 @@ BEGIN
         ((get_total_computed_value(price_rv.close_price, operation.stock_amount, comission.value, iva.value, register.value, 0) - 
         get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) / 
         get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) *
-        (360::NUMERIC / (CURRENT_DATE - DATE(operation.created_at))) AS performance_value,
+        (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0)) AS performance_value,
 
 
         operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Exchange_Title.id, Operation_Type.id) AS weight_in_wallet,
@@ -336,7 +336,7 @@ BEGIN
         (((get_total_computed_value(price_rv.close_price, operation.stock_amount, comission.value, iva.value, register.value, 0) - 
         get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) / 
         get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) *
-        (360::NUMERIC / (CURRENT_DATE - DATE(operation.created_at)))) AS weighted_performance,
+        (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) AS weighted_performance,
 
         (get_total_computed_value(price_rv.close_price, operation.stock_amount, comission.value, iva.value, register.value, 0) / 
         get_latest_exchange_rate()) - 
@@ -349,7 +349,7 @@ BEGIN
         comission.value, iva.value, register.value, 1) / exchange_rate.value)) / 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, 1) / exchange_rate.value)) *
-        (360::NUMERIC / (CURRENT_DATE - DATE(operation.created_at))) AS dollar_performance_value,
+        (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0)) AS dollar_performance_value,
 
         ((((get_total_computed_value(price_rv.close_price, operation.stock_amount, comission.value, iva.value, register.value, 0) / 
         get_latest_exchange_rate()) - 
@@ -357,7 +357,7 @@ BEGIN
         comission.value, iva.value, register.value, 1) / exchange_rate.value)) / 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, 1) / exchange_rate.value)) *
-        (360::NUMERIC / (CURRENT_DATE - DATE(operation.created_at)))) * 
+        (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) * 
         operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Exchange_Title.id, Operation_Type.id) AS dollar_weighted_performance
 
         FROM Operation, Price_RV, Stock_Exchange_Title, Exchange_Rate, Operation_Type,
