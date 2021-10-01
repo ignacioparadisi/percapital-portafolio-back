@@ -202,7 +202,7 @@ $$ LANGUAGE plpgsql;
 -- Get all sell operations made over history.
 -- params:
 ---- `p_user_id`: ID of the user.
-CREATE OR REPLACE FUNCTION get_sell_operations(p_user_id INTEGER)
+CREATE OR REPLACE FUNCTION get_sell_operations(p_user_id INTEGER, limit_number INTEGER, offset_value INTEGER)
     RETURNS TABLE (
         op_id INTEGER,
         op_price_rv_id BIGINT,
@@ -242,7 +242,8 @@ BEGIN
         Constant_Value AS Register, Constant_Value AS IVA, Constant_Value AS Comission
         WHERE Operation.price_rv_id = Price_RV.id AND Operation.user_id = p_user_id AND Operation.type_id = 2 -- Venta 
 		AND Price_RV.title_id = Stock_Exchange_Title.id AND Price_RV.exchange_rate_id = Exchange_Rate.id 
-        AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id;
+        AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id
+        LIMIT limit_number OFFSET offset_value;
 
 END; 
 $$ LANGUAGE plpgsql;
@@ -250,7 +251,7 @@ $$ LANGUAGE plpgsql;
 -- Get all buy operations made over history.
 -- params:
 ---- `p_user_id`: ID of the user.
-CREATE OR REPLACE FUNCTION get_buy_operations(p_user_id INTEGER)
+CREATE OR REPLACE FUNCTION get_buy_operations(p_user_id INTEGER, limit_number INTEGER, offset_value INTEGER)
     RETURNS TABLE (
         op_id INTEGER,
         op_price_rv_id BIGINT,
@@ -366,7 +367,8 @@ BEGIN
         WHERE Operation.price_rv_id = Price_RV.id AND Operation.user_id = p_user_id AND Operation.type_id = Operation_Type.id 
 		AND Operation.type_id = 1 -- Compra 
         AND Price_RV.title_id = Stock_Exchange_Title.id AND Price_RV.exchange_rate_id = Exchange_Rate.id
-        AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id;
+        AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id
+        LIMIT limit_number OFFSET offset_value;
 
 END; 
 $$ LANGUAGE plpgsql;
