@@ -81,7 +81,7 @@ export class Operation extends Entity implements Decodable {
          this.buyWeightInWallet = entity ? entity.buyWeightInWallet : undefined;
          this.buyWeightedPerformance = entity ? entity.buyWeightedPerformance : undefined;
          this.buyDollarGp = entity ? entity.buyDollarGp : undefined;
-         this. buyDollarPerformanceValue = entity ? entity.buyPerformanceValue : undefined;
+         this.buyDollarPerformanceValue = entity ? entity.buyPerformanceValue : undefined;
          this.buyDollarWeightedPerformance = entity ? entity.buyWeightedPerformance : undefined;
    }
 
