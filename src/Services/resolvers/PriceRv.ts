@@ -25,7 +25,7 @@ export const PriceRVResolver = {
         },
         stockExchangeTitle: async (parent: PriceRV, args: GraphQLQuery) => {
             console.info('stockExchangeTitle parent: ', parent, 'args: ',args)
-            const where = new StockExchangeTitle(args.where);
+            const where = new StockExchangeTitle(args.where as StockExchangeTitle);
             return null;
         },
     },
