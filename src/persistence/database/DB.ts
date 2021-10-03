@@ -23,19 +23,22 @@ export class Database {
   } 
 
   private constructor() {
+    let config = {};
     if (process.env.DATABASE_URL) {
-      this.pool = new Pool({
+      config = {
         connectionString: process.env.DATABASE_URL
-      });
+      }
     } else {
-      this.pool = new Pool({
+      config = {
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
         port: parseInt(process.env.DB_PORT as string, 5432)
-      });
+      }
     }
+    this.pool = new Pool(config);
+    console.log(config);
   }
 
   /**
