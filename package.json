@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "webpack --config ./webpack.config.js --progress",
     "start": "node dist/server.js",
     "gen-arch": "tsc scripts/generateArchitecture.ts --downlevelIteration && node scripts/generateArchitecture.js",
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "repository": {
     "type": "git",
