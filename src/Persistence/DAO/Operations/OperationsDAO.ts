@@ -1,10 +1,9 @@
-import { Operation } from "@Common/Entities/Operation";
-import { OperationType } from "@Common/Entities/OperationType";
-import { GeneralError } from "@Common/Errors/GeneralError";
-import { RequiredFieldError } from "@Common/Errors/RequiredFieldError";
-import { decodeMultiple } from "@Common/Utils/decodable";
-import { Database } from "@Persistence/Database/DB";
-import { OperationsDBFunctions } from "@Persistence/Database/Functions/OperationsDBFunctions";
+import { Operation } from "@Common/entities/Operation";
+import { OperationType } from "@Common/entities/OperationType";
+import { GeneralError } from "@Common/errors/GeneralError";
+import { RequiredFieldError } from "@Common/errors/RequiredFieldError";
+import { Database } from "@Persistence/database/DB";
+import { OperationsDBFunctions } from "@Persistence/database/functions/OperationsDBFunctions";
 import { IOperationsDAO } from "./IOperationsDAO";
 
 export class OpertaionsDAO implements IOperationsDAO {

@@ -1,5 +1,5 @@
-import { Operation } from '@Common/Entities/Operation';
-import { OperationType } from '@Common/Entities/OperationType';
+import { Operation } from '@Common/entities/Operation';
+import { OperationType } from '@Common/entities/OperationType';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
 export const OperationTypeResolver = {

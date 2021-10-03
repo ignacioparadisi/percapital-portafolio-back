@@ -18,10 +18,10 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.mjs', '.js'],
     alias: {
-      "@Common": path.resolve(process.cwd(), './src/Common'),
-      "@Logic": path.resolve(process.cwd(), "./src/LogicLayer"),
-      "@Persistence": path.resolve(process.cwd(), "./src/Persistence"),
-      "@Services": path.resolve(process.cwd(), './src/Services'),
+      "@Common": path.resolve(process.cwd(), './src/common'),
+      "@Logic": path.resolve(process.cwd(), "./src/logic"),
+      "@Persistence": path.resolve(process.cwd(), "./src/persistence"),
+      "@Services": path.resolve(process.cwd(), './src/services'),
 
     }
   },

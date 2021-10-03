@@ -1,5 +1,5 @@
-import { PriceRV } from '@Common/Entities/PriceRV';
-import { ExchangeRate } from '@Common/Entities/ExchangeRate';
+import { PriceRV } from '@Common/entities/PriceRV';
+import { ExchangeRate } from '@Common/entities/ExchangeRate';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
 export const ExchangeRateResolver = {

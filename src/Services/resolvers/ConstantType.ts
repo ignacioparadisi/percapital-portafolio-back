@@ -1,6 +1,6 @@
-import { ConstantValue } from '@Common/Entities/ConstantValue';
-import { ConstantType } from '@Common/Entities/ConstantType';
-import { CommandFactory } from '@Logic/Commands/CommandFactory';
+import { ConstantValue } from '@Common/entities/ConstantValue';
+import { ConstantType } from '@Common/entities/ConstantType';
+import { CommandFactory } from '@Logic/commands/CommandFactory';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { ExecutionContext } from 'graphql/execution/execute';
 

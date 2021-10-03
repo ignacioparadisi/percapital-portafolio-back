@@ -1,4 +1,4 @@
-import { Entity } from '@Common/Entities/Entity';
+import { Entity } from '@Common/entities/Entity';
 import { IDAO } from './IDAO';
 
 export abstract class DAO<T extends Entity> implements IDAO<Entity> {

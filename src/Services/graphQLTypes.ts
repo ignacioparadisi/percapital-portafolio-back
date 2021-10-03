@@ -1,4 +1,4 @@
-import { Entity } from '@Common/Entities/Entity';
+import { Entity } from '@Common/entities/Entity';
 
 export type GraphQLQuery = {
   where: Entity;

@@ -1,4 +1,4 @@
-import { Decodable } from "@Common/Utils/decodable";
+import { Decodable } from "@Common/utils/Decodable";
 import { Entity } from "./Entity";
 
 export class Role extends Entity implements Decodable {

@@ -1,5 +1,5 @@
-import { Role } from "@Common/Entities/Role";
-import { User } from "@Common/Entities/User";
+import { Role } from "@Common/entities/Role";
+import { User } from "@Common/entities/User";
 import { IDAO } from "../IDAO";
 
 export interface IUserDAO extends IDAO<User> {

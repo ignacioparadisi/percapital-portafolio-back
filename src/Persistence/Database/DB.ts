@@ -1,6 +1,6 @@
-import { Entity } from '@Common/Entities/Entity';
-import { DatabaseError } from '@Common/Errors/DatabaseError';
-import { Decodable, decodeMultiple } from '@Common/Utils/decodable';
+import { Entity } from '@Common/entities/Entity';
+import { DatabaseError } from '@Common/errors/DatabaseError';
+import { Decodable, decodeMultiple } from '@Common/utils/Decodable';
 import { Pool, QueryResult } from 'pg';
 
 export class Database {

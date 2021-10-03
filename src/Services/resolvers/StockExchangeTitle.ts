@@ -1,6 +1,6 @@
-import { PriceRV } from '@Common/Entities/PriceRV';
-import { StockExchangeTitle } from '@Common/Entities/StockExchangeTitle';
-import { StockExchangeTitleCommandFactory } from '@Logic/Commands/StockExchangeTitle/StockExchangeTitleCommandFactory';
+import { PriceRV } from '@Common/entities/PriceRV';
+import { StockExchangeTitle } from '@Common/entities/StockExchangeTitle';
+import { StockExchangeTitleCommandFactory } from '@Logic/commands/stock_exchange_title/StockExchangeTitleCommandFactory';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
 export const StockExchangeTitleResolver = {

@@ -1,4 +1,4 @@
-import { Entity } from '@Common/Entities/Entity';
+import { Entity } from 'common/entities/Entity';
 import { GeneralError } from './GeneralError';
 
 export type QueryData = {

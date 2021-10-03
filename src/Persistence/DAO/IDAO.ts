@@ -1,4 +1,4 @@
-import { Entity } from '@Common/Entities/Entity';
+import { Entity } from '@Common/entities/Entity';
 
 export interface IDAO<T extends Entity> {
   create(entity: T): Promise<T>;

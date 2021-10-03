@@ -1,8 +1,8 @@
-import { StockExchangeTitle } from '@Common/Entities/StockExchangeTitle';
-import { ExchangeRate } from '@Common/Entities/ExchangeRate';
-import { Operation } from '@Common/Entities/Operation';
-import { Entity } from '@Common/Entities/Entity';
-import { Decodable } from '@Common/Utils/decodable';
+import { StockExchangeTitle } from '@Common/entities/StockExchangeTitle';
+import { ExchangeRate } from '@Common/entities/ExchangeRate';
+import { Operation } from '@Common/entities/Operation';
+import { Entity } from '@Common/entities/Entity';
+import { Decodable } from '@Common/utils/Decodable';
 
 export class PriceRV extends Entity implements Decodable {
     id?: number;

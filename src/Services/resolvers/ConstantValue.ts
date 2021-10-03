@@ -1,5 +1,5 @@
-import { ConstantType } from '@Common/Entities/ConstantType';
-import { ConstantValue } from '@Common/Entities/ConstantValue';
+import { ConstantType } from '@Common/entities/ConstantType';
+import { ConstantValue } from '@Common/entities/ConstantValue';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
 export const TypeValueResolver = {

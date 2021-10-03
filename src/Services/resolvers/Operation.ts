@@ -1,10 +1,10 @@
-import { PriceRV } from '@Common/Entities/PriceRV';
-import { OperationType } from '@Common/Entities/OperationType';
-import { Operation } from '@Common/Entities/Operation';
+import { PriceRV } from '@Common/entities/PriceRV';
+import { OperationType } from '@Common/entities/OperationType';
+import { Operation } from '@Common/entities/Operation';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
-import { OperationsCommandFactory } from '@Logic/Commands/Operations/OperationsCommandFactory';
+import { OperationsCommandFactory } from '@Logic/commands/operations/OperationsCommandFactory';
 import { ExecutionContext } from 'graphql/execution/execute';
-import { PriceRVCommandFactory } from '@Logic/Commands/PriceRV/PriceRVCommandFactory';
+import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 
 export const OperationResolver = {
     Query: {

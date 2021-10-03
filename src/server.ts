@@ -3,8 +3,8 @@ import { config } from 'dotenv';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import { resolvers } from '@Services/resolvers/index';
 import { typeDefs } from '@Services/schemas/index';
-import { UserCommandFactory } from '@Logic/Commands/User/UserCommandFactory';
-import { User } from '@Common/Entities/User';
+import { UserCommandFactory } from '@Logic/commands/user/UserCommandFactory';
+import { User } from '@Common/entities/User';
 
 config({ path: `${process.cwd()}/.env` });
 

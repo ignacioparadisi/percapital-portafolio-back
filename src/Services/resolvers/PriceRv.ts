@@ -1,7 +1,7 @@
-import { StockExchangeTitle } from '@Common/Entities/StockExchangeTitle';
-import { ExchangeRate } from '@Common/Entities/ExchangeRate';
-import { Operation } from '@Common/Entities/Operation';
-import { PriceRV } from '@Common/Entities/PriceRV';
+import { StockExchangeTitle } from '@Common/entities/StockExchangeTitle';
+import { ExchangeRate } from '@Common/entities/ExchangeRate';
+import { Operation } from '@Common/entities/Operation';
+import { PriceRV } from '@Common/entities/PriceRV';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
 export const PriceRVResolver = {

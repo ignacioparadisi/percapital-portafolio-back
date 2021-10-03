@@ -1,6 +1,5 @@
-import { Role } from "@Common/Entities/Role";
-import { User } from "@Common/Entities/User";
-import { UserCommandFactory } from "@Logic/Commands/User/UserCommandFactory";
+import { User } from "@Common/entities/User";
+import { UserCommandFactory } from "@Logic/commands/user/UserCommandFactory";
 import { GraphQLMutation, GraphQLQuery } from "@Services/graphQLTypes";
 
 export const UserResolver = {
