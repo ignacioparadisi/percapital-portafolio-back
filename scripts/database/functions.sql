@@ -391,3 +391,25 @@ BEGIN
     RETURN QUERY SELECT id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date FROM Price_RV WHERE id = price_rv_id;
 END;
 $$ LANGUAGE plpgsql;
+
+
+/******************************
+*******************************
+            INSERTS
+*******************************
+*******************************/
+
+-- Create a Title
+CREATE OR REPLACE FUNCTION create_stock_title(title_description TEXT, title_value VARCHAR)
+    RETURNS TABLE(
+        st_id INTEGER,
+        st_description TEXT,
+        st_value VARCHAR,
+        st_created_at TIMESTAMP
+    )
+AS $$
+BEGIN
+    RETURN QUERY INSERT INTO Stock_Exchange_Title(description, value) VALUES (title_description, title_value) 
+        RETURNING id, description, value, created_at;
+END;
+$$ LANGUAGE plpgsql;
