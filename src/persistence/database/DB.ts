@@ -23,13 +23,19 @@ export class Database {
   } 
 
   private constructor() {
-    this.pool = new Pool({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      database: process.env.DB_NAME,
-      password: process.env.DB_PASSWORD,
-      port: parseInt(process.env.DB_PORT as string, 5432)
-    });
+    if (process.env.DATABASE_URL) {
+      this.pool = new Pool({
+        connectionString: process.env.DATABASE_URL
+      });
+    } else {
+      this.pool = new Pool({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        database: process.env.DB_NAME,
+        password: process.env.DB_PASSWORD,
+        port: parseInt(process.env.DB_PORT as string, 5432)
+      });
+    }
   }
 
   /**
