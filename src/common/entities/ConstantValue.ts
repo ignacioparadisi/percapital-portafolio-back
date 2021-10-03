@@ -1,6 +1,6 @@
-import { ConstantType } from '@Common/Entities/ConstantType';
-import { Entity } from '@Common/Entities/Entity';
-import { CodingKey, Decodable } from '@Common/Utils/decodable';
+import { ConstantType } from '@Common/entities/ConstantType';
+import { Entity } from '@Common/entities/Entity';
+import { CodingKey, Decodable } from '@Common/utils/Decodable';
 export class ConstantValue extends Entity implements Decodable {
     id?: number;
     constantTypeId?: number;

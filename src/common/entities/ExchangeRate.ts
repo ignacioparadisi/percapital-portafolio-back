@@ -1,5 +1,5 @@
-import { PriceRV } from '@Common/Entities/PriceRV';
-import { Entity } from '@Common/Entities/Entity';
+import { PriceRV } from '@Common/entities/PriceRV';
+import { Entity } from '@Common/entities/Entity';
 export class ExchangeRate extends Entity {
     id?: number;
     value?: number;

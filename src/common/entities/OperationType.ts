@@ -1,5 +1,5 @@
-import { Operation } from '@Common/Entities/Operation';
-import { Entity } from '@Common/Entities/Entity';
+import { Operation } from '@Common/entities/Operation';
+import { Entity } from '@Common/entities/Entity';
 export class OperationType extends Entity {
 
      static BUY = 1
