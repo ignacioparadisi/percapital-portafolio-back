@@ -11,6 +11,35 @@ export const OperationTypeDef = gql`
         typeId: Int
         operationType(where: OperationTypeInput): OperationType
         priceRV(where: PriceRVInput): PriceRV
+
+        value: Float
+        comission: Float
+        iva: Float
+        register: Float
+        exchangeRate: Float
+
+        sellNetValue: Float
+        sellRawDollarValue: Float
+        sellDollarNetValue: Float
+
+        buyTotalCost: Float
+        buyUnitTotalPrice: Float
+        buyDollarTotalCost: Float
+        buyDollarUnitTotalPrice: Float
+        buyMarketPrice: Float
+        buyVariation: Float
+        buyMarketValue: Float
+        buyComissionPercentage: Float
+        buyIvaPercentage: Float
+        buyRegisterPercentage: Float
+        buyTotalIncome: Float
+        buyGpValue: Float
+        buyPerformanceValue: Float
+        buyWeightInWallet: Float
+        buyWeightedPerformance: Float
+        buyDollarGp: Float
+        buyDollarPerformanceValue: Float
+        buyDollarWeightedPerformance: Float
     }
 
     input OperationInput {
