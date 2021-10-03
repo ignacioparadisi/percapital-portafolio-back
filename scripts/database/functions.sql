@@ -392,6 +392,25 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_stock_titles(page_limit INTEGER, page_offset INTEGER)
+    RETURNS TABLE(
+        st_id INTEGER,
+        st_description TEXT,
+        st_value VARCHAR,
+        st_created_at TIMESTAMP
+    )
+AS $$
+BEGIN
+    IF page_limit IS NULL THEN
+        RETURN QUERY SELECT * FROM Stock_Exchange_Title;
+    ELSE IF page_offset IS NULL THEN
+        RETURN QUERY SELECT * FROM Stock_Exchange_Title LIMIT page_limit;
+    ELSE
+        RETURN QUERY SELECT * FROM Stock_Exchange_Title LIMIT page_limit OFFSET page_offset;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
 
 /******************************
 *******************************
