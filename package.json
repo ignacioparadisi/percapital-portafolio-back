@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-    "start": "webpack --config webpack.config.js && node dist/server.js",
-    "gen-arch": "tsc scripts/generateArchitecture.ts --downlevelIteration && node scripts/generateArchitecture.js"
+    "start": "node dist/server.js",
+    "gen-arch": "tsc scripts/generateArchitecture.ts --downlevelIteration && node scripts/generateArchitecture.js",
+    "heroku-postbuild": "webpack -p"
   },
   "repository": {
     "type": "git",
