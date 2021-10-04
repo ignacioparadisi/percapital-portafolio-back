@@ -27,7 +27,9 @@ export class Database {
     if (process.env.DATABASE_URL) {
       config = {
         connectionString: process.env.DATABASE_URL,
-        ssl: true
+        ssl: {
+          rejectUnauthorized: false
+        }
       }
     } else {
       config = {
@@ -35,7 +37,10 @@ export class Database {
         user: process.env.DB_USER,
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
-        port: parseInt(process.env.DB_PORT as string, 5432)
+        port: parseInt(process.env.DB_PORT as string, 5432),
+        ssl: {
+          rejectUnauthorized: false
+        }
       }
     }
     this.pool = new Pool(config);
