@@ -26,7 +26,8 @@ export class Database {
     let config = {};
     if (process.env.DATABASE_URL) {
       config = {
-        connectionString: process.env.DATABASE_URL
+        connectionString: process.env.DATABASE_URL,
+        ssl: true
       }
     } else {
       config = {
