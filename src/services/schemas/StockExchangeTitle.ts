@@ -17,7 +17,8 @@ export const StockExchangeTitleTypeDef = gql`
     }
 
     type Query {
-        getStockExchangeTitles(where: StockExchangeTitleInput, skip: Int, limit: Int): [StockExchangeTitle]
+        getStockExchangeTitles(where: StockExchangeTitleInput, skip: Int, limit: Int): [StockExchangeTitle] 
+            @auth(requires: USER)
     }
 
     type Mutation {

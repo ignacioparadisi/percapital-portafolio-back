@@ -8,8 +8,10 @@ import { PriceRVTypeDef } from "@Services/schemas/PriceRV";
 import { ExchangeRateTypeDef } from "@Services/schemas/ExchangeRate";
 import { UserTypeDef } from "@Services/schemas/User";
 import { RoleTypeDef } from "@Services/schemas/Role";
+import { AuthorizationTypeDef } from "@Services/directives/AuthDirective";
 
 export const typeDefs = mergeTypeDefs([
+    AuthorizationTypeDef,
     ConstantTypeTypeDef,
     TypeValueTypeDef,
     OperationTypeDef,

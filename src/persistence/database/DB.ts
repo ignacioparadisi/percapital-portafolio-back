@@ -37,14 +37,10 @@ export class Database {
         user: process.env.DB_USER,
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
-        port: parseInt(process.env.DB_PORT as string, 5432),
-        ssl: {
-          rejectUnauthorized: false
-        }
+        port: parseInt(process.env.DB_PORT as string, 5432)
       }
     }
     this.pool = new Pool(config);
-    console.log(config);
   }
 
   /**
