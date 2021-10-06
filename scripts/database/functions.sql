@@ -175,9 +175,9 @@ DECLARE
     return_value NUMERIC;
 BEGIN
     SELECT SUM(operation.stock_amount) INTO return_value
-    FROM Operation, Price_RV, Stock_Exchange_Title 
+    FROM Operation, Price_RV, Stock_Title 
     WHERE Operation.price_rv_id = Price_RV.id AND Operation.type_id = operation_type_id 
-    AND Price_RV.title_id = Stock_Exchange_Title.id AND Stock_Exchange_Title.id = se_title_id;
+    AND Price_RV.title_id = Stock_Title.id AND Stock_Title.id = se_title_id;
 
     RETURN return_value;
 END; 
@@ -227,7 +227,7 @@ BEGIN
 
     RETURN QUERY
         SELECT DISTINCT operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
-        stock_exchange_title.value, operation.stock_amount,
+        stock_title.symbol, operation.stock_amount,
         operation.stock_price, get_computed_value(operation.stock_price, operation.stock_amount) AS sell_value, 
         get_computed_value(operation.stock_price, operation.stock_amount) * comission.value AS comission, 
 	    get_computed_value(operation.stock_price, operation.stock_amount) * comission.value * iva.value AS iva, 
@@ -238,10 +238,10 @@ BEGIN
 	    get_computed_value(operation.stock_price, operation.stock_amount) / exchange_rate.value AS raw_dollar_sell, 
 		get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, 0) / exchange_rate.value AS dolar_net_sell
-        FROM Operation, Price_RV, Stock_Exchange_Title, Exchange_Rate, Operation_Type, 
+        FROM Operation, Price_RV, Stock_Title, Exchange_Rate, Operation_Type, 
         Constant_Value AS Register, Constant_Value AS IVA, Constant_Value AS Comission
         WHERE Operation.price_rv_id = Price_RV.id AND Operation.user_id = p_user_id AND Operation.type_id = 2 -- Venta 
-		AND Price_RV.title_id = Stock_Exchange_Title.id AND Price_RV.exchange_rate_id = Exchange_Rate.id 
+		AND Price_RV.title_id = Stock_Title.id AND Price_RV.exchange_rate_id = Exchange_Rate.id 
         AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id
         LIMIT limit_number OFFSET offset_value;
 
@@ -291,7 +291,7 @@ BEGIN
 
     RETURN QUERY
         SELECT DISTINCT operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
-        stock_exchange_title.value, operation.stock_amount, operation.stock_price, 
+        stock_title.symbol, operation.stock_amount, operation.stock_price, 
         get_computed_value(operation.stock_price, operation.stock_amount) AS buy_value, 
         get_computed_value(operation.stock_price, operation.stock_amount) * comission.value AS comission, 
 	    get_computed_value(operation.stock_price, operation.stock_amount) * comission.value * iva.value AS iva, 
@@ -331,9 +331,9 @@ BEGIN
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0)) AS performance_value,
 
 
-        operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Exchange_Title.id, Operation_Type.id) AS weight_in_wallet,
+        operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Title.id, Operation_Type.id) AS weight_in_wallet,
 
-        operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Exchange_Title.id, Operation_Type.id) *
+        operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Title.id, Operation_Type.id) *
         (((get_total_computed_value(price_rv.close_price, operation.stock_amount, comission.value, iva.value, register.value, 0) - 
         get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) / 
         get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) *
@@ -359,14 +359,14 @@ BEGIN
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, 1) / exchange_rate.value)) *
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) * 
-        operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Exchange_Title.id, Operation_Type.id) AS dollar_weighted_performance
+        operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Title.id, Operation_Type.id) AS dollar_weighted_performance
 
-        FROM Operation, Price_RV, Stock_Exchange_Title, Exchange_Rate, Operation_Type,
+        FROM Operation, Price_RV, Stock_Title, Exchange_Rate, Operation_Type,
         Constant_Value AS Register, Constant_Value AS IVA, Constant_Value AS Comission
 
         WHERE Operation.price_rv_id = Price_RV.id AND Operation.user_id = p_user_id AND Operation.type_id = Operation_Type.id 
 		AND Operation.type_id = 1 -- Compra 
-        AND Price_RV.title_id = Stock_Exchange_Title.id AND Price_RV.exchange_rate_id = Exchange_Rate.id
+        AND Price_RV.title_id = Stock_Title.id AND Price_RV.exchange_rate_id = Exchange_Rate.id
         AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id
         LIMIT limit_number OFFSET offset_value;
 
@@ -403,11 +403,11 @@ CREATE OR REPLACE FUNCTION get_stock_titles(page_limit INTEGER, page_offset INTE
 AS $$
 BEGIN
     IF page_limit IS NULL THEN
-        RETURN QUERY SELECT * FROM Stock_Exchange_Title;
+        RETURN QUERY SELECT * FROM Stock_Title;
     ELSIF page_offset IS NULL THEN
-        RETURN QUERY SELECT * FROM Stock_Exchange_Title LIMIT page_limit;
+        RETURN QUERY SELECT * FROM Stock_Title LIMIT page_limit;
     ELSE
-        RETURN QUERY SELECT * FROM Stock_Exchange_Title LIMIT page_limit OFFSET page_offset;
+        RETURN QUERY SELECT * FROM Stock_Title LIMIT page_limit OFFSET page_offset;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
@@ -420,16 +420,16 @@ $$ LANGUAGE plpgsql;
 *******************************/
 
 -- Create a Title
-CREATE OR REPLACE FUNCTION create_stock_title(title_description TEXT, title_value VARCHAR)
+CREATE OR REPLACE FUNCTION create_stock_title(title_name TEXT, title_symbol VARCHAR)
     RETURNS TABLE(
         st_id INTEGER,
-        st_description TEXT,
-        st_value VARCHAR,
+        st_name TEXT,
+        st_symbol VARCHAR,
         st_created_at TIMESTAMP
     )
 AS $$
 BEGIN
-    RETURN QUERY INSERT INTO Stock_Exchange_Title(description, value) VALUES (title_description, title_value) 
+    RETURN QUERY INSERT INTO Stock_Title(description, value) VALUES (title_name, title_symbol) 
         RETURNING id, description, value, created_at;
 END;
 $$ LANGUAGE plpgsql;

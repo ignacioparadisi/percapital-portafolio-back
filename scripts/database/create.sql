@@ -18,10 +18,10 @@ CREATE TABLE Exchange_Rate(
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Stock_Exchange_Title(
+CREATE TABLE Stock_Title(
     id SERIAL PRIMARY KEY,
-    description TEXT NOT NULL,
-    value VARCHAR(100) NOT NULL,
+    name TEXT NOT NULL,
+    symbol VARCHAR(100) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE Price_RV(
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     close_date TIMESTAMP NOT NULL,
     close_price NUMERIC NOT NULL,
-    CONSTRAINT fk_prv_set_id FOREIGN KEY (title_id) REFERENCES Stock_Exchange_Title(id),
+    CONSTRAINT fk_prv_set_id FOREIGN KEY (title_id) REFERENCES Stock_Title(id),
     CONSTRAINT fk_prv_exr_id FOREIGN KEY (exchange_rate_id) REFERENCES Exchange_Rate(id)
 );
 

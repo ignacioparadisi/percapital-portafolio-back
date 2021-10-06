@@ -22,7 +22,7 @@ INSERT INTO Exchange_Rate(value) VALUES
     (44521.02);
 
 -- EXCHANGE RATE
-INSERT INTO Stock_Exchange_Title(description, value) VALUES 
+INSERT INTO Stock_Title(name, symbol) VALUES 
     ('B.CARIBE "A"', 'ABC.A'),
     ('RON STA.TER.', 'RST');
 

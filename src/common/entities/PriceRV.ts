@@ -1,4 +1,4 @@
-import { StockExchangeTitle } from '@Common/entities/StockExchangeTitle';
+import { StockTitle } from '@Common/entities/StockTitle';
 import { ExchangeRate } from '@Common/entities/ExchangeRate';
 import { Operation } from '@Common/entities/Operation';
 import { Entity } from '@Common/entities/Entity';
@@ -14,7 +14,7 @@ export class PriceRV extends Entity implements Decodable {
     closeDate?: Date;
     operations?: Operation[];
     exchangeRate?: ExchangeRate;
-    stockExchangeTitle?: StockExchangeTitle;
+    stockExchangeTitle?: StockTitle;
 
    constructor(entity?: PriceRV) {
         super(entity);
