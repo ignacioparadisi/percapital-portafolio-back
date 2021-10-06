@@ -3,16 +3,16 @@ import { gql } from 'apollo-server';
 export const StockTitleTypeDef = gql`
     type StockTitle {
         id: Int
-        description: String
-        value: String
+        name: String
+        symbol: String
         createdAt: String
         priceRvs(where: PriceRVInput, limit: Int): [PriceRV]
     }
 
     input StockTitleInput {
         id: Int
-        description: String
-        value: String
+        name: String
+        symbol: String
         createdAt: String
     }
 
