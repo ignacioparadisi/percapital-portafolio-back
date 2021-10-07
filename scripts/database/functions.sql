@@ -433,3 +433,17 @@ BEGIN
         RETURNING id, description, value, created_at;
 END;
 $$ LANGUAGE plpgsql;
+
+-- Create a Exchange Rate
+CREATE OR REPLACE FUNCTION create_exchange_rate(exchange_value NUMERIC)
+    RETURNS TABLE(
+        er_id INTEGER,
+        er_value NUMERIC,
+        st_created_at TIMESTAMP
+    )
+AS $$
+BEGIN
+    RETURN QUERY INSERT INTO Exchange_Rate(value) VALUES (exchange_value) 
+        RETURNING id, value, created_at;
+END;
+$$ LANGUAGE plpgsql;

@@ -23,3 +23,4 @@ DROP FUNCTION get_price_rv(INTEGER);
 DROP FUNCTION get_total_computed_value(NUMERIC, NUMERIC, NUMERIC, NUMERIC, NUMERIC, INTEGER);
 DROP FUNCTION get_stock_titles(INTEGER, INTEGER);
 DROP FUNCTION create_stock_title(TEXT, VARCHAR);
+DROP FUNCTION create_exchange_rate(NUMERIC);
