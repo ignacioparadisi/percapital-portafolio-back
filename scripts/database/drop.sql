@@ -24,3 +24,4 @@ DROP FUNCTION get_total_computed_value(NUMERIC, NUMERIC, NUMERIC, NUMERIC, NUMER
 DROP FUNCTION get_stock_titles(INTEGER, INTEGER);
 DROP FUNCTION create_stock_title(TEXT, VARCHAR);
 DROP FUNCTION create_exchange_rate(NUMERIC);
+DROP FUNCTION get_exchange_rates(NUMERIC);

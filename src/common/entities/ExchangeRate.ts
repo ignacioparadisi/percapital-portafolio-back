@@ -12,4 +12,10 @@ export class ExchangeRate extends Entity {
         this.value = entity ? entity.value : undefined;
         this.createdAt = entity ? entity.createdAt : undefined;
    }
+
+   codingKeys = {
+     id: 'er_id',
+     value: 'er_value',
+     createdAt: 'er_created_at'
+   }    
 }

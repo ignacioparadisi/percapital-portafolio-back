@@ -412,6 +412,24 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_exchange_rates(page_limit INTEGER, page_offset INTEGER)
+    RETURNS TABLE(
+        er_id INTEGER,
+        er_value NUMERIC,
+        er_created_at TIMESTAMP
+    )
+AS $$
+BEGIN
+    IF page_limit IS NULL THEN
+        RETURN QUERY SELECT * FROM Exchange_Rate;
+    ELSIF page_offset IS NULL THEN
+        RETURN QUERY SELECT * FROM Exchange_Rate LIMIT page_limit;
+    ELSE
+        RETURN QUERY SELECT * FROM Exchange_Rate LIMIT page_limit OFFSET page_offset;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
 
 /******************************
 *******************************
@@ -439,7 +457,7 @@ CREATE OR REPLACE FUNCTION create_exchange_rate(exchange_value NUMERIC)
     RETURNS TABLE(
         er_id INTEGER,
         er_value NUMERIC,
-        st_created_at TIMESTAMP
+        er_created_at TIMESTAMP
     )
 AS $$
 BEGIN
