@@ -8,7 +8,8 @@ export const ExchangeRateResolver = {
         getExchangeRates: async (parent: any, args: GraphQLQuery) => {
             console.info('getExchangeRates parent:', parent, 'args: ',args);
             const where = new ExchangeRate(args.where as ExchangeRate)
-            return ExchangeRateCommandFactory.createGetExchangeRatesCommand(where, args.limit, args.skip);
+            const command = ExchangeRateCommandFactory.createGetExchangeRatesCommand(where, args.limit, args.skip);
+            return command.execute();
         }
     },
     ExchangeRate: {
@@ -22,7 +23,8 @@ export const ExchangeRateResolver = {
         createExchangeRate: async (parent: any, args: GraphQLMutation) => {
             console.info('createExchangeRate parent: ', parent, 'args: ',args);
             const createData = new ExchangeRate(args.insertData as ExchangeRate);
-            return ExchangeRateCommandFactory.createCreateExchangeRateCommand(createData);
+            const command = ExchangeRateCommandFactory.createCreateExchangeRateCommand(createData);
+            return command.execute();
         },
         updateExchangeRate: async (parent: any, args: GraphQLMutation) => {
             console.info('updateExchangeRate parent: ', parent, 'args: ',args);
