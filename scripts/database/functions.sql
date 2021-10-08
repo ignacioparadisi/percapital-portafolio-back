@@ -465,3 +465,29 @@ BEGIN
         RETURNING id, value, created_at;
 END;
 $$ LANGUAGE plpgsql;
+
+-- Create an Operation
+CREATE OR REPLACE FUNCTION create_operation(op_price_rv_id INTEGER, op_user_id INTEGER, op_stock_amount NUMERIC, op_stock_price NUMERIC, 
+    op_type_id INTEGER, op_iva_cv_id INTEGER, op_comission_cv_id INTEGER, op_register_cv_id INTEGER, op_created_at VARCHAR)
+    RETURNS TABLE(
+        op_id INTEGER,
+        op_price_rv_id INTEGER,
+        op_user_id INTEGER,
+        op_created_at TIMESTAMP,
+        op_stock_amount NUMERIC,
+        op_stock_price NUMERIC,
+        op_type_id INTEGER
+    )
+AS $$
+BEGIN
+    IF op_created_at IS NULL THEN
+        RETURN QUERY INSERT INTO Operation(price_rv_id, user_id, stock_amount, stock_price, type_id, iva_cv_id, comission_cv_id, register_cv_id)
+            VALUES (op_price_rv_id, op_user_id, op_stock_amount, op_stock_price, op_type_id, op_iva_cv_id, op_comission_cv_id, op_register_cv_id)
+            RETURNING id, price_rv_id, user_id, created_at, stock_amount, stock_price, type_id;
+    END IF;
+
+    RETURN QUERY INSERT INTO Operation(price_rv_id, user_id, stock_amount, stock_price, type_id, iva_cv_id, comission_cv_id, register_cv_id, created_at)
+            VALUES (op_price_rv_id, op_user_id, op_stock_amount, op_stock_price, op_type_id, op_iva_cv_id, op_comission_cv_id, op_register_cv_id, op_created_at)
+            RETURNING id, price_rv_id, user_id, created_at, stock_amount, stock_price, type_id;
+END;
+$$ LANGUAGE plpgsql;

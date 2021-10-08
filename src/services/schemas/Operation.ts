@@ -50,6 +50,9 @@ export const OperationTypeDef = gql`
         stockAmount: Float
         stockPrice: Float
         typeId: Int
+        ivaCvId: Int
+        comissionCvId: Int
+        registerCvId: Int
     }
 
     type Query {

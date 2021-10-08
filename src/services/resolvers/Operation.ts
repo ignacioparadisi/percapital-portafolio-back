@@ -39,7 +39,8 @@ export const OperationResolver = {
         createOperation: async (parent: any, args: GraphQLMutation) => {
             console.info('createOperation parent: ', parent, 'args: ',args);
             const createData = new Operation(args.insertData as Operation);
-            return null;
+            const command = OperationsCommandFactory.createCreateOperationCommand(createData);
+            return command.execute();
         },
         updateOperation: async (parent: any, args: GraphQLMutation) => {
             console.info('updateOperation parent: ', parent, 'args: ',args);
