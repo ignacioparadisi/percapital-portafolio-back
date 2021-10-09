@@ -1,4 +1,4 @@
-import { StockExchangeTitle } from '@Common/entities/StockExchangeTitle';
+import { StockTitle } from '@Common/entities/StockTitle';
 import { ExchangeRate } from '@Common/entities/ExchangeRate';
 import { Operation } from '@Common/entities/Operation';
 import { PriceRV } from '@Common/entities/PriceRV';
@@ -20,12 +20,12 @@ export const PriceRVResolver = {
         },
         exchangeRate: async (parent: PriceRV, args: GraphQLQuery) => {
             console.info('exchangeRate parent: ', parent, 'args: ',args)
-            const where = new ExchangeRate(args.where);
+            const where = new ExchangeRate(args.where as ExchangeRate);
             return null;
         },
-        stockExchangeTitle: async (parent: PriceRV, args: GraphQLQuery) => {
-            console.info('stockExchangeTitle parent: ', parent, 'args: ',args)
-            const where = new StockExchangeTitle(args.where as StockExchangeTitle);
+        stockTitle: async (parent: PriceRV, args: GraphQLQuery) => {
+            console.info('stockTitle parent: ', parent, 'args: ',args)
+            const where = new StockTitle(args.where as StockTitle);
             return null;
         },
     },
