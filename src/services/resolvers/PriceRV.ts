@@ -20,7 +20,7 @@ export const PriceRVResolver = {
         },
         exchangeRate: async (parent: PriceRV, args: GraphQLQuery) => {
             console.info('exchangeRate parent: ', parent, 'args: ',args)
-            const where = new ExchangeRate(args.where);
+            const where = new ExchangeRate(args.where as ExchangeRate);
             return null;
         },
         stockTitle: async (parent: PriceRV, args: GraphQLQuery) => {
