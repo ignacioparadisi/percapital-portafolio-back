@@ -3,7 +3,7 @@ import { ConstantTypeResolver } from '@Services/resolvers/ConstantType';
 import { TypeValueResolver } from '@Services/resolvers/ConstantValue';
 import { OperationResolver } from '@Services/resolvers/Operation';
 import { OperationTypeResolver } from '@Services/resolvers/OperationType';
-import { StockExchangeTitleResolver } from '@Services/resolvers/StockExchangeTitle';
+import { StockTitleResolver } from '@Services/resolvers/StockTitle';
 import { PriceRVResolver } from '@Services/resolvers/PriceRV';
 import { ExchangeRateResolver } from '@Services/resolvers/ExchangeRate';
 import { UserResolver } from "@Services/resolvers/User";
@@ -13,7 +13,7 @@ export const resolvers = mergeResolvers([
     TypeValueResolver,
     OperationResolver,
     OperationTypeResolver,
-    StockExchangeTitleResolver,
+    StockTitleResolver,
     PriceRVResolver,
     ExchangeRateResolver,
     UserResolver

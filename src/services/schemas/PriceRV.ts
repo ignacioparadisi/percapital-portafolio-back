@@ -11,7 +11,7 @@ export const PriceRVTypeDef = gql`
         closeDate: String
         operations(where: OperationInput, limit: Int): [Operation]
         exchangeRate(where: ExchangeRateInput): ExchangeRate
-        stockExchangeTitle(where: StockExchangeTitleInput): StockExchangeTitle
+        stockTitle(where: StockTitleInput): StockTitle
     }
 
     input PriceRVInput {

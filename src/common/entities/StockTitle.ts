@@ -2,25 +2,25 @@ import { PriceRV } from '@Common/entities/PriceRV';
 import { Entity } from '@Common/entities/Entity';
 import { Decodable } from '@Common/utils/Decodable';
 
-export class StockExchangeTitle extends Entity implements Decodable {
+export class StockTitle extends Entity implements Decodable {
     id?: number;
-    description?: string;
-    value?: string;
+    name?: string;
+    symbol?: string;
     createdAt?: Date;
     priceRvs?: PriceRV[];
 
-   constructor(entity?: StockExchangeTitle) {
+   constructor(entity?: StockTitle) {
         super(entity);
         this.id = entity ? entity.id : undefined;
-        this.description = entity ? entity.description : undefined;
-        this.value = entity ? entity.value : undefined;
+        this.name = entity ? entity.name : undefined;
+        this.symbol = entity ? entity.symbol : undefined;
         this.createdAt = entity ? entity.createdAt : undefined;
    }
 
    codingKeys = {
         id: 'st_id',
-        description: 'st_description',
-        value: 'st_value',
+        name: 'st_name',
+        symbol: 'st_symbol',
         createdAt: 'st_created_at'
    }
 }

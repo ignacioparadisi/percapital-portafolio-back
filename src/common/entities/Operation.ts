@@ -18,6 +18,10 @@ export class Operation extends Entity implements Decodable {
     register?: number;
     exchangeRate?: number;
 
+    ivaCvId?: number;
+    comissionCvId?: number;
+    registerCvId?: number;
+
     // Variables for sell ops
     sellNetValue?: number;
     sellRawDollarValue?: number;
@@ -53,6 +57,10 @@ export class Operation extends Entity implements Decodable {
         this.stockPrice = entity ? entity.stockPrice : undefined;
         this.typeId = entity ? entity.typeId : undefined;
 
+        this.ivaCvId = entity ? entity.ivaCvId : undefined;
+        this.comissionCvId = entity ? entity.comissionCvId : undefined;
+        this.registerCvId = entity ? entity.registerCvId : undefined;
+
         this.value = entity ? entity.value : undefined;
         this.comission = entity ? entity.comission : undefined;
         this.iva = entity ? entity.iva : undefined;
@@ -67,7 +75,7 @@ export class Operation extends Entity implements Decodable {
          // Variables for buy ops
          this.buyTotalCost = entity ? entity.buyTotalCost : undefined;
          this.buyUnitTotalPrice = entity ? entity.buyUnitTotalPrice : undefined;
-         this. buyDollarTotalCost = entity ? entity.buyDollarTotalCost : undefined;
+         this.buyDollarTotalCost = entity ? entity.buyDollarTotalCost : undefined;
          this.buyDollarUnitTotalPrice = entity ? entity.buyDollarUnitTotalPrice : undefined;
          this.buyMarketPrice = entity ? entity.buyMarketPrice : undefined;
          this.buyVariation = entity ? entity.buyVariation : undefined;
@@ -93,6 +101,10 @@ export class Operation extends Entity implements Decodable {
         stockAmount: 'op_stock_amount',
         stockPrice: 'op_stock_price',
         typeId: 'op_type_id',
+
+        ivaCvId: 'op_iva_cv_id',
+        comissionCvId: 'op_comission_cv_id',
+        registerCvId: 'op_register_cv_id',
 
         // Common keys for buy/sell ops
         value: 'op_value',

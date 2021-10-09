@@ -3,7 +3,7 @@ import { ConstantTypeTypeDef } from "@Services/schemas/ConstantType";
 import { TypeValueTypeDef } from "@Services/schemas/TypeValue";
 import { OperationTypeDef } from "@Services/schemas/Operation";
 import { OperationTypeTypeDef } from "@Services/schemas/OperationType";
-import { StockExchangeTitleTypeDef } from "@Services/schemas/StockExchangeTitle";
+import { StockTitleTypeDef } from "@Services/schemas/StockTitle";
 import { PriceRVTypeDef } from "@Services/schemas/PriceRV";
 import { ExchangeRateTypeDef } from "@Services/schemas/ExchangeRate";
 import { UserTypeDef } from "@Services/schemas/User";
@@ -16,7 +16,7 @@ export const typeDefs = mergeTypeDefs([
     TypeValueTypeDef,
     OperationTypeDef,
     OperationTypeTypeDef,
-    StockExchangeTitleTypeDef,
+    StockTitleTypeDef,
     PriceRVTypeDef,
     ExchangeRateTypeDef,
     UserTypeDef,

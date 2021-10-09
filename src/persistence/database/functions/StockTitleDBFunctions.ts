@@ -1,4 +1,4 @@
-export class StockExchangeTitleDBFunctions {
+export class StockTitleDBFunctions {
     static createTitle(description: string, value: string): string {
         return `SELECT * FROM create_stock_title('${description}', '${value}')`;
     }

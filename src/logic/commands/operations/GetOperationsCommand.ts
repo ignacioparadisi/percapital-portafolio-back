@@ -1,5 +1,5 @@
 import { Operation } from "@Common/entities/Operation";
-import { OpertaionsDAO } from "@Persistence/dao/operations/OperationsDAO";
+import { OperationsDAO } from "@Persistence/dao/operations/OperationsDAO";
 import { Command } from "../Command";
 
 export class GetOperationsCommand extends Command<Operation, Operation[]> {
@@ -14,6 +14,6 @@ export class GetOperationsCommand extends Command<Operation, Operation[]> {
     }
 
     execute() {
-        return new OpertaionsDAO().get(this.params, this.limit, this.offset);
+        return new OperationsDAO().get(this.params, this.limit, this.offset);
     }
 }
