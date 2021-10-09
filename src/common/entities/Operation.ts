@@ -75,7 +75,7 @@ export class Operation extends Entity implements Decodable {
          // Variables for buy ops
          this.buyTotalCost = entity ? entity.buyTotalCost : undefined;
          this.buyUnitTotalPrice = entity ? entity.buyUnitTotalPrice : undefined;
-         this. buyDollarTotalCost = entity ? entity.buyDollarTotalCost : undefined;
+         this.buyDollarTotalCost = entity ? entity.buyDollarTotalCost : undefined;
          this.buyDollarUnitTotalPrice = entity ? entity.buyDollarUnitTotalPrice : undefined;
          this.buyMarketPrice = entity ? entity.buyMarketPrice : undefined;
          this.buyVariation = entity ? entity.buyVariation : undefined;

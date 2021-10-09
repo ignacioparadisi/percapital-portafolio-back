@@ -467,27 +467,29 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Create an Operation
-CREATE OR REPLACE FUNCTION create_operation(op_price_rv_id INTEGER, op_user_id INTEGER, op_stock_amount NUMERIC, op_stock_price NUMERIC, 
-    op_type_id INTEGER, op_iva_cv_id INTEGER, op_comission_cv_id INTEGER, op_register_cv_id INTEGER, op_created_at VARCHAR)
+CREATE OR REPLACE FUNCTION create_operation(ope_price_rv_id INTEGER, ope_user_id INTEGER, ope_stock_amount NUMERIC, ope_stock_price NUMERIC, 
+    ope_type_id INTEGER, ope_iva_cv_id INTEGER, ope_comission_cv_id INTEGER, ope_register_cv_id INTEGER, ope_created_at TIMESTAMP)
     RETURNS TABLE(
         op_id INTEGER,
-        op_price_rv_id INTEGER,
-        op_user_id INTEGER,
+        op_price_rv_id BIGINT,
+        op_user_id BIGINT,
         op_created_at TIMESTAMP,
         op_stock_amount NUMERIC,
         op_stock_price NUMERIC,
-        op_type_id INTEGER
+        op_type_id BIGINT
     )
 AS $$
 BEGIN
-    IF op_created_at IS NULL THEN
+    IF ope_created_at IS NULL THEN
         RETURN QUERY INSERT INTO Operation(price_rv_id, user_id, stock_amount, stock_price, type_id, iva_cv_id, comission_cv_id, register_cv_id)
-            VALUES (op_price_rv_id, op_user_id, op_stock_amount, op_stock_price, op_type_id, op_iva_cv_id, op_comission_cv_id, op_register_cv_id)
+            VALUES (ope_price_rv_id, ope_user_id, ope_stock_amount, ope_stock_price, ope_type_id, ope_iva_cv_id, ope_comission_cv_id, ope_register_cv_id)
             RETURNING id, price_rv_id, user_id, created_at, stock_amount, stock_price, type_id;
-    END IF;
+    ELSE
 
     RETURN QUERY INSERT INTO Operation(price_rv_id, user_id, stock_amount, stock_price, type_id, iva_cv_id, comission_cv_id, register_cv_id, created_at)
-            VALUES (op_price_rv_id, op_user_id, op_stock_amount, op_stock_price, op_type_id, op_iva_cv_id, op_comission_cv_id, op_register_cv_id, op_created_at)
+            VALUES (ope_price_rv_id, ope_user_id, ope_stock_amount, ope_stock_price, ope_type_id, ope_iva_cv_id, ope_comission_cv_id, ope_register_cv_id, ope_created_at)
             RETURNING id, price_rv_id, user_id, created_at, stock_amount, stock_price, type_id;
+    
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
