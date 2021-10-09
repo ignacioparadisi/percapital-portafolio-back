@@ -21,7 +21,10 @@ export const ExchangeRateTypeDef = gql`
     
     type Mutation {
         createExchangeRate(insertData: ExchangeRateInput!): ExchangeRate
+            @auth(requires: USER)
         updateExchangeRate(where: ExchangeRateInput!, updateData: ExchangeRateInput!): [ExchangeRate]
+            @auth(requires: USER)
         deleteExchangeRate(deleteData: ExchangeRateInput): Int
+            @auth(requires: USER)
     }
 `

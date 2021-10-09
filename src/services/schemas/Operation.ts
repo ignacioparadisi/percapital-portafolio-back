@@ -56,12 +56,16 @@ export const OperationTypeDef = gql`
     }
 
     type Query {
-        getOperations(where: OperationInput, skip: Int, limit: Int): [Operation]
+        getOperations(where: OperationInput, skip: Int, limit: Int): [Operation] 
+            @auth(requires: USER)
     }
 
     type Mutation {
         createOperation(insertData: OperationInput!): Operation
+            @auth(requires: USER)
         updateOperation(where: OperationInput!, updateData: OperationInput!): [Operation]
+            @auth(requires: USER)
         deleteOperation(deleteData: OperationInput): Int
+            @auth(requires: USER)
     }
 `

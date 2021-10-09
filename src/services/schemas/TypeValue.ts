@@ -22,7 +22,10 @@ export const TypeValueTypeDef = gql`
 
     type Mutation {
         createTypeValue(insertData: TypeValueInput!): TypeValue
+            @auth(requires: USER)
         updateTypeValue(where: TypeValueInput!, updateData: TypeValueInput!): [TypeValue]
+            @auth(requires: USER)
         deleteTypeValue(deleteData: TypeValueInput): Int
+            @auth(requires: USER)
     }
 `
