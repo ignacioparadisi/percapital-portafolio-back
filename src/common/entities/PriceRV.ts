@@ -14,7 +14,7 @@ export class PriceRV extends Entity implements Decodable {
     closeDate?: Date;
     operations?: Operation[];
     exchangeRate?: ExchangeRate;
-    stockExchangeTitle?: StockTitle;
+    stockTitle?: StockTitle;
 
    constructor(entity?: PriceRV) {
         super(entity);
