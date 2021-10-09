@@ -25,11 +25,15 @@ export const PriceRVTypeDef = gql`
 
     type Query {
         getPriceRVs(where: PriceRVInput, skip: Int, limit: Int): [PriceRV]
+            @auth(requires: USER)
     }
 
     type Mutation {
         createPriceRV(insertData: PriceRVInput!): PriceRV
+            @auth(requires: USER)
         updatePriceRV(where: PriceRVInput!, updateData: PriceRVInput!): [PriceRV]
+            @auth(requires: USER)
         deletePriceRV(deleteData: PriceRVInput): Int
+            @auth(requires: USER)
     }
 `

@@ -50,15 +50,22 @@ export const OperationTypeDef = gql`
         stockAmount: Float
         stockPrice: Float
         typeId: Int
+        ivaCvId: Int
+        comissionCvId: Int
+        registerCvId: Int
     }
 
     type Query {
-        getOperations(where: OperationInput, skip: Int, limit: Int): [Operation]
+        getOperations(where: OperationInput, skip: Int, limit: Int): [Operation] 
+            @auth(requires: USER)
     }
 
     type Mutation {
         createOperation(insertData: OperationInput!): Operation
+            @auth(requires: USER)
         updateOperation(where: OperationInput!, updateData: OperationInput!): [Operation]
+            @auth(requires: USER)
         deleteOperation(deleteData: OperationInput): Int
+            @auth(requires: USER)
     }
 `

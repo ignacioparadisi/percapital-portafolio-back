@@ -23,7 +23,10 @@ export const StockTitleTypeDef = gql`
 
     type Mutation {
         createStockTitle(insertData: StockTitleInput!): StockTitle
+            @auth(requires: USER)
         updateStockTitle(where: StockTitleInput!, updateData: StockTitleInput!): [StockTitle]
+            @auth(requires: USER)
         deleteStockTitle(deleteData: StockTitleInput): Int
+            @auth(requires: USER)
     }
 `

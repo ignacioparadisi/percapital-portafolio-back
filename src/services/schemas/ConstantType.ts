@@ -15,11 +15,14 @@ export const ConstantTypeTypeDef = gql`
     }
 
     type Query {
-        getConstantTypes(where: ConstantTypeInput, skip: Int, limit: Int): [ConstantType]
+        getConstantTypes(where: ConstantTypeInput, skip: Int, limit: Int): [ConstantType] 
+            @auth(requires: USER)
     }
 
     type Mutation {
         updateConstantType(where: ConstantTypeInput!, updateData: ConstantTypeInput!): [ConstantType]
+            @auth(requires: USER)
         deleteConstantType(deleteData: ConstantTypeInput): Int
+            @auth(requires: USER)
     }
 `

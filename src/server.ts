@@ -10,24 +10,6 @@ import { authDirectiveTransformer } from '@Services/directives/AuthDirective';
 
 config({ path: `${process.cwd()}/.env` });
 
-// @ts-ignore
-const context = async ({ req }) => {
-    if (!req.body.query.includes('login')) {
-        const userId = req.headers.authorization;
-        if (!userId) {
-            throw new Error('Permission Denied');
-        }
-        const headerUser = new User();
-        headerUser.id = Number(userId);
-        const command =  UserCommandFactory.createGetUsersCommand(headerUser);
-        const users = await command.execute();
-        if (users.length == 1) {
-            return { user: users[0] };
-        }
-        throw new Error('Permission Denied');
-    }
-}
-
 let schema = makeExecutableSchema({
     typeDefs,
     resolvers
