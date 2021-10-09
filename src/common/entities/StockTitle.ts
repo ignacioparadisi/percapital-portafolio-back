@@ -19,8 +19,8 @@ export class StockTitle extends Entity implements Decodable {
 
    codingKeys = {
         id: 'st_id',
-        description: 'st_name',
-        value: 'st_symbol',
+        name: 'st_name',
+        symbol: 'st_symbol',
         createdAt: 'st_created_at'
    }
 }
