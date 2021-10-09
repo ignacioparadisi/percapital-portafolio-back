@@ -7,7 +7,7 @@ import { OperationsDBFunctions } from "@Persistence/database/functions/Operation
 import { IOperationsDAO } from "./IOperationsDAO";
 
 export class OperationsDAO implements IOperationsDAO {
-    create(entity: Operation): Promise<Operation> {
+    async create(entity: Operation): Promise<Operation> {
         if (!entity.priceRvId) {
             throw new RequiredFieldError('priceRvId');
         }
