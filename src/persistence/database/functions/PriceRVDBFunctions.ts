@@ -1,4 +1,9 @@
 export class PriceRVDBFunctions {
+
+    static getPriceRVs(limit?: number, offset?: number): string {
+        return `SELECT * FROM get_price_rvs(${limit ? limit : null}, ${offset ? offset : null})`;
+    }
+
     static getPriceRV(id: number): string {
         return `SELECT * FROM get_price_rv(${id})`;
     }

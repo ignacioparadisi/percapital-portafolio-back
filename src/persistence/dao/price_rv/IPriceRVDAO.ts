@@ -14,4 +14,10 @@ export interface IPriceRVDAO extends IDAO<PriceRV> {
         limit?: number,
         skip?: number
     ): Promise<PriceRV[]>;
+
+    getById(
+        where?: PriceRV,
+        limit?: number,
+        skip?: number
+    ): Promise<PriceRV[]>;
 }

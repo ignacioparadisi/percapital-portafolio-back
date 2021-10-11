@@ -3,6 +3,7 @@ import { CreatePriceRVCommand } from "./CreatePriceRVCommand";
 import { GetPriceRVByExchangeRateCommand } from "./GetPriceRVByExchangeRateCommand";
 import { GetPriceRVByTitleCommand } from "./GetPriceRVByTitleCommand";
 import { GetPriceRVCommand } from "./GetPriceRVCommand";
+import { GetPriceRVsCommand } from "./GetPriceRVsCommand";
 
 export class PriceRVCommandFactory {
     static createGetPriceRVCommand(where: PriceRV) {
@@ -19,5 +20,9 @@ export class PriceRVCommandFactory {
 
     static createCreatePriceRVCommand(insertData: PriceRV) {
         return new CreatePriceRVCommand(insertData);
+    }
+
+    static createGetPriceRVsCommand(where: PriceRV, limit?: number, skip?: number) {
+        return new GetPriceRVsCommand(where, limit, skip);
     }
 }

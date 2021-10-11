@@ -9,8 +9,9 @@ export const PriceRVResolver = {
     Query: {
         getPriceRVs: async (parent: any, args: GraphQLQuery) => {
             console.info('getPriceRvs parent:', parent, 'args: ',args);
-            const where = new PriceRV(args.where as PriceRV)
-            return null;
+            const where = new PriceRV(args.where as PriceRV);
+            const command = PriceRVCommandFactory.createGetPriceRVsCommand(where, args.limit, args.skip);
+            return command.execute();
         }
     },
     PriceRV: {

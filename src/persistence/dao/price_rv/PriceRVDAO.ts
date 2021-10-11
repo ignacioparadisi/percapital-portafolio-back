@@ -6,7 +6,7 @@ import { PriceRVDBFunctions } from "@Persistence/database/functions/PriceRVDBFun
 import { IPriceRVDAO } from "./IPriceRVDAO";
 
 export class PriceRVDAO implements IPriceRVDAO {
-
+    
     async create(entity: PriceRV): Promise<PriceRV> {
         if (!entity.titleId) {
             throw new RequiredFieldError('titleId');
@@ -34,6 +34,12 @@ export class PriceRVDAO implements IPriceRVDAO {
     }
 
     async get(where?: PriceRV, limit?: number, skip?: number ): Promise<PriceRV[]> {
+        let query = PriceRVDBFunctions.getPriceRVs(limit, skip);
+        let result = await Database.shared.execute(query, PriceRV);
+        return result;
+    }
+
+    async getById(where?: PriceRV, limit?: number, skip?: number): Promise<PriceRV[]> {
         if (!where?.id) {
             throw new RequiredFieldError('id');
         }

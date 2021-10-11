@@ -5,6 +5,6 @@ import { Command } from "../Command";
 export class GetPriceRVCommand extends Command<PriceRV, PriceRV> {
 
     execute() {
-        return new PriceRVDAO().get(this.params);
+        return new PriceRVDAO().getById(this.params);
     }
 }
