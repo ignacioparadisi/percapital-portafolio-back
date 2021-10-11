@@ -61,22 +61,6 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
--- Get the lastest exchange rate.
-CREATE OR REPLACE FUNCTION get_latest_exchange_rate()
-    RETURNS NUMERIC
-AS
-$$
-DECLARE
-    exchange_id NUMERIC;
-    return_value NUMERIC;
-BEGIN
-    SELECT exchange_rate.id, exchange_rate.value INTO exchange_id, return_value
-    FROM Exchange_Rate ORDER BY Exchange_Rate.id DESC LIMIT 1;
-
-    RETURN return_value;
-END; 
-$$ LANGUAGE plpgsql;
-
 -- Get all sell operations made over history.
 -- params:
 ---- `p_user_id`: ID of the user.

@@ -32,6 +32,15 @@ export class StockTitleDAO extends DAO<StockTitle> implements IStockTitleDAO {
         return result;
     }
 
+    async getById(where: StockTitle): Promise<StockTitle[]> {
+        if (!where.id) {
+            throw new RequiredFieldError('id');
+        }
+        let query = StockTitleDBFunctions.getTitleById(where.id);
+        let result = await Database.shared.execute(query, StockTitle);
+        return result;
+    }
+
     async update(where: StockTitle, entity: StockTitle): Promise<StockTitle> {
         throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }

@@ -5,3 +5,4 @@ psql percapital -U percapital -f insert.sql
 psql percapital -U percapital -f common_functions.sql
 psql percapital -U percapital -f operation_functions.sql
 psql percapital -U percapital -f price_rv_functions.sql
+psql percapital -U percapital -f stock_title_functions.sql

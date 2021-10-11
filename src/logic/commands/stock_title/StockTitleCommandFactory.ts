@@ -1,5 +1,6 @@
 import { StockTitle } from "@Common/entities/StockTitle";
 import { CreateStockTitleCommand } from "./CreateStockTitleCommand";
+import { GetStockTitleByIdCommand } from "./GetStockTitleByIdCommand";
 import { GetStockTitlesCommand } from "./GetStockTitlesCommand";
 
 export class StockTitleCommandFactory {
@@ -8,5 +9,9 @@ export class StockTitleCommandFactory {
     }
     static createCreateStockTitleCommand(insertData: StockTitle) {
         return new CreateStockTitleCommand(insertData);
+    }
+
+    static createGetStockTitleByIdCommand(where: StockTitle) {
+        return new GetStockTitleByIdCommand(where);
     }
 }

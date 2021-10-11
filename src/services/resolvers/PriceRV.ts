@@ -4,6 +4,8 @@ import { Operation } from '@Common/entities/Operation';
 import { PriceRV } from '@Common/entities/PriceRV';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
+import { ExchangeRateCommandFactory } from '@Logic/commands/exchange_rate/ExchangeRateCommandFactory';
+import { StockTitleCommandFactory } from '@Logic/commands/stock_title/StockTitleCommandFactory';
 
 export const PriceRVResolver = {
     Query: {
@@ -22,12 +24,24 @@ export const PriceRVResolver = {
         },
         exchangeRate: async (parent: PriceRV, args: GraphQLQuery) => {
             console.info('exchangeRate parent: ', parent, 'args: ',args)
-            const where = new ExchangeRate(args.where as ExchangeRate);
+            const where = new ExchangeRate();
+            where.id = parent.exchangeRateId;
+            const command = ExchangeRateCommandFactory.createGetExchangeRateByIdCommand(where);
+            let result = await command.execute();
+            if (result.length > 0) {
+                return result[0];
+            }
             return null;
         },
         stockTitle: async (parent: PriceRV, args: GraphQLQuery) => {
             console.info('stockTitle parent: ', parent, 'args: ',args)
-            const where = new StockTitle(args.where as StockTitle);
+            const where = new StockTitle();
+            where.id = parent.titleId;
+            const command = StockTitleCommandFactory.createGetStockTitleByIdCommand(where);
+            let result = await command.execute();
+            if (result.length > 0) {
+                return result[0];
+            }
             return null;
         },
     },
