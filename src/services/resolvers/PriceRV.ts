@@ -3,6 +3,7 @@ import { ExchangeRate } from '@Common/entities/ExchangeRate';
 import { Operation } from '@Common/entities/Operation';
 import { PriceRV } from '@Common/entities/PriceRV';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
+import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 
 export const PriceRVResolver = {
     Query: {
@@ -33,7 +34,8 @@ export const PriceRVResolver = {
         createPriceRV: async (parent: any, args: GraphQLMutation) => {
             console.info('createPriceRv parent: ', parent, 'args: ',args);
             const createData = new PriceRV(args.insertData as PriceRV);
-            return null;
+            const command = PriceRVCommandFactory.createCreatePriceRVCommand(createData);
+            return command.execute();
         },
         updatePriceRV: async (parent: any, args: GraphQLMutation) => {
             console.info('updatePriceRv parent: ', parent, 'args: ',args);

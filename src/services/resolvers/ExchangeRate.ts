@@ -18,7 +18,7 @@ export const ExchangeRateResolver = {
             console.info('priceRvs parent: ', parent, 'args: ',args)
             const where = new PriceRV();
             where.exchangeRateId = parent.id;
-            const command = PriceRVCommandFactory.createGetPriceRVCommandByExchangeRate(where);
+            const command = PriceRVCommandFactory.createGetPriceRVCommandByExchangeRateCommand(where);
             let result = await command.execute();
             if (result.length > 0) {
                 return result;

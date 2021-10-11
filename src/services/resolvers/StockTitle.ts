@@ -18,7 +18,7 @@ export const StockTitleResolver = {
             console.info('priceRvs parent: ', parent, 'args: ',args)
             const where = new PriceRV();
             where.titleId = parent.id;
-            const command = PriceRVCommandFactory.createGetPriceRVByTitle(where);
+            const command = PriceRVCommandFactory.createGetPriceRVByTitleCommand(where);
             let result = await command.execute();
             if (result.length > 0) {
                 return result;
