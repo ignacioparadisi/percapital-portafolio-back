@@ -251,6 +251,17 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_operation_type(opt_id INTEGER) 
+    RETURNS TABLE(
+        ot_id INTEGER,
+        ot_name VARCHAR
+    )
+AS $$
+BEGIN 
+    RETURN QUERY SELECT id, name FROM Operation_Type WHERE id = opt_id;
+END;
+$$ LANGUAGE plpgsql;
+
 /******************************
 *******************************
             INSERTS
