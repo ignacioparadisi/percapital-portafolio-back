@@ -3,3 +3,4 @@ psql percapital -U percapital -f drop.sql
 psql percapital -U percapital -f create.sql
 psql percapital -U percapital -f insert.sql
 psql percapital -U percapital -f functions.sql
+psql percapital -U percapital -f operation_functions.sql
