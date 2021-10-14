@@ -9,6 +9,6 @@ export class OperationsDBFunctions {
 
     public static createOperation(priceRvId: number, userId: number, stockAmount: number, stockPrice: number, typeId: number, 
         ivaCvId: number, comissionCvId: number, registerCvId: number, createdAt?: Date): string {
-        return `SELECT * FROM create_operation(${priceRvId}, ${userId}, ${stockAmount}, ${stockPrice}, ${typeId}, ${ivaCvId}, ${comissionCvId}, ${registerCvId}, ${createdAt ? createdAt : null})`
+        return `SELECT * FROM create_operation(${priceRvId}, ${userId}, ${stockAmount}, ${stockPrice}, ${typeId}, ${ivaCvId}, ${comissionCvId}, ${registerCvId}, ${createdAt ? `'${createdAt}'` : null})`
     }
 }

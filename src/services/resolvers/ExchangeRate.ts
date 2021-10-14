@@ -2,6 +2,7 @@ import { PriceRV } from '@Common/entities/PriceRV';
 import { ExchangeRate } from '@Common/entities/ExchangeRate';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { ExchangeRateCommandFactory } from '@Logic/commands/exchange_rate/ExchangeRateCommandFactory';
+import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 
 export const ExchangeRateResolver = {
     Query: {
@@ -15,7 +16,13 @@ export const ExchangeRateResolver = {
     ExchangeRate: {
         priceRvs: async (parent: ExchangeRate, args: GraphQLQuery) => {
             console.info('priceRvs parent: ', parent, 'args: ',args)
-            const where = new PriceRV(args.where as PriceRV);
+            const where = new PriceRV();
+            where.exchangeRateId = parent.id;
+            const command = PriceRVCommandFactory.createGetPriceRVCommandByExchangeRateCommand(where);
+            let result = await command.execute();
+            if (result.length > 0) {
+                return result;
+            }
             return null;
         },
     },
