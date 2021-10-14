@@ -1,5 +1,6 @@
 import { ExchangeRate } from "@Common/entities/ExchangeRate";
 import { CreateExchangeRateCommand } from "./CreateExchangeRateCommand";
+import { GetExchangeRateByIdCommand } from "./GetExchangeRateByIdCommand";
 import { GetExchangeRatesCommand } from "./GetExchangeRatesCommand";
 
 export class ExchangeRateCommandFactory {
@@ -8,5 +9,9 @@ export class ExchangeRateCommandFactory {
     }
     static createCreateExchangeRateCommand(insertData: ExchangeRate) {
         return new CreateExchangeRateCommand(insertData);
+    }
+
+    static createGetExchangeRateByIdCommand(where: ExchangeRate) {
+        return new GetExchangeRateByIdCommand(where);
     }
 }

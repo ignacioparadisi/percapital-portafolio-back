@@ -14,4 +14,9 @@ export class OperationType extends Entity {
         this.id = entity ? entity.id : undefined;
         this.name = entity ? entity.name : undefined;
    }
+
+   codingKeys = {
+     id: 'ot_id',
+     name: 'ot_name'
+   }  
 }

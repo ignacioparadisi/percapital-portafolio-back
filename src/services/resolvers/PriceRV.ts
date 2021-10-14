@@ -3,13 +3,17 @@ import { ExchangeRate } from '@Common/entities/ExchangeRate';
 import { Operation } from '@Common/entities/Operation';
 import { PriceRV } from '@Common/entities/PriceRV';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
+import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
+import { ExchangeRateCommandFactory } from '@Logic/commands/exchange_rate/ExchangeRateCommandFactory';
+import { StockTitleCommandFactory } from '@Logic/commands/stock_title/StockTitleCommandFactory';
 
 export const PriceRVResolver = {
     Query: {
         getPriceRVs: async (parent: any, args: GraphQLQuery) => {
             console.info('getPriceRvs parent:', parent, 'args: ',args);
-            const where = new PriceRV(args.where as PriceRV)
-            return null;
+            const where = new PriceRV(args.where as PriceRV);
+            const command = PriceRVCommandFactory.createGetPriceRVsCommand(where, args.limit, args.skip);
+            return command.execute();
         }
     },
     PriceRV: {
@@ -20,12 +24,24 @@ export const PriceRVResolver = {
         },
         exchangeRate: async (parent: PriceRV, args: GraphQLQuery) => {
             console.info('exchangeRate parent: ', parent, 'args: ',args)
-            const where = new ExchangeRate(args.where as ExchangeRate);
+            const where = new ExchangeRate();
+            where.id = parent.exchangeRateId;
+            const command = ExchangeRateCommandFactory.createGetExchangeRateByIdCommand(where);
+            let result = await command.execute();
+            if (result.length > 0) {
+                return result[0];
+            }
             return null;
         },
         stockTitle: async (parent: PriceRV, args: GraphQLQuery) => {
             console.info('stockTitle parent: ', parent, 'args: ',args)
-            const where = new StockTitle(args.where as StockTitle);
+            const where = new StockTitle();
+            where.id = parent.titleId;
+            const command = StockTitleCommandFactory.createGetStockTitleByIdCommand(where);
+            let result = await command.execute();
+            if (result.length > 0) {
+                return result[0];
+            }
             return null;
         },
     },
@@ -33,7 +49,8 @@ export const PriceRVResolver = {
         createPriceRV: async (parent: any, args: GraphQLMutation) => {
             console.info('createPriceRv parent: ', parent, 'args: ',args);
             const createData = new PriceRV(args.insertData as PriceRV);
-            return null;
+            const command = PriceRVCommandFactory.createCreatePriceRVCommand(createData);
+            return command.execute();
         },
         updatePriceRV: async (parent: any, args: GraphQLMutation) => {
             console.info('updatePriceRv parent: ', parent, 'args: ',args);

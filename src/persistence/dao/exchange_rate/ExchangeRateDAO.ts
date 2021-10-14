@@ -29,6 +29,15 @@ export class ExchangeRateDAO extends DAO<ExchangeRate> implements IExchangeRateD
         return result;
     }
 
+    async getById(where: ExchangeRate): Promise<ExchangeRate[]> {
+        if (!where.id) {
+            throw new RequiredFieldError('id');
+        }
+        let query = ExchangeRateDBFunctions.getExchangeRateById(where.id);
+        let result = await Database.shared.execute(query, ExchangeRate);
+        return result;
+    }
+
     async update(where: ExchangeRate, entity: ExchangeRate): Promise<ExchangeRate> {
         throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }
