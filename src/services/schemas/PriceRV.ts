@@ -24,8 +24,13 @@ export const PriceRVTypeDef = gql`
         closeDate: String
     }
 
+    type PriceRVPage {
+        data: [PriceRV]
+        total: Int
+    }
+
     type Query {
-        getPriceRVs(where: PriceRVInput, skip: Int, limit: Int): [PriceRV]
+        getPriceRVs(where: PriceRVInput, skip: Int, limit: Int): PriceRVPage
             @auth(requires: USER)
     }
 

@@ -3,8 +3,9 @@ import { ExchangeRate } from '@Common/entities/ExchangeRate';
 import { Operation } from '@Common/entities/Operation';
 import { Entity } from '@Common/entities/Entity';
 import { Decodable } from '@Common/utils/Decodable';
+import { Pageable } from '@Common/utils/Page';
 
-export class PriceRV extends Entity implements Decodable {
+export class PriceRV extends Entity implements Decodable, Pageable {
     id?: number;
     titleId?: number;
     exchangeRateId?: number;
@@ -15,6 +16,7 @@ export class PriceRV extends Entity implements Decodable {
     operations?: Operation[];
     exchangeRate?: ExchangeRate;
     stockTitle?: StockTitle;
+    total?: number;
 
    constructor(entity?: PriceRV) {
         super(entity);
@@ -34,6 +36,7 @@ export class PriceRV extends Entity implements Decodable {
         bolivaresPrice: 'pr_bolivares_price',
         closePrice: 'pr_close_price',
         createdAt: 'pr_created_at',
-        closeDate: 'pr_close_date'
+        closeDate: 'pr_close_date',
+        total: 'pr_count'
    }
 }

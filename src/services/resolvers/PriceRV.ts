@@ -6,6 +6,7 @@ import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 import { ExchangeRateCommandFactory } from '@Logic/commands/exchange_rate/ExchangeRateCommandFactory';
 import { StockTitleCommandFactory } from '@Logic/commands/stock_title/StockTitleCommandFactory';
+import { Page } from '@Common/utils/Page';
 
 export const PriceRVResolver = {
     Query: {
@@ -13,7 +14,9 @@ export const PriceRVResolver = {
             console.info('getPriceRvs parent:', parent, 'args: ',args);
             const where = new PriceRV(args.where as PriceRV);
             const command = PriceRVCommandFactory.createGetPriceRVsCommand(where, args.limit, args.skip);
-            return command.execute();
+            const result = await command.execute();
+            let page = Page.decode(result);
+            return page;
         }
     },
     PriceRV: {
