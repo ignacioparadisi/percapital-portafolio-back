@@ -1,6 +1,7 @@
 import { PriceRV } from '@Common/entities/PriceRV';
 import { StockTitle } from '@Common/entities/StockTitle';
 import { Page } from '@Common/utils/Page';
+import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 import { StockTitleCommandFactory } from '@Logic/commands/stock_title/StockTitleCommandFactory';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
@@ -23,7 +24,13 @@ export const StockTitleResolver = {
     StockTitle: {
         priceRvs: async (parent: StockTitle, args: GraphQLQuery) => {
             console.info('priceRvs parent: ', parent, 'args: ',args)
-            const where = new PriceRV(args.where as PriceRV);
+            const where = new PriceRV();
+            where.titleId = parent.id;
+            const command = PriceRVCommandFactory.createGetPriceRVByTitleCommand(where);
+            let result = await command.execute();
+            if (result.length > 0) {
+                return result;
+            }
             return null;
         },
     },

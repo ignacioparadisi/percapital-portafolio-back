@@ -3,8 +3,8 @@ import {gql} from 'apollo-server';
 export const PriceRVTypeDef = gql`
     type PriceRV {
         id: Int
-        setId: Int
-        exrId: Int
+        titleId: Int
+        exchangeRateId: Int
         bolivaresPrice: Float
         closePrice: Float
         createdAt: String
@@ -16,9 +16,10 @@ export const PriceRVTypeDef = gql`
 
     input PriceRVInput {
         id: Int
-        setId: Int
-        exrId: Int
+        titleId: Int
+        exchangeRateId: Int
         bolivaresPrice: Float
+        closePrice: Float
         createdAt: String
         closeDate: String
     }

@@ -1,125 +1,3 @@
-
--- Login
--- params:
----- `user_email`: Email of the user
----- `user_password`: Encrypted password of the user
-CREATE OR REPLACE FUNCTION login(user_email VARCHAR, user_password VARCHAR)
-    RETURNS TABLE (
-        usr_id INTEGER,
-        usr_name VARCHAR,
-        usr_email VARCHAR,
-        usr_role_id BIGINT
-    )
-AS $$
-BEGIN
-    RETURN QUERY SELECT id, name, email, role_id FROM Percapital_User WHERE email = user_email AND password = user_password;
-END;
-$$ LANGUAGE plpgsql;
-
---- Get list of users or a user by id
-CREATE OR REPLACE FUNCTION get_users(user_id INTEGER)
-    RETURNS TABLE (
-        usr_id INTEGER,
-        usr_name VARCHAR,
-        usr_email VARCHAR,
-        usr_role_id BIGINT,
-        usr_created_at TIMESTAMP
-    )
-AS $$
-BEGIN
-    IF user_id IS NULL THEN
-        RETURN QUERY SELECT id, name, email, role_id, created_at FROM Percapital_User;
-    ELSE
-        RETURN QUERY SELECT id, name, email, role_id, created_at FROM Percapital_User WHERE id = user_id;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
--- Gets all the roles if the `role_id` is NULL and a single role if an id is passed.
--- params:
----- `role_id`: Optional id of the role.
-CREATE OR REPLACE FUNCTION get_roles(role_id INTEGER)
-    RETURNS TABLE (
-        rol_id INTEGER,
-        rol_name VARCHAR
-    )
-AS $$
-BEGIN
-    IF role_id IS NULL THEN
-        RETURN QUERY SELECT id, name FROM Percapital_Role;
-    ELSE
-        RETURN QUERY SELECT id, name FROM Percapital_Role WHERE id = role_id;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
--- Gets a list with all constants or a constant type by id
--- params: 
----- `c_type_id`: ID of the constant type. If the ID is NULL, then it returns all the constant types.
-CREATE OR REPLACE function get_constant_types(c_type_id INTEGER) 
-    RETURNS TABLE ( 
-        ct_id INTEGER,
-        ct_name VARCHAR,
-        ct_created_at TIMESTAMP,
-        cv_id INTEGER,
-        cv_value NUMERIC,
-        cv_created_at TIMESTAMP
-    )
-AS
-$$ 
-BEGIN
-    IF c_type_id IS NULL THEN
-        RETURN query
-            SELECT constant_type.id, constant_type.name, constant_type.created_at, 
-	        constant_value.id, constant_value.value, constant_value.created_at FROM constant_type, constant_value 
-	        WHERE constant_type.id = constant_value.constant_type_id ORDER BY constant_type.id;
-    END IF;
-
-    RETURN query
-            SELECT constant_type.id, constant_type.name, constant_type.created_at, 
-	        constant_value.id, constant_value.value, constant_value.created_at FROM constant_type, constant_value 
-	        WHERE constant_type.id = c_type_id AND constant_type.id = constant_value.constant_type_id ORDER BY constant_type.id;
-
-END; 
-$$ LANGUAGE plpgsql;
-
--- Gets all the values a constant has had over time.
--- params:
----- `c_type_id`: ID of the constant type.
-CREATE OR REPLACE FUNCTION get_constant_values(c_type_id INTEGER) 
-    RETURNS TABLE (
-        cv_id INTEGER,
-        cv_value NUMERIC,
-        cv_created_at TIMESTAMP
-    )
-AS
-$$ 
-BEGIN
-    RETURN QUERY
-            SELECT id, value, created_at FROM constant_value 
-	        WHERE id = c_type_id;
-
-END; 
-$$ LANGUAGE plpgsql;
-
--- Gets the last value a constant has had.
--- params:
----- `c_type_id`: ID of the constant type.
-CREATE OR REPLACE FUNCTION get_last_value_constant(c_type_id INTEGER)
-    RETURNS NUMERIC
-AS
-$$
-DECLARE
-	cv_id INTEGER;
-    cv_value NUMERIC; 
-BEGIN
-    SELECT constant_value.id, constant_value.value INTO cv_id, cv_value 
-    FROM constant_value WHERE constant_value.constant_type_id = c_type_id
-    ORDER BY constant_value.created_at DESC LIMIT 1;
-    RETURN cv_value;
-END; 
-$$ LANGUAGE plpgsql;
-
 -- Gets the value at what the stock was bought/selled.
 -- params:
 ---- `stock_price`: Price of the stock sat the moment when it was selled.
@@ -178,22 +56,6 @@ BEGIN
     FROM Operation, Price_RV, Stock_Title 
     WHERE Operation.price_rv_id = Price_RV.id AND Operation.type_id = operation_type_id 
     AND Price_RV.title_id = Stock_Title.id AND Stock_Title.id = se_title_id;
-
-    RETURN return_value;
-END; 
-$$ LANGUAGE plpgsql;
-
--- Get the lastest exchange rate.
-CREATE OR REPLACE FUNCTION get_latest_exchange_rate()
-    RETURNS NUMERIC
-AS
-$$
-DECLARE
-    exchange_id NUMERIC;
-    return_value NUMERIC;
-BEGIN
-    SELECT exchange_rate.id, exchange_rate.value INTO exchange_id, return_value
-    FROM Exchange_Rate ORDER BY Exchange_Rate.id DESC LIMIT 1;
 
     RETURN return_value;
 END; 
@@ -373,102 +235,22 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
--- Get Price RV by Operation
--- params:
----- `operation_id`: The ID of the operation
-CREATE OR REPLACE FUNCTION get_price_rv(price_rv_id INTEGER) 
+CREATE OR REPLACE FUNCTION get_operation_type(opt_id INTEGER) 
     RETURNS TABLE(
-        pr_id INTEGER,
-        pr_title_id BIGINT,
-        pr_exchange_rate_id BIGINT,
-        pr_bolivares_price NUMERIC,
-        pr_close_price NUMERIC,
-        pr_created_at TIMESTAMP,
-        pr_close_date TIMESTAMP
+        ot_id INTEGER,
+        ot_name VARCHAR
     )
 AS $$
 BEGIN 
-    RETURN QUERY SELECT id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date FROM Price_RV WHERE id = price_rv_id;
+    RETURN QUERY SELECT id, name FROM Operation_Type WHERE id = opt_id;
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION get_stock_titles(page_limit INTEGER, page_offset INTEGER)
-    RETURNS TABLE(
-        st_count BIGINT,
-        st_id INTEGER,
-        st_name TEXT,
-        st_symbol VARCHAR,
-        st_created_at TIMESTAMP
-    )
-AS $$
-DECLARE
-    total BIGINT;
-BEGIN
-   SELECT COUNT(*) INTO total FROM Stock_Title;
-
-    IF page_limit IS NULL THEN
-        RETURN QUERY SELECT total, * FROM Stock_Title;
-    ELSIF page_offset IS NULL THEN
-        RETURN QUERY SELECT total, * FROM Stock_Title LIMIT page_limit;
-    ELSE
-        RETURN QUERY SELECT total, * FROM Stock_Title LIMIT page_limit OFFSET page_offset;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION get_exchange_rates(page_limit INTEGER, page_offset INTEGER)
-    RETURNS TABLE(
-        er_id INTEGER,
-        er_value NUMERIC,
-        er_created_at TIMESTAMP
-    )
-AS $$
-BEGIN
-    IF page_limit IS NULL THEN
-        RETURN QUERY SELECT * FROM Exchange_Rate;
-    ELSIF page_offset IS NULL THEN
-        RETURN QUERY SELECT * FROM Exchange_Rate LIMIT page_limit;
-    ELSE
-        RETURN QUERY SELECT * FROM Exchange_Rate LIMIT page_limit OFFSET page_offset;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
 
 /******************************
 *******************************
             INSERTS
 *******************************
 *******************************/
-
--- Create a Title
-CREATE OR REPLACE FUNCTION create_stock_title(title_name TEXT, title_symbol VARCHAR)
-    RETURNS TABLE(
-        st_id INTEGER,
-        st_name TEXT,
-        st_symbol VARCHAR,
-        st_created_at TIMESTAMP
-    )
-AS $$
-BEGIN
-    RETURN QUERY INSERT INTO Stock_Title(name, symbol) VALUES (title_name, title_symbol) 
-        RETURNING id, name, symbol, created_at;
-END;
-$$ LANGUAGE plpgsql;
-
--- Create a Exchange Rate
-CREATE OR REPLACE FUNCTION create_exchange_rate(exchange_value NUMERIC)
-    RETURNS TABLE(
-        er_id INTEGER,
-        er_value NUMERIC,
-        er_created_at TIMESTAMP
-    )
-AS $$
-BEGIN
-    RETURN QUERY INSERT INTO Exchange_Rate(value) VALUES (exchange_value) 
-        RETURNING id, value, created_at;
-END;
-$$ LANGUAGE plpgsql;
 
 -- Create an Operation
 CREATE OR REPLACE FUNCTION create_operation(ope_price_rv_id INTEGER, ope_user_id INTEGER, ope_stock_amount NUMERIC, ope_stock_price NUMERIC, 

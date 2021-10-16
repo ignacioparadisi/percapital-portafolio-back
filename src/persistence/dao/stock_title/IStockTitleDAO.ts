@@ -3,4 +3,5 @@ import { Page } from "@Common/utils/Page";
 import { IDAO } from "../IDAO";
 
 export interface IStockTitleDAO extends IDAO<StockTitle> {
+    getById(where?: StockTitle): Promise<StockTitle[]>;
 }
