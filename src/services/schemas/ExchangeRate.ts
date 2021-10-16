@@ -8,6 +8,11 @@ export const ExchangeRateTypeDef = gql`
         priceRvs(where: PriceRVInput, limit: Int): [PriceRV]
     }
 
+    type ExchangeRatePage {
+        data: [ExchangeRate]
+        total: Int
+    }
+
     input ExchangeRateInput {
         id: Int
         value: Float
@@ -15,7 +20,7 @@ export const ExchangeRateTypeDef = gql`
     }
 
     type Query {
-        getExchangeRates(where: ExchangeRateInput, skip: Int, limit: Int): [ExchangeRate]
+        getExchangeRates(where: ExchangeRateInput, skip: Int, limit: Int): ExchangeRatePage
             @auth(requires: USER)
     }
     

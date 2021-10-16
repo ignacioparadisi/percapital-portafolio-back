@@ -1,8 +1,9 @@
 import { PriceRV } from '@Common/entities/PriceRV';
 import { Entity } from '@Common/entities/Entity';
 import { Decodable } from '@Common/utils/Decodable';
+import { Pageable } from '@Common/utils/Page';
 
-export class StockTitle extends Entity implements Decodable {
+export class StockTitle extends Entity implements Decodable, Pageable {
     id?: number;
     name?: string;
     symbol?: string;

@@ -1,17 +1,21 @@
 CREATE OR REPLACE FUNCTION get_exchange_rates(page_limit INTEGER, page_offset INTEGER)
     RETURNS TABLE(
+        er_count BIGINT,
         er_id INTEGER,
         er_value NUMERIC,
         er_created_at TIMESTAMP
     )
 AS $$
+DECLARE
+    total BIGINT;
 BEGIN
+    SELECT COUNT(*) INTO total FROM Exchange_Rate;
     IF page_limit IS NULL THEN
-        RETURN QUERY SELECT * FROM Exchange_Rate;
+        RETURN QUERY SELECT total, * FROM Exchange_Rate ORDER BY created_at DESC;
     ELSIF page_offset IS NULL THEN
-        RETURN QUERY SELECT * FROM Exchange_Rate LIMIT page_limit;
+        RETURN QUERY SELECT total, * FROM Exchange_Rate ORDER BY created_at DESC LIMIT page_limit;
     ELSE
-        RETURN QUERY SELECT * FROM Exchange_Rate LIMIT page_limit OFFSET page_offset;
+        RETURN QUERY SELECT total, * FROM Exchange_Rate ORDER BY created_at DESC LIMIT page_limit OFFSET page_offset;
     END IF;
 END;
 $$ LANGUAGE plpgsql;

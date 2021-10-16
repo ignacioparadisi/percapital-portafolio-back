@@ -3,6 +3,7 @@ import { ExchangeRate } from '@Common/entities/ExchangeRate';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { ExchangeRateCommandFactory } from '@Logic/commands/exchange_rate/ExchangeRateCommandFactory';
 import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
+import { Page } from '@Common/utils/Page';
 
 export const ExchangeRateResolver = {
     Query: {
@@ -10,7 +11,8 @@ export const ExchangeRateResolver = {
             console.info('getExchangeRates parent:', parent, 'args: ',args);
             const where = new ExchangeRate(args.where as ExchangeRate)
             const command = ExchangeRateCommandFactory.createGetExchangeRatesCommand(where, args.limit, args.skip);
-            return command.execute();
+            let result = await command.execute();
+            return Page.decode(result);
         }
     },
     ExchangeRate: {

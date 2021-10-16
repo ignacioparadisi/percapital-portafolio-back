@@ -12,12 +12,7 @@ export const StockTitleResolver = {
             const where = new StockTitle(args.where as StockTitle);
             const command = StockTitleCommandFactory.createGetStockTitlesCommand(where, args.limit, args.skip);
             const result = await command.execute();
-            let page = new Page<StockTitle>(result, 0);
-            if (result.length > 0) {
-                if (result[0].total) {
-                    page.total = result[0].total;
-                }
-            }
+            let page = Page.decode(result);
             return page;
         }
     },
