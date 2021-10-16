@@ -9,6 +9,11 @@ export const StockTitleTypeDef = gql`
         priceRvs(where: PriceRVInput, limit: Int): [PriceRV]
     }
 
+    type StockTitlePage {
+        data: [StockTitle]
+        total: Int
+    }
+
     input StockTitleInput {
         id: Int
         name: String
@@ -17,7 +22,7 @@ export const StockTitleTypeDef = gql`
     }
 
     type Query {
-        getStockTitles(where: StockTitleInput, skip: Int, limit: Int): [StockTitle] 
+        getStockTitles(where: StockTitleInput, skip: Int, limit: Int): StockTitlePage
             @auth(requires: USER)
     }
 
