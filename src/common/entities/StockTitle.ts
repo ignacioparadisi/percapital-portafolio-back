@@ -8,6 +8,7 @@ export class StockTitle extends Entity implements Decodable {
     symbol?: string;
     createdAt?: Date;
     priceRvs?: PriceRV[];
+    total?: number;
 
    constructor(entity?: StockTitle) {
         super(entity);
@@ -15,12 +16,14 @@ export class StockTitle extends Entity implements Decodable {
         this.name = entity ? entity.name : undefined;
         this.symbol = entity ? entity.symbol : undefined;
         this.createdAt = entity ? entity.createdAt : undefined;
+        this.total = entity ? entity.total : undefined;
    }
 
    codingKeys = {
         id: 'st_id',
         name: 'st_name',
         symbol: 'st_symbol',
-        createdAt: 'st_created_at'
+        createdAt: 'st_created_at',
+        total: 'st_count'
    }
 }

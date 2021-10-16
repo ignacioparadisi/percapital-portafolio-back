@@ -1,5 +1,6 @@
 import { PriceRV } from '@Common/entities/PriceRV';
 import { StockTitle } from '@Common/entities/StockTitle';
+import { Page } from '@Common/utils/Page';
 import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 import { StockTitleCommandFactory } from '@Logic/commands/stock_title/StockTitleCommandFactory';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
@@ -10,7 +11,14 @@ export const StockTitleResolver = {
             console.info('getStockTitles parent:', parent, 'args: ',args);
             const where = new StockTitle(args.where as StockTitle);
             const command = StockTitleCommandFactory.createGetStockTitlesCommand(where, args.limit, args.skip);
-            return command.execute();
+            const result = await command.execute();
+            let page = new Page<StockTitle>(result, 0);
+            if (result.length > 0) {
+                if (result[0].total) {
+                    page.total = result[0].total;
+                }
+            }
+            return page;
         }
     },
     StockTitle: {
