@@ -27,7 +27,7 @@ export class StockTitleDAO extends DAO<StockTitle> implements IStockTitleDAO {
     }
 
     async get(where: StockTitle, limit?: number, skip?: number): Promise<StockTitle[]> {
-        let query = StockTitleDBFunctions.getTitles(limit, skip);
+        let query = StockTitleDBFunctions.getTitles(limit, skip, where.name);
         let result = await Database.shared.execute(query, StockTitle);
         return result;
     }

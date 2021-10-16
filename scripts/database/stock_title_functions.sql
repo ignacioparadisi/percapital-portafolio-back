@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION get_stock_titles(page_limit INTEGER, page_offset INTEGER)
+CREATE OR REPLACE FUNCTION get_stock_titles(page_limit INTEGER, page_offset INTEGER, search TEXT)
     RETURNS TABLE(
         st_count BIGINT,
         st_id INTEGER,
@@ -10,14 +10,31 @@ AS $$
 DECLARE
     total BIGINT;
 BEGIN
-   SELECT COUNT(*) INTO total FROM Stock_Title;
+
+    IF search IS NOT NULL AND search <> '' THEN
+        SELECT COUNT(*) INTO total FROM Stock_Title WHERE LOWER(symbol) LIKE CONCAT(LOWER(search), '%') OR LOWER(name) LIKE CONCAT(LOWER(search), '%');
+    ELSE
+        SELECT COUNT(*) INTO total FROM Stock_Title;
+    END IF;
 
     IF page_limit IS NULL THEN
-        RETURN QUERY SELECT total, * FROM Stock_Title;
+        IF search IS NOT NULL AND search <> '' THEN
+            RETURN QUERY SELECT total, * FROM Stock_Title WHERE LOWER(symbol) LIKE CONCAT(LOWER(search), '%') OR LOWER(name) LIKE CONCAT(LOWER(search), '%') ORDER BY symbol;
+        ELSE
+            RETURN QUERY SELECT total, * FROM Stock_Title ORDER BY symbol;
+        END IF;
     ELSIF page_offset IS NULL THEN
-        RETURN QUERY SELECT total, * FROM Stock_Title LIMIT page_limit;
+        IF search IS NOT NULL AND search <> '' THEN
+            RETURN QUERY SELECT total, * FROM Stock_Title WHERE LOWER(symbol) LIKE CONCAT(LOWER(search), '%') OR LOWER(name) LIKE CONCAT(LOWER(search), '%') ORDER BY symbol LIMIT page_limit;
+        ELSE
+            RETURN QUERY SELECT total, * FROM Stock_Title ORDER BY symbol LIMIT page_limit;
+        END IF;
     ELSE
-        RETURN QUERY SELECT total, * FROM Stock_Title LIMIT page_limit OFFSET page_offset;
+        IF search IS NOT NULL AND search <> '' THEN
+            RETURN QUERY SELECT total, * FROM Stock_Title WHERE LOWER(symbol) LIKE CONCAT(LOWER(search), '%') OR LOWER(name) LIKE CONCAT(LOWER(search), '%') ORDER BY symbol LIMIT page_limit OFFSET page_offset;
+        ELSE
+            RETURN QUERY SELECT total, * FROM Stock_Title ORDER BY symbol LIMIT page_limit OFFSET page_offset;
+        END IF;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
