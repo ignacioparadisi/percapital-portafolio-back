@@ -10,13 +10,7 @@ DECLARE
     total BIGINT;
 BEGIN
     SELECT COUNT(*) INTO total FROM Exchange_Rate;
-    IF page_limit IS NULL THEN
-        RETURN QUERY SELECT total, * FROM Exchange_Rate ORDER BY created_at DESC;
-    ELSIF page_offset IS NULL THEN
-        RETURN QUERY SELECT total, * FROM Exchange_Rate ORDER BY created_at DESC LIMIT page_limit;
-    ELSE
-        RETURN QUERY SELECT total, * FROM Exchange_Rate ORDER BY created_at DESC LIMIT page_limit OFFSET page_offset;
-    END IF;
+    RETURN QUERY SELECT total, * FROM Exchange_Rate ORDER BY created_at DESC LIMIT page_limit OFFSET page_offset;
 END;
 $$ LANGUAGE plpgsql;
 

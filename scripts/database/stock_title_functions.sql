@@ -17,24 +17,10 @@ BEGIN
         SELECT COUNT(*) INTO total FROM Stock_Title;
     END IF;
 
-    IF page_limit IS NULL THEN
-        IF search IS NOT NULL AND search <> '' THEN
-            RETURN QUERY SELECT total, * FROM Stock_Title WHERE LOWER(symbol) LIKE CONCAT(LOWER(search), '%') OR LOWER(name) LIKE CONCAT(LOWER(search), '%') ORDER BY symbol;
-        ELSE
-            RETURN QUERY SELECT total, * FROM Stock_Title ORDER BY symbol;
-        END IF;
-    ELSIF page_offset IS NULL THEN
-        IF search IS NOT NULL AND search <> '' THEN
-            RETURN QUERY SELECT total, * FROM Stock_Title WHERE LOWER(symbol) LIKE CONCAT(LOWER(search), '%') OR LOWER(name) LIKE CONCAT(LOWER(search), '%') ORDER BY symbol LIMIT page_limit;
-        ELSE
-            RETURN QUERY SELECT total, * FROM Stock_Title ORDER BY symbol LIMIT page_limit;
-        END IF;
+    IF search IS NOT NULL AND search <> '' THEN
+        RETURN QUERY SELECT total, * FROM Stock_Title WHERE LOWER(symbol) LIKE CONCAT(LOWER(search), '%') OR LOWER(name) LIKE CONCAT(LOWER(search), '%') ORDER BY symbol LIMIT page_limit OFFSET page_offset;
     ELSE
-        IF search IS NOT NULL AND search <> '' THEN
-            RETURN QUERY SELECT total, * FROM Stock_Title WHERE LOWER(symbol) LIKE CONCAT(LOWER(search), '%') OR LOWER(name) LIKE CONCAT(LOWER(search), '%') ORDER BY symbol LIMIT page_limit OFFSET page_offset;
-        ELSE
-            RETURN QUERY SELECT total, * FROM Stock_Title ORDER BY symbol LIMIT page_limit OFFSET page_offset;
-        END IF;
+        RETURN QUERY SELECT total, * FROM Stock_Title ORDER BY symbol LIMIT page_limit OFFSET page_offset;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
