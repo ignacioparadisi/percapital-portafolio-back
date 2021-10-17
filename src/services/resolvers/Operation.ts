@@ -7,6 +7,7 @@ import { ExecutionContext } from 'graphql/execution/execute';
 import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 import { GetOperationTypeCommand } from '@Logic/commands/operation_type/GetOperationTypeCommand';
 import { OperationTypeCommandFactory } from '@Logic/commands/operation_type/OperationTypeCommandFactory';
+import { Page } from '@Common/utils/Page';
 
 export const OperationResolver = {
     Query: {
@@ -16,7 +17,8 @@ export const OperationResolver = {
             // @ts-ignore
             where.userId = context.user.id;
             const command = OperationsCommandFactory.createGetOperationsCommand(where, args.limit, args.skip);
-            return command.execute();
+            const result = await command.execute();
+            return Page.decode(result);
         }
     },
     Operation: {

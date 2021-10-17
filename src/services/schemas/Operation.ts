@@ -42,6 +42,11 @@ export const OperationTypeDef = gql`
         buyDollarWeightedPerformance: Float
     }
 
+    type OperationPage {
+        data: [Operation]
+        total: Int
+    }
+
     input OperationInput {
         id: Int
         userId: Int
@@ -56,7 +61,7 @@ export const OperationTypeDef = gql`
     }
 
     type Query {
-        getOperations(where: OperationInput, skip: Int, limit: Int): [Operation] 
+        getOperations(where: OperationInput, skip: Int, limit: Int): OperationPage
             @auth(requires: USER)
     }
 

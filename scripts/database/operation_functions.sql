@@ -66,6 +66,7 @@ $$ LANGUAGE plpgsql;
 ---- `p_user_id`: ID of the user.
 CREATE OR REPLACE FUNCTION get_sell_operations(p_user_id INTEGER, limit_number INTEGER, offset_value INTEGER)
     RETURNS TABLE (
+        op_count BIGINT,
         op_id INTEGER,
         op_price_rv_id BIGINT,
         op_user_id BIGINT,
@@ -83,12 +84,13 @@ CREATE OR REPLACE FUNCTION get_sell_operations(p_user_id INTEGER, limit_number I
         op_raw_dollar_value NUMERIC,
         op_dollar_net_value NUMERIC
     )
-AS
-$$
+AS $$
+DECLARE
+    total BIGINT;
 BEGIN
-
+    SELECT COUNT(*) INTO total FROM Operation WHERE type_id = 2 AND user_id = p_user_id; -- Venta
     RETURN QUERY
-        SELECT DISTINCT operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
+        SELECT DISTINCT total, operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
         stock_title.symbol, operation.stock_amount,
         operation.stock_price, get_computed_value(operation.stock_price, operation.stock_amount) AS sell_value, 
         get_computed_value(operation.stock_price, operation.stock_amount) * comission.value AS comission, 
@@ -105,6 +107,7 @@ BEGIN
         WHERE Operation.price_rv_id = Price_RV.id AND Operation.user_id = p_user_id AND Operation.type_id = 2 -- Venta 
 		AND Price_RV.title_id = Stock_Title.id AND Price_RV.exchange_rate_id = Exchange_Rate.id 
         AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id
+        ORDER BY Operation.created_at DESC
         LIMIT limit_number OFFSET offset_value;
 
 END; 
@@ -115,6 +118,7 @@ $$ LANGUAGE plpgsql;
 ---- `p_user_id`: ID of the user.
 CREATE OR REPLACE FUNCTION get_buy_operations(p_user_id INTEGER, limit_number INTEGER, offset_value INTEGER)
     RETURNS TABLE (
+        op_count BIGINT,
         op_id INTEGER,
         op_price_rv_id BIGINT,
         op_user_id BIGINT,
@@ -147,12 +151,14 @@ CREATE OR REPLACE FUNCTION get_buy_operations(p_user_id INTEGER, limit_number IN
         op_dollar_performance_value NUMERIC(1000,5),
         op_dollar_weighted_performance NUMERIC(1000,5)
     )
-AS
-$$
+AS $$
+DECLARE
+    total BIGINT;
 BEGIN
+    SELECT COUNT(*) INTO total FROM Operation WHERE type_id = 1 AND user_id = p_user_id; -- Compra
 
     RETURN QUERY
-        SELECT DISTINCT operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
+        SELECT DISTINCT total, operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
         stock_title.symbol, operation.stock_amount, operation.stock_price, 
         get_computed_value(operation.stock_price, operation.stock_amount) AS buy_value, 
         get_computed_value(operation.stock_price, operation.stock_amount) * comission.value AS comission, 
@@ -230,6 +236,7 @@ BEGIN
 		AND Operation.type_id = 1 -- Compra 
         AND Price_RV.title_id = Stock_Title.id AND Price_RV.exchange_rate_id = Exchange_Rate.id
         AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id
+        ORDER BY Operation.created_at DESC
         LIMIT limit_number OFFSET offset_value;
 
 END; 

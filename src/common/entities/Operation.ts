@@ -2,7 +2,8 @@ import { PriceRV } from '@Common/entities/PriceRV';
 import { OperationType } from '@Common/entities/OperationType';
 import { Entity } from '@Common/entities/Entity';
 import { Decodable } from '@Common/utils/Decodable';
-export class Operation extends Entity implements Decodable {
+import { Pageable } from '@Common/utils/Page';
+export class Operation extends Entity implements Decodable, Pageable {
     id?: number;
     userId?: number;
     priceRvId?: number;
@@ -17,6 +18,7 @@ export class Operation extends Entity implements Decodable {
     iva?: number;
     register?: number;
     exchangeRate?: number;
+    total?: number;
 
     ivaCvId?: number;
     comissionCvId?: number;
@@ -67,6 +69,8 @@ export class Operation extends Entity implements Decodable {
         this.register = entity ? entity.register : undefined;
         this.exchangeRate = entity ? entity.exchangeRate : undefined;
 
+        this.total = entity ? entity.total : undefined;
+
         // Variables for sell ops
         this.sellNetValue = entity ? entity.sellNetValue : undefined;
         this.sellRawDollarValue = entity ? entity.sellRawDollarValue : undefined;
@@ -101,6 +105,7 @@ export class Operation extends Entity implements Decodable {
         stockAmount: 'op_stock_amount',
         stockPrice: 'op_stock_price',
         typeId: 'op_type_id',
+        total: 'op_count',
 
         ivaCvId: 'op_iva_cv_id',
         comissionCvId: 'op_comission_cv_id',
