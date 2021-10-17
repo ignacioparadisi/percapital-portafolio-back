@@ -58,20 +58,23 @@ CREATE OR REPLACE FUNCTION get_price_rvs(page_limit INTEGER, page_offset INTEGER
         pr_bolivares_price NUMERIC,
         pr_close_price NUMERIC,
         pr_created_at TIMESTAMP,
-        pr_close_date TIMESTAMP
+        pr_close_date TIMESTAMP,
+        pr_latest_exchange_rate NUMERIC
     )
 AS $$
 DECLARE
     total BIGINT;
+    current_exchange_rate NUMERIC;
 BEGIN
 
     SELECT COUNT(*) INTO total FROM Price_RV;
+    SELECT * INTO current_exchange_rate FROM get_latest_exchange_rate();
     IF page_limit IS NULL THEN
-        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date FROM Price_RV;
+        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate FROM Price_RV;
     ELSIF page_offset IS NULL THEN
-        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date FROM Price_RV LIMIT page_limit;
+        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate FROM Price_RV LIMIT page_limit;
     ELSE
-        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date FROM Price_RV LIMIT page_limit OFFSET page_offset;
+        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate FROM Price_RV LIMIT page_limit OFFSET page_offset;
     END IF;
 END;
 $$ LANGUAGE plpgsql;

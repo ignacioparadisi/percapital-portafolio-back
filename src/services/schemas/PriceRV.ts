@@ -9,6 +9,7 @@ export const PriceRVTypeDef = gql`
         closePrice: Float
         createdAt: String
         closeDate: String
+        latestExchangeRate: Float
         operations(where: OperationInput, limit: Int): [Operation]
         exchangeRate(where: ExchangeRateInput): ExchangeRate
         stockTitle(where: StockTitleInput): StockTitle

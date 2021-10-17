@@ -16,6 +16,7 @@ export class PriceRV extends Entity implements Decodable, Pageable {
     operations?: Operation[];
     exchangeRate?: ExchangeRate;
     stockTitle?: StockTitle;
+    latestExchangeRate?: number;
     total?: number;
 
    constructor(entity?: PriceRV) {
@@ -37,6 +38,7 @@ export class PriceRV extends Entity implements Decodable, Pageable {
         closePrice: 'pr_close_price',
         createdAt: 'pr_created_at',
         closeDate: 'pr_close_date',
-        total: 'pr_count'
+        total: 'pr_count',
+        latestExchangeRate: 'pr_latest_exchange_rate'
    }
 }
