@@ -13,7 +13,7 @@ CREATE OR REPLACE FUNCTION get_price_rv(price_rv_id INTEGER)
     )
 AS $$
 BEGIN
-    RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date FROM Price_RV WHERE id = price_rv_id;
+    RETURN QUERY SELECT id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date FROM Price_RV WHERE id = price_rv_id;
 END;
 $$ LANGUAGE plpgsql;
 
