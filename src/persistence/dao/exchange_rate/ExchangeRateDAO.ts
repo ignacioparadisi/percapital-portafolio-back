@@ -38,6 +38,12 @@ export class ExchangeRateDAO extends DAO<ExchangeRate> implements IExchangeRateD
         return result;
     }
 
+    async getLatestExchangeRate(): Promise<ExchangeRate[]> {
+        let query = ExchangeRateDBFunctions.getLatestExchangeRate();
+        let result = await Database.shared.execute(query, ExchangeRate);
+        return result;
+    }
+
     async update(where: ExchangeRate, entity: ExchangeRate): Promise<ExchangeRate> {
         throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }
