@@ -32,8 +32,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Get the lastest exchange rate.
-CREATE OR REPLACE FUNCTION get_latest_exchange_rate()
+-- Get the lastest exchange rate value.
+CREATE OR REPLACE FUNCTION get_latest_exchange_rate_value()
     RETURNS NUMERIC
 AS
 $$
@@ -45,6 +45,20 @@ BEGIN
     FROM Exchange_Rate ORDER BY Exchange_Rate.id DESC LIMIT 1;
 
     RETURN return_value;
+END; 
+$$ LANGUAGE plpgsql;
+
+-- Get the lastest exchange rate.
+CREATE OR REPLACE FUNCTION get_latest_exchange_rate()
+    RETURNS TABLE(
+        er_id INTEGER,
+        er_value NUMERIC,
+        er_created_at TIMESTAMP
+    )
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT * FROM Exchange_Rate ORDER BY Exchange_Rate.id DESC LIMIT 1;
 END; 
 $$ LANGUAGE plpgsql;
 
