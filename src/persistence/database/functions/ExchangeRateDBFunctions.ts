@@ -10,4 +10,8 @@ export class ExchangeRateDBFunctions {
     static getExchangeRateById(id: number): string {
         return `SELECT * FROM get_exchange_rate_by_id(${id})`;
     }
+
+    static getLatestExchangeRate(): string {
+        return `SELECT * FROM get_latest_exchange_rate()`;
+    }
 }

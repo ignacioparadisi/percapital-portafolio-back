@@ -154,9 +154,10 @@ CREATE OR REPLACE FUNCTION get_buy_operations(p_user_id INTEGER, limit_number IN
 AS $$
 DECLARE
     total BIGINT;
+    exchange_rate_value NUMERIC;
 BEGIN
     SELECT COUNT(*) INTO total FROM Operation WHERE type_id = 1 AND user_id = p_user_id; -- Compra
-
+    SELECT * INTO exchange_rate_value FROM get_latest_exchange_rate_value();
     RETURN QUERY
         SELECT DISTINCT total, operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
         stock_title.symbol, operation.stock_amount, operation.stock_price, 
@@ -208,12 +209,12 @@ BEGIN
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) AS weighted_performance,
 
         (get_total_computed_value(price_rv.close_price, operation.stock_amount, comission.value, iva.value, register.value, 0) / 
-        get_latest_exchange_rate()) - 
+        exchange_rate_value) - 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, 1) / exchange_rate.value) AS dollar_gp,
 
         (((get_total_computed_value(price_rv.close_price, operation.stock_amount, comission.value, iva.value, register.value, 0) / 
-        get_latest_exchange_rate()) - 
+        exchange_rate_value) - 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, 1) / exchange_rate.value)) / 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
@@ -221,7 +222,7 @@ BEGIN
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0)) AS dollar_performance_value,
 
         ((((get_total_computed_value(price_rv.close_price, operation.stock_amount, comission.value, iva.value, register.value, 0) / 
-        get_latest_exchange_rate()) - 
+        exchange_rate_value) - 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, 1) / exchange_rate.value)) / 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 

@@ -13,6 +13,15 @@ export const ExchangeRateResolver = {
             const command = ExchangeRateCommandFactory.createGetExchangeRatesCommand(where, args.limit, args.skip);
             let result = await command.execute();
             return Page.decode(result);
+        },
+        getLatestExchangeRate: async (parent: any, args: GraphQLQuery) => {
+            console.info('getLatestExchangeRate parent:', parent, 'args: ',args);
+            const command = ExchangeRateCommandFactory.createGetLatestExchangeRateCommand(new ExchangeRate());
+            let result = await command.execute();
+            if (result.length > 0) {
+                return result[0];
+            }
+            return null;
         }
     },
     ExchangeRate: {
