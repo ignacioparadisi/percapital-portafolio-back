@@ -49,7 +49,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_price_rvs(page_limit INTEGER, page_offset INTEGER)
+CREATE OR REPLACE FUNCTION get_price_rvs(filter_date DATE, filter_title_id INTEGER, page_limit INTEGER, page_offset INTEGER)
     RETURNS TABLE(
         pr_count BIGINT,
         pr_id INTEGER,
@@ -69,7 +69,20 @@ BEGIN
 
     SELECT COUNT(*) INTO total FROM Price_RV;
     SELECT * INTO current_exchange_rate FROM get_latest_exchange_rate_value();
-    RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate FROM Price_RV LIMIT page_limit OFFSET page_offset;
+    
+    IF filter_date IS NULL AND filter_title_id IS NULL THEN 
+        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate 
+        FROM Price_RV LIMIT page_limit OFFSET page_offset;
+    ELSIF filter_date IS NULL AND filter_title_id IS NOT NULL THEN 
+        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate 
+        FROM Price_RV WHERE title_id = filter_title_id LIMIT page_limit OFFSET page_offset;
+    ELSIF filter_date IS NOT NULL AND filter_title_id IS NULL THEN 
+        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate 
+        FROM Price_RV WHERE DATE(created_at) = filter_date LIMIT page_limit OFFSET page_offset; 
+    ELSIF filter_date IS NOT NULL AND filter_title_id IS NOT NULL THEN 
+        RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate 
+        FROM Price_RV WHERE DATE(created_at) = filter_date AND title_id = filter_title_id LIMIT page_limit OFFSET page_offset; 
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 
