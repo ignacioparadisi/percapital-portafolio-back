@@ -36,6 +36,7 @@ export class PriceRVDAO implements IPriceRVDAO {
     async get(where?: PriceRV, limit?: number, skip?: number ): Promise<PriceRV[]> {
         let query = PriceRVDBFunctions.getPriceRVs(where?.createdAt, where?.titleId, limit, skip);
         let result = await Database.shared.execute(query, PriceRV);
+        console.log(result);
         return result;
     }
 
