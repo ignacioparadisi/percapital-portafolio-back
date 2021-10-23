@@ -94,6 +94,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION latest_price_rv_by_title(selected_title_id BIGINT)
+    RETURNS NUMERIC
+AS $$
+DECLARE
+    price_rv_id BIGINT;
+    return_value NUMERIC;
+BEGIN
+    SELECT price_rv.id, price_rv.close_price INTO price_rv_id, return_value
+    FROM Price_RV WHERE price_rv.title_id = selected_title_id ORDER BY Price_RV.id DESC LIMIT 1;
+
+    RETURN return_value;
+END; 
+$$ LANGUAGE plpgsql;
+
 /******************************
 *******************************
             INSERTS

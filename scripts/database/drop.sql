@@ -34,3 +34,5 @@ DROP FUNCTION IF EXISTS get_price_rvs(DATE, INTEGER, INTEGER, INTEGER);
 DROP FUNCTION IF EXISTS get_exchange_rate_by_id(INTEGER);
 DROP FUNCTION IF EXISTS get_stock_title_by_id(INTEGER);
 DROP FUNCTION IF EXISTS get_latest_exchange_rate();
+DROP FUNCTION IF EXISTS latest_price_rv_by_title(BIGINT);
+DROP FUNCTION IF EXISTS stocks_in_portfolio_by_user_and_title(BIGINT, BIGINT);
