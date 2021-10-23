@@ -46,9 +46,11 @@ export const OperationResolver = {
         },
     },
     Mutation: {
-        createOperation: async (parent: any, args: GraphQLMutation) => {
+        createOperation: async (parent: any, args: GraphQLMutation, context: ExecutionContext) => {
             console.info('createOperation parent: ', parent, 'args: ',args);
             const createData = new Operation(args.insertData as Operation);
+            // @ts-ignore
+            createData.userId = context.user.id
             const command = OperationsCommandFactory.createCreateOperationCommand(createData);
             return command.execute();
         },
