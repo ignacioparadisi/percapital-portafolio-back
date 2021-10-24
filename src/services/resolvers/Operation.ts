@@ -5,7 +5,6 @@ import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { OperationsCommandFactory } from '@Logic/commands/operations/OperationsCommandFactory';
 import { ExecutionContext } from 'graphql/execution/execute';
 import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
-import { GetOperationTypeCommand } from '@Logic/commands/operation_type/GetOperationTypeCommand';
 import { OperationTypeCommandFactory } from '@Logic/commands/operation_type/OperationTypeCommandFactory';
 import { Page } from '@Common/utils/Page';
 
