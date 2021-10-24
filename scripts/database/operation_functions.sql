@@ -69,6 +69,7 @@ CREATE OR REPLACE FUNCTION get_sell_operations(p_user_id INTEGER, limit_number I
         op_count BIGINT,
         op_id INTEGER,
         op_price_rv_id BIGINT,
+        op_title_id BIGINT,
         op_user_id BIGINT,
         op_type_id BIGINT,
         op_created_at TIMESTAMP,
@@ -90,7 +91,7 @@ DECLARE
 BEGIN
     SELECT COUNT(*) INTO total FROM Operation WHERE type_id = 2 AND user_id = p_user_id; -- Venta
     RETURN QUERY
-        SELECT DISTINCT total, operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
+        SELECT DISTINCT total, operation.id, operation.price_rv_id, price_rv.title_id, operation.user_id, operation.type_id, operation.created_at, 
         stock_title.symbol, operation.stock_amount,
         operation.stock_price, get_computed_value(operation.stock_price, operation.stock_amount) AS sell_value, 
         get_computed_value(operation.stock_price, operation.stock_amount) * comission.value AS comission, 
@@ -121,6 +122,7 @@ CREATE OR REPLACE FUNCTION get_buy_operations(p_user_id INTEGER, limit_number IN
         op_count BIGINT,
         op_id INTEGER,
         op_price_rv_id BIGINT,
+        op_title_id BIGINT,
         op_user_id BIGINT,
         op_type_id BIGINT,
         op_created_at TIMESTAMP,
@@ -159,7 +161,7 @@ BEGIN
     SELECT COUNT(*) INTO total FROM Operation WHERE type_id = 1 AND user_id = p_user_id; -- Compra
     SELECT * INTO exchange_rate_value FROM get_latest_exchange_rate_value();
     RETURN QUERY
-        SELECT DISTINCT total, operation.id, operation.price_rv_id, operation.user_id, operation.type_id, operation.created_at, 
+        SELECT DISTINCT total, operation.id, operation.price_rv_id, price_rv.title_id, operation.user_id, operation.type_id, operation.created_at, 
         stock_title.symbol, operation.stock_amount, operation.stock_price, 
         get_computed_value(operation.stock_price, operation.stock_amount) AS buy_value, 
         get_computed_value(operation.stock_price, operation.stock_amount) * comission.value AS comission, 
