@@ -1,6 +1,9 @@
 export class PriceRVDBFunctions {
 
-    static getPriceRVs(date?: Date, titleId?: number, limit?: number, offset?: number): string {
+    static getPriceRVs(date?: Date, titleId?: number, limit?: number, offset?: number, latest?: boolean): string {
+        if (latest) {
+            return `SELECT * FROM get_latest_price_rvs(${limit ? limit : null}, ${offset ? offset : null})`;
+        }
         return `SELECT * FROM get_price_rvs(${date ? `'${date}'` : null}, ${titleId ? titleId : null}, ${limit ? limit : null}, ${offset ? offset : null})`;
     }
 
