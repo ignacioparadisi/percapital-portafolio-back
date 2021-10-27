@@ -31,7 +31,7 @@ export const PriceRVTypeDef = gql`
     }
 
     type Query {
-        getPriceRVs(where: PriceRVInput, skip: Int, limit: Int): PriceRVPage
+        getPriceRVs(where: PriceRVInput, skip: Int, limit: Int, latest: Boolean): PriceRVPage
             @auth(requires: USER)
     }
 

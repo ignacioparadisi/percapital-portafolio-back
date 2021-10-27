@@ -13,7 +13,7 @@ export const PriceRVResolver = {
         getPriceRVs: async (parent: any, args: GraphQLQuery) => {
             console.info('getPriceRvs parent:', parent, 'args: ',args);
             const where = new PriceRV(args.where as PriceRV);
-            const command = PriceRVCommandFactory.createGetPriceRVsCommand(where, args.limit, args.skip);
+            const command = PriceRVCommandFactory.createGetPriceRVsCommand(where, args.limit, args.skip, args.latest);
             const result = await command.execute();
             let page = Page.decode(result);
             return page;
