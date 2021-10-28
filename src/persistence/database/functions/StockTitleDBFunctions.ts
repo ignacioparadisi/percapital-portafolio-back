@@ -10,4 +10,8 @@ export class StockTitleDBFunctions {
     static getTitleById(id: number): string {
         return `SELECT * FROM get_stock_title_by_id(${id})`;
     }
+
+    static getTitleWithStockAmount(userId: number): string {
+        return `SELECT * FROM get_stock_title_with_stocks(${userId})`;
+    }
 }

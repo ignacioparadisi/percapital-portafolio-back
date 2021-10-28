@@ -5,6 +5,7 @@ export const StockTitleTypeDef = gql`
         id: Int
         name: String
         symbol: String
+        stockAmount: Int
         createdAt: String
         priceRvs(where: PriceRVInput, limit: Int): [PriceRV]
     }
@@ -24,6 +25,7 @@ export const StockTitleTypeDef = gql`
     type Query {
         getStockTitles(where: StockTitleInput, skip: Int, limit: Int): StockTitlePage
             @auth(requires: USER)
+        getStockTitlesWithAmount: [StockTitle]
     }
 
     type Mutation {

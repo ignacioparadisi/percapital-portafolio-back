@@ -3,6 +3,7 @@ import { StockTitle } from '@Common/entities/StockTitle';
 import { Page } from '@Common/utils/Page';
 import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 import { StockTitleCommandFactory } from '@Logic/commands/stock_title/StockTitleCommandFactory';
+import { ExecutionContext } from 'graphql/execution/execute';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
 export const StockTitleResolver = {
@@ -14,6 +15,14 @@ export const StockTitleResolver = {
             const result = await command.execute();
             let page = Page.decode(result);
             return page;
+        },
+        getStockTitlesWithAmount: async (parent: any, args: GraphQLQuery, context: ExecutionContext) => {
+            console.info('getStockTitlesWithAmount parent:', parent, 'args: ',args);
+            // @ts-ignore
+            const userId = context.user.id;
+            const command = StockTitleCommandFactory.createGetStockTitlesWithAmountCommand(userId);
+            const result = await command.execute();
+            return result;
         }
     },
     StockTitle: {

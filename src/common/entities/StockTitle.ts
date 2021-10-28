@@ -10,6 +10,7 @@ export class StockTitle extends Entity implements Decodable, Pageable {
     createdAt?: Date;
     priceRvs?: PriceRV[];
     total?: number;
+    stockAmount?: number;
 
    constructor(entity?: StockTitle) {
         super(entity);
@@ -25,6 +26,7 @@ export class StockTitle extends Entity implements Decodable, Pageable {
         name: 'st_name',
         symbol: 'st_symbol',
         createdAt: 'st_created_at',
-        total: 'st_count'
+        total: 'st_count',
+        stockAmount: 'st_stock_amount'
    }
 }
