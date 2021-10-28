@@ -25,7 +25,7 @@ export const StockTitleTypeDef = gql`
     type Query {
         getStockTitles(where: StockTitleInput, skip: Int, limit: Int): StockTitlePage
             @auth(requires: USER)
-        getStockTitlesWithAmount(): [StockTitle]
+        getStockTitlesWithAmount: [StockTitle]
             @auth(requires: USER)
     }
 
