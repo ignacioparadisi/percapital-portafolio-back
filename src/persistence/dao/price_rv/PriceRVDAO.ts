@@ -33,8 +33,8 @@ export class PriceRVDAO implements IPriceRVDAO {
         throw new GeneralError('Error creating PriceRV');
     }
 
-    async get(where?: PriceRV, limit?: number, skip?: number ): Promise<PriceRV[]> {
-        let query = PriceRVDBFunctions.getPriceRVs(where?.createdAt, where?.titleId, limit, skip);
+    async get(where?: PriceRV, limit?: number, skip?: number, latest?: boolean): Promise<PriceRV[]> {
+        let query = PriceRVDBFunctions.getPriceRVs(where?.createdAt, where?.titleId, limit, skip, latest);
         let result = await Database.shared.execute(query, PriceRV);
         console.log(result);
         return result;

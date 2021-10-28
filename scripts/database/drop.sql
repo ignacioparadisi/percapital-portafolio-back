@@ -49,4 +49,8 @@ DROP FUNCTION IF EXISTS portfolio_dollar_variation(INTEGER, INTEGER);
 DROP FUNCTION IF EXISTS portfolio_percentage_in_folio(INTEGER, INTEGER);
 DROP FUNCTION IF EXISTS portfolio_values(INTEGER);
 DROP FUNCTION IF EXISTS get_portfolio(INTEGER);
+<<<<<<< HEAD
 DROP FUNCTION iF EXISTS get_stock_title_with_stocks(INTEGER);
+=======
+DROP FUNCTION IF EXISTS get_latest_price_rvs(INTEGER, INTEGER);
+>>>>>>> fa35cd0c6ee071483a80dc5e726b256debd1f96e

@@ -108,6 +108,32 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_latest_price_rvs(page_limit INTEGER, page_offset INTEGER)
+    RETURNS TABLE(
+        pr_count BIGINT,
+        pr_id INTEGER,
+        pr_title_id BIGINT,
+        pr_exchange_rate_id BIGINT,
+        pr_bolivares_price NUMERIC,
+        pr_close_price NUMERIC,
+        pr_created_at TIMESTAMP,
+        pr_close_date TIMESTAMP,
+        pr_latest_exchange_rate NUMERIC
+    )
+AS $$
+DECLARE
+    total BIGINT;
+    current_exchange_rate NUMERIC;
+BEGIN
+    SELECT * INTO current_exchange_rate FROM get_latest_exchange_rate_value();
+    SELECT COUNT(*) INTO total FROM (SELECT DISTINCT ON (title_id) id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date
+    FROM Price_RV ORDER BY title_id, Price_RV.created_at DESC) AS Filtered_Price_RV;
+
+    RETURN QUERY SELECT DISTINCT ON (title_id) total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate
+    FROM Price_RV ORDER BY title_id, Price_RV.created_at DESC LIMIT page_limit OFFSET page_offset;
+    
+END;
+$$ LANGUAGE plpgsql;
 /******************************
 *******************************
             INSERTS

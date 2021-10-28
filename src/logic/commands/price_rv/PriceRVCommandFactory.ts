@@ -22,7 +22,7 @@ export class PriceRVCommandFactory {
         return new CreatePriceRVCommand(insertData);
     }
 
-    static createGetPriceRVsCommand(where: PriceRV, limit?: number, skip?: number) {
-        return new GetPriceRVsCommand(where, limit, skip);
+    static createGetPriceRVsCommand(where: PriceRV, limit?: number, skip?: number, latest?: boolean) {
+        return new GetPriceRVsCommand(where, limit, skip, latest);
     }
 }
