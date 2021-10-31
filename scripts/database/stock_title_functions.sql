@@ -45,11 +45,12 @@ CREATE OR REPLACE FUNCTION get_stock_title_with_stocks(percapital_user_id INTEGE
         st_id INTEGER,
         st_name TEXT,
         st_symbol VARCHAR,
+        st_isin_code VARCHAR,
         st_stock_amount NUMERIC
     )
 AS $$
 BEGIN 
-    RETURN QUERY SELECT stock_title.id, Stock_Title.name, Stock_Title.symbol, stocks_in_portfolio_by_user_and_title(percapital_user_id, Stock_Title.id)
+    RETURN QUERY SELECT stock_title.id, Stock_Title.name, Stock_Title.symbol, Stock_Title.isin_code, stocks_in_portfolio_by_user_and_title(percapital_user_id, Stock_Title.id)
         FROM Stock_Title;
 END;
 $$ LANGUAGE plpgsql;
