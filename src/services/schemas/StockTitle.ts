@@ -6,6 +6,7 @@ export const StockTitleTypeDef = gql`
         name: String
         symbol: String
         createdAt: String
+        isinCode: String
         priceRvs(where: PriceRVInput, limit: Int): [PriceRV]
     }
 
@@ -18,6 +19,7 @@ export const StockTitleTypeDef = gql`
         id: Int
         name: String
         symbol: String
+        isinCode: String
         createdAt: String
     }
 

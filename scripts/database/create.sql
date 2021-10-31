@@ -22,6 +22,7 @@ CREATE TABLE Stock_Title(
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     symbol VARCHAR(100) NOT NULL,
+    isin_code  VARCHAR(100) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 

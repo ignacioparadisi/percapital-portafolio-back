@@ -22,9 +22,9 @@ INSERT INTO Exchange_Rate(value) VALUES
     (44521.02);
 
 -- EXCHANGE RATE
-INSERT INTO Stock_Title(name, symbol) VALUES 
-    ('B.CARIBE "A"', 'ABC.A'),
-    ('RON STA.TER.', 'RST');
+INSERT INTO Stock_Title(name, symbol, isin_code) VALUES 
+    ('B.CARIBE "A"', 'ABC.A', 'VEV0021410A5'),
+    ('RON STA.TER.', 'RST', 'VEV000631003');
 
 -- CONSTANT VALUE
 INSERT INTO Constant_Value(constant_type_id, value) VALUES
