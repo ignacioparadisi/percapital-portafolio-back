@@ -317,7 +317,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION portfolio(percapital_user_id INTEGER)
+CREATE OR REPLACE FUNCTION get_portfolio(percapital_user_id INTEGER)
     RETURNS TABLE (
         port_count BIGINT,
         port_total_stocks_amount NUMERIC,

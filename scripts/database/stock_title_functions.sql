@@ -40,6 +40,20 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION get_stock_title_with_stocks(percapital_user_id INTEGER)
+    RETURNS TABLE(
+        st_id INTEGER,
+        st_name TEXT,
+        st_symbol VARCHAR,
+        st_stock_amount NUMERIC
+    )
+AS $$
+BEGIN 
+    RETURN QUERY SELECT stock_title.id, Stock_Title.name, Stock_Title.symbol, stocks_in_portfolio_by_user_and_title(percapital_user_id, Stock_Title.id)
+        FROM Stock_Title;
+END;
+$$ LANGUAGE plpgsql;
+
 /******************************
 *******************************
             INSERTS

@@ -11,6 +11,7 @@ export class StockTitle extends Entity implements Decodable, Pageable {
     isinCode?: string;
     priceRvs?: PriceRV[];
     total?: number;
+    stockAmount?: number;
 
    constructor(entity?: StockTitle) {
         super(entity);
@@ -28,6 +29,7 @@ export class StockTitle extends Entity implements Decodable, Pageable {
         symbol: 'st_symbol',
         isinCode: 'st_isin_code',
         createdAt: 'st_created_at',
-        total: 'st_count'
+        total: 'st_count',
+        stockAmount: 'st_stock_amount'
    }
 }
