@@ -14,7 +14,10 @@ export class StockTitleDAO extends DAO<StockTitle> implements IStockTitleDAO {
         if (!entity.symbol) {
             throw new RequiredFieldError('value');
         }
-        let query = StockTitleDBFunctions.createTitle(entity.name, entity.symbol);
+        if (!entity.isinCode) {
+            throw new RequiredFieldError('isinCode');
+        }
+        let query = StockTitleDBFunctions.createTitle(entity.name, entity.symbol, entity.isinCode);
         let result = await Database.shared.execute(query, StockTitle);
         if (result.length > 0) {
             return result[0];
