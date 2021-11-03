@@ -8,8 +8,8 @@ import { IOperationsDAO } from "./IOperationsDAO";
 
 export class OperationsDAO implements IOperationsDAO {
     async create(entity: Operation): Promise<Operation> {
-        if (!entity.priceRvId) {
-            throw new RequiredFieldError('priceRvId');
+        if (!entity.titleId) {
+            throw new RequiredFieldError('titleId');
         }
         if (!entity.userId) {
             throw new RequiredFieldError('userId');
@@ -19,6 +19,9 @@ export class OperationsDAO implements IOperationsDAO {
         }
         if (!entity.stockPrice) {
             throw new RequiredFieldError('stockPrice');
+        }
+        if (!entity.exchangeRate) {
+            throw new RequiredFieldError('exchangeRate');
         }
         if (!entity.typeId) {
             throw new RequiredFieldError('typeId');
@@ -33,7 +36,7 @@ export class OperationsDAO implements IOperationsDAO {
             throw new RequiredFieldError('registerCvId');
         }
 
-        let query = OperationsDBFunctions.createOperation(entity.priceRvId, entity.userId, entity.stockAmount, entity.stockPrice, 
+        let query = OperationsDBFunctions.createOperation(entity.titleId, entity.userId, entity.stockAmount, entity.stockPrice, entity.exchangeRate,
             entity.typeId, entity.ivaCvId, entity.comissionCvId, entity.registerCvId, entity.createdAt);
 
         let result = await Database.shared.execute(query, Operation);

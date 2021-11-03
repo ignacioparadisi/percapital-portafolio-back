@@ -50,10 +50,11 @@ export const OperationTypeDef = gql`
     input OperationInput {
         id: Int
         userId: Int
-        priceRvId: Int
+        titleId: Int
         createdAt: String
         stockAmount: Float
         stockPrice: Float
+        exchangeRate: Float
         typeId: Int
         ivaCvId: Int
         comissionCvId: Int
