@@ -5,12 +5,10 @@ DECLARE
     return_value NUMERIC;
 BEGIN
     SELECT Buy_Operation.amount - Sell_Operation.amount INTO return_value FROM
-    (SELECT SUM(Operation.stock_amount) AS amount FROM Operation, Price_RV 
-    WHERE Operation.user_id = percapital_user_id AND Operation.price_rv_id = Price_RV.id 
-    AND Price_RV.title_id = selected_title_id AND Operation.type_id = 1) AS Buy_Operation,
-    (SELECT SUM(Operation.stock_amount) AS amount FROM Operation, Price_RV 
-    WHERE Operation.user_id = percapital_user_id AND Operation.price_rv_id = Price_RV.id 
-    AND Price_RV.title_id = selected_title_id AND Operation.type_id = 2) AS Sell_Operation;
+    (SELECT SUM(Operation.stock_amount) AS amount FROM Operation 
+    WHERE Operation.user_id = percapital_user_id AND Operation.title_id = selected_title_id AND Operation.type_id = 1) AS Buy_Operation,
+    (SELECT SUM(Operation.stock_amount) AS amount FROM Operation 
+    WHERE Operation.user_id = percapital_user_id AND Operation.title_id = selected_title_id AND Operation.type_id = 2) AS Sell_Operation;
 
     RETURN return_value;
 END; 
@@ -258,8 +256,8 @@ BEGIN
 
     SELECT SUM(Sub_Query.net_market_value) INTO total_net_market_value FROM
     (SELECT portfolio_net_market_value(percapital_user_id, Stock_Title.id) AS net_market_value
-        FROM Operation, Price_RV, Stock_Title
-        WHERE Operation.price_rv_id = Price_RV.id AND Price_RV.title_id = Stock_Title.id AND Operation.user_id = percapital_user_id
+        FROM Operation, Stock_Title
+        WHERE Operation.title_id = Stock_Title.id AND Operation.user_id = percapital_user_id
 	    GROUP BY Stock_Title.id) AS Sub_Query;
 
 
@@ -310,8 +308,8 @@ BEGIN
         portfolio_variation(percapital_user_id, Stock_Title.id), portfolio_dollar_variation(percapital_user_id, Stock_Title.id),
         portfolio_percentage_in_folio(percapital_user_id, Stock_Title.id)
 
-        FROM Operation, Price_RV, Stock_Title
-        WHERE Operation.price_rv_id = Price_RV.id AND Price_RV.title_id = Stock_Title.id AND Operation.user_id = percapital_user_id
+        FROM Operation, Stock_Title
+        WHERE Operation.title_id = Stock_Title.id AND Operation.user_id = percapital_user_id
         GROUP BY Stock_Title.id;
 
 END;

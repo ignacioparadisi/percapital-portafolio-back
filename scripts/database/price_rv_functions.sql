@@ -134,6 +134,48 @@ BEGIN
     
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_price_rv_id(pr_title_id BIGINT)
+    RETURNS BIGINT
+AS
+$$
+DECLARE
+    return_value BIGINT;
+BEGIN
+    SELECT id FROM Price_RV INTO return_value WHERE title_id = pr_title_id
+    ORDER BY id DESC LIMIT 1;
+
+    RETURN return_value;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_price_rv_bs_price(pr_title_id BIGINT)
+    RETURNS NUMERIC
+AS
+$$
+DECLARE
+    return_value NUMERIC;
+BEGIN
+    SELECT bolivares_price FROM Price_RV INTO return_value WHERE title_id = pr_title_id
+    ORDER BY id DESC LIMIT 1;
+
+    RETURN return_value;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_price_rv_close_price(pr_title_id BIGINT)
+    RETURNS NUMERIC
+AS
+$$
+DECLARE
+    return_value NUMERIC;
+BEGIN
+    SELECT close_price FROM Price_RV INTO return_value WHERE title_id = pr_title_id
+    ORDER BY id DESC LIMIT 1;
+
+    RETURN return_value;
+END; 
+$$ LANGUAGE plpgsql;
 /******************************
 *******************************
             INSERTS
