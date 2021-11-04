@@ -2,13 +2,19 @@ CREATE OR REPLACE FUNCTION stocks_in_portfolio_by_user_and_title(percapital_user
     RETURNS NUMERIC
 AS $$
 DECLARE
+    buy_stocks_amount NUMERIC;
+    sell_stocks_amount NUMERIC;
     return_value NUMERIC;
 BEGIN
-    SELECT Buy_Operation.amount - Sell_Operation.amount INTO return_value FROM
+    SELECT Buy_Operation.amount, Sell_Operation.amount INTO buy_stocks_amount, sell_stocks_amount FROM
     (SELECT SUM(Operation.stock_amount) AS amount FROM Operation 
     WHERE Operation.user_id = percapital_user_id AND Operation.title_id = selected_title_id AND Operation.type_id = 1) AS Buy_Operation,
     (SELECT SUM(Operation.stock_amount) AS amount FROM Operation 
     WHERE Operation.user_id = percapital_user_id AND Operation.title_id = selected_title_id AND Operation.type_id = 2) AS Sell_Operation;
+
+    IF buy_stocks_amount IS NOT NULL OR sell_stocks_amount IS NOT NULL THEN 
+        return_value = COALESCE(buy_stocks_amount,0) - COALESCE(sell_stocks_amount,0);
+    END IF;
 
     RETURN return_value;
 END; 
