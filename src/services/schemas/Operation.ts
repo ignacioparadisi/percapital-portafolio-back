@@ -10,7 +10,7 @@ export const OperationTypeDef = gql`
         stockPrice: Float
         typeId: Int
         operationType(where: OperationTypeInput): OperationType
-        priceRV(where: PriceRVInput): PriceRV
+        stockTitle(where: StockTitleInput): StockTitle
 
         value: Float
         comission: Float
