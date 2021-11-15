@@ -7,6 +7,8 @@ import { ExecutionContext } from 'graphql/execution/execute';
 import { PriceRVCommandFactory } from '@Logic/commands/price_rv/PriceRVCommandFactory';
 import { OperationTypeCommandFactory } from '@Logic/commands/operation_type/OperationTypeCommandFactory';
 import { Page } from '@Common/utils/Page';
+import { StockTitle } from '@Common/entities/StockTitle';
+import { StockTitleCommandFactory } from '@Logic/commands/stock_title/StockTitleCommandFactory';
 
 export const OperationResolver = {
     Query: {
@@ -32,11 +34,11 @@ export const OperationResolver = {
             }
             return null;
         },
-        priceRV: async (parent: Operation, args: GraphQLQuery) => {
-            console.info('priceRv parent: ', parent, 'args: ',args);
-            const where = new PriceRV();
-            where.id = parent.priceRvId;
-            const command = PriceRVCommandFactory.createGetPriceRVCommand(where);
+        stockTitle: async (parent: PriceRV, args: GraphQLQuery) => {
+            console.info('stockTitle parent: ', parent, 'args: ',args)
+            const where = new StockTitle();
+            where.id = parent.titleId;
+            const command = StockTitleCommandFactory.createGetStockTitleByIdCommand(where);
             let result = await command.execute();
             if (result.length > 0) {
                 return result[0];

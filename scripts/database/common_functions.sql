@@ -60,25 +60,20 @@ CREATE OR REPLACE function get_constant_types(c_type_id INTEGER)
     RETURNS TABLE ( 
         ct_id INTEGER,
         ct_name VARCHAR,
-        ct_created_at TIMESTAMP,
-        cv_id INTEGER,
-        cv_value NUMERIC,
-        cv_created_at TIMESTAMP
+        ct_created_at TIMESTAMP
     )
 AS
 $$ 
 BEGIN
     IF c_type_id IS NULL THEN
         RETURN query
-            SELECT constant_type.id, constant_type.name, constant_type.created_at, 
-	        constant_value.id, constant_value.value, constant_value.created_at FROM constant_type, constant_value 
-	        WHERE constant_type.id = constant_value.constant_type_id ORDER BY constant_type.id;
+            SELECT constant_type.id, constant_type.name, constant_type.created_at FROM constant_type 
+	        ORDER BY constant_type.id;
     END IF;
 
     RETURN query
-            SELECT constant_type.id, constant_type.name, constant_type.created_at, 
-	        constant_value.id, constant_value.value, constant_value.created_at FROM constant_type, constant_value 
-	        WHERE constant_type.id = c_type_id AND constant_type.id = constant_value.constant_type_id ORDER BY constant_type.id;
+            SELECT constant_type.id, constant_type.name, constant_type.created_at FROM constant_type 
+	        WHERE constant_type.id = c_type_id ORDER BY constant_type.id;
 
 END; 
 $$ LANGUAGE plpgsql;
@@ -97,7 +92,7 @@ $$
 BEGIN
     RETURN QUERY
             SELECT id, value, created_at FROM constant_value 
-	        WHERE id = c_type_id;
+	        WHERE constant_type_id = c_type_id;
 
 END; 
 $$ LANGUAGE plpgsql;
@@ -120,3 +115,22 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
+/******************************
+*******************************
+            INSERTS
+*******************************
+*******************************/
+
+-- Create a Constant Value
+CREATE OR REPLACE FUNCTION create_constant_value(selected_ct_id INTEGER, cv_input_value NUMERIC)
+    RETURNS TABLE(
+        cv_id INTEGER,
+        cv_value NUMERIC,
+        cv_created_at TIMESTAMP
+    )
+AS $$
+BEGIN
+    RETURN QUERY INSERT INTO Constant_Value(constant_type_id, value) VALUES (selected_ct_id, cv_input_value) 
+        RETURNING id, value, created_at;
+END;
+$$ LANGUAGE plpgsql;
