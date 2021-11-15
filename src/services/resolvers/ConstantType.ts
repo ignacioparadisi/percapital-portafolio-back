@@ -3,13 +3,14 @@ import { ConstantType } from '@Common/entities/ConstantType';
 import { CommandFactory } from '@Logic/commands/CommandFactory';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 import { ExecutionContext } from 'graphql/execution/execute';
+import { ConstantCommandFactory } from '@Logic/commands/constants/ConstantCommandFactory';
 
 export const ConstantTypeResolver = {
     Query: {
         getConstantTypes: async (parent: any, args: GraphQLQuery, context: ExecutionContext) => {
             console.info('getConstantTypes parent:', parent, 'args: ',args);
             const where = new ConstantType(args.where as ConstantType)
-            const command = CommandFactory.createGetConstantTypesCommand(where, args.limit, args.skip);
+            const command = ConstantCommandFactory.createGetConstantTypeCommand(where, args.limit, args.skip);
             return command.execute();
         }
     },
@@ -17,7 +18,8 @@ export const ConstantTypeResolver = {
         values: async (parent: ConstantType, args: GraphQLQuery) => {
             console.info('Constant Values parent: ', parent, 'args: ',args)
             const where = new ConstantValue(args.where as ConstantValue);
-            const command = CommandFactory.createGetTypeValuesByConstantTypeCommand(where, parent, args.limit);
+            where.constantTypeId = parent.id;
+            const command = ConstantCommandFactory.createGetConstantValueCommand(where, args.limit);
             return command.execute();
         },
     },

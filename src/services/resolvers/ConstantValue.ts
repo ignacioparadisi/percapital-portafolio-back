@@ -1,5 +1,6 @@
 import { ConstantType } from '@Common/entities/ConstantType';
 import { ConstantValue } from '@Common/entities/ConstantValue';
+import { ConstantCommandFactory } from '@Logic/commands/constants/ConstantCommandFactory';
 import { GraphQLMutation, GraphQLQuery } from '../graphQLTypes';
 
 export const TypeValueResolver = {
@@ -19,9 +20,9 @@ export const TypeValueResolver = {
     },
     Mutation: {
         createTypeValue: async (parent: any, args: GraphQLMutation) => {
-            console.info('createTypeValue parent: ', parent, 'args: ',args);
             const createData = new ConstantValue(args.insertData as ConstantValue);
-            return null;
+            const command = ConstantCommandFactory.createCreateConstantValueCommand(createData);
+            return command.execute();
         },
         updateTypeValue: async (parent: any, args: GraphQLMutation) => {
             console.info('updateTypeValue parent: ', parent, 'args: ',args);

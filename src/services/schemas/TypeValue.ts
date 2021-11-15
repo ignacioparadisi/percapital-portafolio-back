@@ -11,7 +11,7 @@ export const TypeValueTypeDef = gql`
 
     input TypeValueInput {
         id: Int
-        cotId: Int
+        constantTypeId: Int
         value: Float
         createdAt: String
     }
