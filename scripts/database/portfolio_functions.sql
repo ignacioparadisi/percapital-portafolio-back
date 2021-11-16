@@ -113,7 +113,7 @@ BEGIN
     stocks_in_portfolio_by_user_and_title(percapital_user_id, selected_title_id);
     
     return_value = stocks_amount_in_portfolio * stock_price;
-
+    -- TODO: Cambiar valores estaticos a los de la tabla
     RETURN return_value - (return_value * (0.04+(0.04*0.16))) - return_value * 0.001;
 END; 
 $$ LANGUAGE plpgsql;
@@ -270,7 +270,7 @@ BEGIN
     IF title_net_market_value / total_net_market_value = 0 THEN 
         return_value = 0;
     ELSE
-        return_value = title_net_market_value / total_net_market_value;
+        return_value = (title_net_market_value / total_net_market_value) * 100;
     END IF;
     
     RETURN return_value;
@@ -324,6 +324,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION get_portfolio(percapital_user_id INTEGER)
     RETURNS TABLE (
         port_count BIGINT,
+        port_performance_value NUMERIC,
         port_total_stocks_amount NUMERIC,
         port_total_buy_total_cost NUMERIC,
         port_total_dollar_buy_total_cost NUMERIC,
@@ -352,7 +353,7 @@ CREATE OR REPLACE FUNCTION get_portfolio(percapital_user_id INTEGER)
         port_dollar_net_gp NUMERIC,
         port_variation NUMERIC,
         port_dollar_variation NUMERIC,
-        port_percentage_in_folio NUMERIC 
+        port_percentage_in_folio NUMERIC
     )
 AS $$
 DECLARE
@@ -366,6 +367,7 @@ DECLARE
     port_total_dollar_raw_value NUMERIC;
     port_total_net_gp NUMERIC;
     port_total_dollar_net_gp NUMERIC;
+    performance_value NUMERIC;
 BEGIN
     SELECT COUNT(*), SUM(Portfolio_Values.port_stocks_in_folio), SUM(Portfolio_Values.port_buy_total_cost), SUM(Portfolio_Values.port_dollar_buy_total_cost), 
     SUM(Portfolio_Values.port_market_net_value), SUM(Portfolio_Values.port_dollar_market_net_value), SUM(Portfolio_Values.port_raw_value), 
@@ -374,7 +376,16 @@ BEGIN
     port_total_raw_value, port_total_dollar_raw_value, port_total_net_gp, port_total_dollar_net_gp
     FROM portfolio_values(percapital_user_id) AS Portfolio_Values;
 
-    RETURN QUERY SELECT total, port_total_stocks_amount, port_total_buy_total_cost, port_total_dollar_buy_total_cost, port_total_net_market_value, 
+    SELECT (SUM(((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) -
+             get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) /
+            get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) *
+           (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) / (SELECT COUNT(*) FROM Operation WHERE operation.user_id = percapital_user_id AND operation.type_id = 1)) INTO performance_value
+    FROM Operation, Constant_Value AS Register, Constant_Value AS IVA, Constant_Value AS Comission
+    WHERE Operation.user_id = percapital_user_id
+      AND Operation.type_id = 1 -- Compra
+      AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id;
+
+    RETURN QUERY SELECT total, performance_value, port_total_stocks_amount, port_total_buy_total_cost, port_total_dollar_buy_total_cost, port_total_net_market_value,
     port_total_dollar_net_market_value, port_total_raw_value, port_total_dollar_raw_value, port_total_net_gp, port_total_dollar_net_gp, Portfolio_Values.* 
     FROM portfolio_values(percapital_user_id) AS Portfolio_Values;
 

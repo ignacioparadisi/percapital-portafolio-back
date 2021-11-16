@@ -4,6 +4,7 @@ import { Entity } from "./Entity";
 
 export class Portfolio extends Entity implements Decodable, PortfolioPageable {
     total?: number;
+    performace?: number;
     totalStocksAmount?: number;
     totalBuyTotalCost?: number;
     totalDollarBuyTotalCost?: number;
@@ -44,6 +45,7 @@ export class Portfolio extends Entity implements Decodable, PortfolioPageable {
 
     codingKeys = {
         total: 'port_count',
+        performance: 'port_performance_value',
         totalStocksAmount: 'port_total_stocks_amount',
         totalBuyTotalCost: 'port_total_buy_total_cost',
         totalDollarBuyTotalCost: 'port_total_dollar_buy_total_cost',

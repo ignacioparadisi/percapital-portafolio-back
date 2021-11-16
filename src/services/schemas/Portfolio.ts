@@ -35,6 +35,7 @@ export const PortfolioTypeDef = gql`
         totalDollarRawValue: Float
         totalNetGp: Float
         totalDollarNetGp: Float
+        performance: Float
     }
 
     input PortfolioInput {

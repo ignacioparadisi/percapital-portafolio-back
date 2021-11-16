@@ -39,6 +39,7 @@ export class Database {
         password: process.env.DB_PASSWORD,
         port: parseInt(process.env.DB_PORT as string, 5432)
       }
+      console.info(config);
     }
     this.pool = new Pool(config);
   }

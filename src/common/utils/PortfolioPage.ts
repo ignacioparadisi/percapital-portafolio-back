@@ -13,6 +13,7 @@ export class PortfolioPage<T extends Entity>{
     totalDollarRawValue?: number;
     totalNetGp?: number;
     totalDollarNetGp?: number;
+    performance?: number;
 
     constructor(data: T[], total?: number) {
         this.data = data;
@@ -33,6 +34,7 @@ export class PortfolioPage<T extends Entity>{
                 page.totalDollarRawValue = items[0].totalDollarRawValue;
                 page.totalNetGp = items[0].totalNetGp;
                 page.totalDollarNetGp = items[0].totalDollarNetGp;
+                page.performance = items[0].performance;
             }
         }
         return page;
@@ -49,4 +51,5 @@ export interface PortfolioPageable extends Pageable {
     totalDollarRawValue?: number;
     totalNetGp?: number;
     totalDollarNetGp?: number;
+    performance?: number;
 }
