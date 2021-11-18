@@ -37,7 +37,7 @@ export class OperationsDAO implements IOperationsDAO {
         }
 
         let query = OperationsDBFunctions.createOperation(entity.titleId, entity.userId, entity.stockAmount, entity.stockPrice, entity.exchangeRate,
-            entity.typeId, entity.ivaCvId, entity.comissionCvId, entity.registerCvId, entity.createdAt);
+            entity.typeId, entity.ivaCvId, entity.comissionCvId, entity.registerCvId, entity.createdAt, entity.otherComission);
 
         let result = await Database.shared.execute(query, Operation);
         if (result.length > 0) {

@@ -8,7 +8,7 @@ export class OperationsDBFunctions {
     }
 
     public static createOperation(titleId: number, userId: number, stockAmount: number, stockPrice: number, exchangeRate: number, typeId: number, 
-        ivaCvId: number, comissionCvId: number, registerCvId: number, createdAt?: Date): string {
-        return `SELECT * FROM create_operation(${titleId}, ${userId}, ${stockAmount}, ${stockPrice}, ${exchangeRate}, ${typeId}, ${ivaCvId}, ${comissionCvId}, ${registerCvId}, ${createdAt ? `'${createdAt}'` : null})`
+        ivaCvId: number, comissionCvId: number, registerCvId: number, createdAt?: Date, otherComission?: number): string {
+        return `SELECT * FROM create_operation(${titleId}, ${userId}, ${stockAmount}, ${stockPrice}, ${exchangeRate}, ${typeId}, ${ivaCvId}, ${comissionCvId}, ${registerCvId}, ${createdAt ? `'${createdAt}'` : null}, ${otherComission ? otherComission : null})`
     }
 }

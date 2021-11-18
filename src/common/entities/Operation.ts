@@ -20,6 +20,7 @@ export class Operation extends Entity implements Decodable, Pageable {
     register?: number;
     exchangeRate?: number;
     total?: number;
+    otherComission?: number;
 
     ivaCvId?: number;
     comissionCvId?: number;
@@ -72,6 +73,7 @@ export class Operation extends Entity implements Decodable, Pageable {
         this.exchangeRate = entity ? entity.exchangeRate : undefined;
 
         this.total = entity ? entity.total : undefined;
+        this.otherComission = entity ? entity.otherComission : undefined;
 
         // Variables for sell ops
         this.sellNetValue = entity ? entity.sellNetValue : undefined;

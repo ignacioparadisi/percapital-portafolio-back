@@ -71,6 +71,7 @@ CREATE TABLE Operation(
     register_cv_id BIGINT NOT NULL,
     iva_cv_id BIGINT NOT NULL,
     comission_cv_id BIGINT NOT NULL,
+    other_comission NUMERIC,
     CONSTRAINT fk_ope_stock_title_id FOREIGN KEY (title_id) REFERENCES Stock_Title(id),
     CONSTRAINT fk_ope_type_id FOREIGN KEY (type_id) REFERENCES Operation_Type(id),
     CONSTRAINT fk_ope_user_id FOREIGN KEY (user_id) REFERENCES Percapital_User(id),

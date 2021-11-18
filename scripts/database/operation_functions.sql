@@ -262,7 +262,7 @@ $$ LANGUAGE plpgsql;
 -- Create an Operation
 CREATE OR REPLACE FUNCTION create_operation(ope_title_id INTEGER, ope_user_id INTEGER, ope_stock_amount NUMERIC, ope_stock_price NUMERIC, 
             ope_exchange_rate NUMERIC, ope_type_id INTEGER, ope_iva_cv_id INTEGER, ope_comission_cv_id INTEGER, ope_register_cv_id INTEGER, 
-            ope_created_at TIMESTAMP)
+            ope_created_at TIMESTAMP, ope_other_comission NUMERIC)
     RETURNS TABLE(
         op_id INTEGER,
         op_title_id BIGINT,
@@ -271,19 +271,20 @@ CREATE OR REPLACE FUNCTION create_operation(ope_title_id INTEGER, ope_user_id IN
         op_stock_amount NUMERIC,
         op_stock_price NUMERIC,
         op_exchange_rate NUMERIC,
-        op_type_id BIGINT
+        op_type_id BIGINT,
+        op_other_comission NUMERIC
     )
 AS $$
 BEGIN
     IF ope_created_at IS NULL THEN
-        RETURN QUERY INSERT INTO Operation(title_id, user_id, stock_amount, stock_price, exchange_rate_value, type_id, iva_cv_id, comission_cv_id, register_cv_id)
-            VALUES (ope_title_id, ope_user_id, ope_stock_amount, ope_stock_price, ope_exchange_rate, ope_type_id, ope_iva_cv_id, ope_comission_cv_id, ope_register_cv_id)
-            RETURNING id, title_id, user_id, created_at, stock_amount, stock_price, exchange_rate_value, type_id;
+        RETURN QUERY INSERT INTO Operation(title_id, user_id, stock_amount, stock_price, exchange_rate_value, type_id, iva_cv_id, comission_cv_id, register_cv_id, other_comission)
+            VALUES (ope_title_id, ope_user_id, ope_stock_amount, ope_stock_price, ope_exchange_rate, ope_type_id, ope_iva_cv_id, ope_comission_cv_id, ope_register_cv_id, ope_other_comission)
+            RETURNING id, title_id, user_id, created_at, stock_amount, stock_price, exchange_rate_value, type_id, other_comission;
     ELSE
 
-    RETURN QUERY INSERT INTO Operation(title_id, user_id, stock_amount, stock_price, exchange_rate_value, type_id, iva_cv_id, comission_cv_id, register_cv_id, created_at)
-            VALUES (ope_title_id, ope_user_id, ope_stock_amount, ope_stock_price, ope_exchange_rate, ope_type_id, ope_iva_cv_id, ope_comission_cv_id, ope_register_cv_id, ope_created_at)
-            RETURNING id, title_id, user_id, created_at, stock_amount, stock_price, exchange_rate_value, type_id;
+    RETURN QUERY INSERT INTO Operation(title_id, user_id, stock_amount, stock_price, exchange_rate_value, type_id, iva_cv_id, comission_cv_id, register_cv_id, created_at, other_comission)
+            VALUES (ope_title_id, ope_user_id, ope_stock_amount, ope_stock_price, ope_exchange_rate, ope_type_id, ope_iva_cv_id, ope_comission_cv_id, ope_register_cv_id, ope_created_at, ope_other_comission)
+            RETURNING id, title_id, user_id, created_at, stock_amount, stock_price, exchange_rate_value, type_id, other_comission;
     
     END IF;
 END;

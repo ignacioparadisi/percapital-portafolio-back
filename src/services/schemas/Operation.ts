@@ -17,6 +17,7 @@ export const OperationTypeDef = gql`
         iva: Float
         register: Float
         exchangeRate: Float
+        otherComission: Float
 
         sellNetValue: Float
         sellRawDollarValue: Float
@@ -59,6 +60,7 @@ export const OperationTypeDef = gql`
         ivaCvId: Int
         comissionCvId: Int
         registerCvId: Int
+        otherComission: Float
     }
 
     type Query {
