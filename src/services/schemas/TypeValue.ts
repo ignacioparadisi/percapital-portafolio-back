@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 export const TypeValueTypeDef = gql`
     type TypeValue {
         id: Int
-        cotId: Int
+        constantTypeId: Int
         value: Float
         createdAt: String
         constantType(where: ConstantTypeInput): ConstantType

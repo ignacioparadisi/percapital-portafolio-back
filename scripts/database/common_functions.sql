@@ -85,13 +85,14 @@ CREATE OR REPLACE FUNCTION get_constant_values(c_type_id INTEGER)
     RETURNS TABLE (
         cv_id INTEGER,
         cv_value NUMERIC,
+        cv_constant_type_id BIGINT,
         cv_created_at TIMESTAMP
     )
 AS
 $$ 
 BEGIN
     RETURN QUERY
-            SELECT id, value, created_at FROM constant_value 
+            SELECT id, value, constant_type_id, created_at FROM constant_value
 	        WHERE constant_type_id = c_type_id;
 
 END; 
@@ -126,11 +127,12 @@ CREATE OR REPLACE FUNCTION create_constant_value(selected_ct_id INTEGER, cv_inpu
     RETURNS TABLE(
         cv_id INTEGER,
         cv_value NUMERIC,
+        cv_constant_type_id BIGINT,
         cv_created_at TIMESTAMP
     )
 AS $$
 BEGIN
     RETURN QUERY INSERT INTO Constant_Value(constant_type_id, value) VALUES (selected_ct_id, cv_input_value) 
-        RETURNING id, value, created_at;
+        RETURNING id, value, constant_type_id, created_at;
 END;
 $$ LANGUAGE plpgsql;

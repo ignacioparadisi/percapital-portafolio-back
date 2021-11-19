@@ -11,6 +11,7 @@ export class ConstantValue extends Entity implements Decodable {
     codingKeys: CodingKey<ConstantValue> = {
          id: 'cv_id',
          value: 'cv_value',
+         constantTypeId: 'cv_constant_type_id',
          createdAt: 'cv_created_at'
     }
 
