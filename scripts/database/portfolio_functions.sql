@@ -376,9 +376,9 @@ BEGIN
     port_total_raw_value, port_total_dollar_raw_value, port_total_net_gp, port_total_dollar_net_gp
     FROM portfolio_values(percapital_user_id) AS Portfolio_Values;
 
-    SELECT (SUM(((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) -
-             get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) /
-            get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) *
+    SELECT (SUM(((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) -
+             get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 1)) /
+            get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 1)) *
            (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) / (SELECT COUNT(*) FROM Operation WHERE operation.user_id = percapital_user_id AND operation.type_id = 1)) INTO performance_value
     FROM Operation, Constant_Value AS Register, Constant_Value AS IVA, Constant_Value AS Comission
     WHERE Operation.user_id = percapital_user_id

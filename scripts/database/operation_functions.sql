@@ -21,7 +21,7 @@ $$ LANGUAGE plpgsql;
 ---- `is_addition`: Condition to know if the constants need to be added or substracted.
 CREATE OR REPLACE FUNCTION get_total_computed_value(stock_price NUMERIC, stock_amount NUMERIC, 
                                                     comission_constant NUMERIC, iva_constant NUMERIC,
-                                                    register_constant NUMERIC, is_addition INTEGER)
+                                                    register_constant NUMERIC, other_comission NUMERIC, is_addition INTEGER)
     RETURNS NUMERIC
 AS
 $$
@@ -31,13 +31,15 @@ BEGIN
         RETURN  get_computed_value(stock_price, stock_amount) + 
                 (get_computed_value(stock_price, stock_amount) * comission_constant) + 
                 (get_computed_value(stock_price, stock_amount) * comission_constant * iva_constant) + 
-                (get_computed_value(stock_price, stock_amount) * register_constant);
+                (get_computed_value(stock_price, stock_amount) * register_constant) +
+                other_comission;
     END IF;
 
     RETURN  get_computed_value(stock_price, stock_amount) - 
             (get_computed_value(stock_price, stock_amount) * comission_constant) - 
             (get_computed_value(stock_price, stock_amount) * comission_constant * iva_constant) - 
-            (get_computed_value(stock_price, stock_amount) * register_constant);
+            (get_computed_value(stock_price, stock_amount) * register_constant) -
+            other_comission;
 END; 
 $$ LANGUAGE plpgsql;
 
@@ -79,6 +81,7 @@ CREATE OR REPLACE FUNCTION get_sell_operations(p_user_id INTEGER, limit_number I
         op_comission NUMERIC,
         op_iva NUMERIC,
         op_register_value NUMERIC,
+        op_other_comission NUMERIC,
         op_net_value NUMERIC,
         op_exchange_rate NUMERIC,
         op_raw_dollar_value NUMERIC,
@@ -95,13 +98,14 @@ BEGIN
         operation.stock_price, get_computed_value(operation.stock_price, operation.stock_amount) AS sell_value, 
         get_computed_value(operation.stock_price, operation.stock_amount) * comission.value AS comission, 
 	    get_computed_value(operation.stock_price, operation.stock_amount) * comission.value * iva.value AS iva, 
-        get_computed_value(operation.stock_price, operation.stock_amount) * register.value AS register_value, 
+        get_computed_value(operation.stock_price, operation.stock_amount) * register.value AS register_value,
+        operation.other_comission AS other_comission,
 	    get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 0) AS net_sell,
+        comission.value, iva.value, register.value, operation.other_comission, 0) AS net_sell,
         operation.exchange_rate_value AS exchange_rate, 
 	    get_computed_value(operation.stock_price, operation.stock_amount) / operation.exchange_rate_value AS raw_dollar_sell, 
 		get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 0) / operation.exchange_rate_value AS dolar_net_sell
+        comission.value, iva.value, register.value, operation.other_comission, 0) / operation.exchange_rate_value AS dolar_net_sell
         FROM Operation, Stock_Title, Operation_Type, 
         Constant_Value AS Register, Constant_Value AS IVA, Constant_Value AS Comission
         WHERE Operation.title_id = Stock_Title.id AND Operation.user_id = p_user_id AND Operation.type_id = 2 -- Venta 
@@ -131,6 +135,7 @@ CREATE OR REPLACE FUNCTION get_buy_operations(p_user_id INTEGER, limit_number IN
         op_comission NUMERIC(1000,5),
         op_iva NUMERIC(1000,5),
         op_register_value NUMERIC(1000,5),
+        op_other_comission NUMERIC,
         op_total_cost NUMERIC(1000,5),
         op_unit_total_price NUMERIC(1000,5),
         op_exchange_rate NUMERIC(1000,5),
@@ -165,19 +170,20 @@ BEGIN
         get_computed_value(operation.stock_price, operation.stock_amount) * comission.value AS comission, 
 	    get_computed_value(operation.stock_price, operation.stock_amount) * comission.value * iva.value AS iva, 
         get_computed_value(operation.stock_price, operation.stock_amount) * register.value AS register_value,
+        operation.other_comission,
 
-	    get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1) AS total_cost,
+	    get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 1) AS total_cost,
 
         get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 1) / operation.stock_amount AS unit_total_price,
+        comission.value, iva.value, register.value, operation.other_comission, 1) / operation.stock_amount AS unit_total_price,
 
         operation.exchange_rate_value AS exchange_rate, 
 	    
         get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 1) / operation.exchange_rate_value AS dollar_total_cost,
+        comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value AS dollar_total_cost,
 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 1) / operation.exchange_rate_value) / operation.stock_amount AS dollar_unit_total_price,
+        comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value) / operation.stock_amount AS dollar_unit_total_price,
 
         get_price_rv_close_price(operation.title_id) AS market_price,
         (get_price_rv_close_price(operation.title_id) - operation.stock_price) / operation.stock_price AS variation,
@@ -189,14 +195,14 @@ BEGIN
 
         get_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount) * register.value AS register_percentage,
 
-        get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) AS total_income,
+        get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) AS total_income,
 
-        get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) - 
-        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1) AS gp_value,
+        get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) -
+        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 1) AS gp_value,
 
-        ((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) - 
-        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) / 
-        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) *
+        ((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) -
+        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 1)) /
+        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 1)) *
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0)) AS performance_value,
 
 
@@ -208,25 +214,25 @@ BEGIN
         get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) *
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) AS weighted_performance,
 
-        (get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) / 
+        (get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) /
         latest_exchange_rate) - 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, 1) / operation.exchange_rate_value) AS dollar_gp,
 
-        (((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) / 
+        (((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) /
         latest_exchange_rate) - 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 1) / operation.exchange_rate_value)) / 
+        comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value)) /
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 1) / operation.exchange_rate_value)) *
+        comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value)) *
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0)) AS dollar_performance_value,
 
-        ((((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) / 
+        ((((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) /
         latest_exchange_rate) - 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 1) / operation.exchange_rate_value)) / 
+        comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value)) /
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 1) / operation.exchange_rate_value)) *
+        comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value)) *
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) * 
         operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Title.id, Operation_Type.id) AS dollar_weighted_performance
 
