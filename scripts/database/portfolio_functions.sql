@@ -385,7 +385,7 @@ BEGIN
       AND Operation.type_id = 1 -- Compra
       AND Register.id = Operation.register_cv_id AND IVA.id = Operation.iva_cv_id AND Comission.id = Operation.comission_cv_id;
 
-    RETURN QUERY SELECT total, performance_value, port_total_stocks_amount, port_total_buy_total_cost, port_total_dollar_buy_total_cost, port_total_net_market_value,
+    RETURN QUERY SELECT total, performance_value * 100, port_total_stocks_amount, port_total_buy_total_cost, port_total_dollar_buy_total_cost, port_total_net_market_value,
     port_total_dollar_net_market_value, port_total_raw_value, port_total_dollar_raw_value, port_total_net_gp, port_total_dollar_net_gp, Portfolio_Values.* 
     FROM portfolio_values(percapital_user_id) AS Portfolio_Values;
 
