@@ -79,3 +79,17 @@ CREATE TABLE Operation(
     CONSTRAINT fk_ope_iva_cv_id FOREIGN KEY (iva_cv_id) REFERENCES Constant_Value(id),
     CONSTRAINT fk_ope_comission_cv_id FOREIGN KEY (comission_cv_id) REFERENCES Constant_Value(id)
 );
+
+CREATE TABLE Stock_Historic(
+    id SERIAL PRIMARY KEY,
+    symbol TEXT NOT NULL,
+    stock_date TIMESTAMP NOT NULL,
+    close_price NUMERIC,
+    open_price NUMERIC,
+    high_price NUMERIC,
+    low_price NUMERIC,
+    volume TEXT,
+    change TEXT
+);
+
+CREATE UNIQUE INDEX index_stock_historic_sym_date on Stock_Historic (symbol, stock_date);

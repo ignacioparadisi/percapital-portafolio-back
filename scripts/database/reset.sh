@@ -8,3 +8,4 @@ psql percapital -U percapital -f price_rv_functions.sql
 psql percapital -U percapital -f stock_title_functions.sql
 psql percapital -U percapital -f exchange_rate_functions.sql
 psql percapital -U percapital -f portfolio_functions.sql
+psql percapital -U percapital -f historic_data_functions.sql
