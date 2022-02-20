@@ -1,6 +1,7 @@
 import {StockHistoric} from "@Common/entities/StockHistoric";
 import {Command} from "@Logic/commands/Command";
 import axios from 'axios';
+import {StockHistoricDAO} from "@Persistence/dao/stock_historic/StockHistoricDAO";
 
 const url = 'https://www.bolsadecaracas.com/resumen-mercado/';
 
@@ -11,8 +12,8 @@ export class GetStockFromBVC extends Command<StockHistoric, StockHistoric> {
         let decodedData = this.decodeData(data);
         let stocks = decodedData?.map((stock) => {
             return new StockHistoric(stock.symbol, stock.value);
-        })
-        return stocks ?? [];
+        }) ?? [];
+        return new StockHistoricDAO().createMultiple(stocks);
     }
 
     private decodeData(data: string) {

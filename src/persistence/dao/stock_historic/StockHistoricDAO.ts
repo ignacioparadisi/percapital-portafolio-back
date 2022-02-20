@@ -6,10 +6,12 @@ import {RequiredFieldError} from "@Common/errors/RequiredFieldError";
 import {StockTitleDBFunctions} from "@Persistence/database/functions/StockTitleDBFunctions";
 import {Database} from "@Persistence/database/DB";
 import {GeneralError} from "@Common/errors/GeneralError";
+import {StockHistoricBDFunctions} from "@Persistence/database/functions/StockHistoricBDFunctions";
 
 export class StockHistoricDAO extends DAO<StockHistoric> implements IStockHistoricDAO {
     async createMultiple(entities: StockHistoric[]): Promise<StockHistoric[]> {
-        throw GeneralError.METHOD_NOT_IMPLEMENTED;
+        let query = StockHistoricBDFunctions.insertStocks(JSON.stringify({ data: entities }));
+        return await Database.shared.execute(query, StockHistoric);
     }
 
     async create(entity: StockHistoric): Promise<StockHistoric> {
