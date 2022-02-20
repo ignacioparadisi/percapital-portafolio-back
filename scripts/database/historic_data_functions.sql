@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION create_stock_historic(json_data TEXT, symbol_value TEXT, data_key VARCHAR, 
+CREATE OR REPLACE FUNCTION create_stock_historic(json_data TEXT, data_key VARCHAR, symbol_column_name VARCHAR,
                             date_column_name VARCHAR, close_column_name VARCHAR, open_column_name VARCHAR,
                             high_column_name VARCHAR, low_column_name VARCHAR, volume_column_name VARCHAR,
                             change_column_name VARCHAR)
@@ -17,7 +17,8 @@ AS $$
 BEGIN
     DROP TABLE IF EXISTS json_table;
     CREATE TEMP TABLE json_table AS 
-    SELECT json_row::json->>date_column_name AS insert_stock_date, json_row::json->>close_column_name AS insert_close_price,
+    SELECT json_row::json->>symbol_column_name AS insert_symbol, json_row::json->>date_column_name AS insert_stock_date, 
+    json_row::json->>close_column_name AS insert_close_price,
     json_row::json->>open_column_name AS insert_open_price, json_row::json->>high_column_name AS insert_high_price,
     json_row::json->>low_column_name AS insert_low_price, json_row::json->>volume_column_name AS insert_volume,
     json_row::json->>change_column_name AS insert_change
@@ -25,7 +26,7 @@ BEGIN
 
     RETURN QUERY INSERT INTO Stock_Historic(symbol, stock_date, close_price, 
                             open_price, high_price, low_price, volume, change)
-        SELECT symbol_value, TO_TIMESTAMP(json_table.insert_stock_date, 'YYYY-MM-DD'), json_table.insert_close_price::NUMERIC, 
+        SELECT json_table.insert_symbol, TO_TIMESTAMP(json_table.insert_stock_date, 'YYYY-MM-DD'), json_table.insert_close_price::NUMERIC, 
         json_table.insert_open_price::NUMERIC, json_table.insert_high_price::NUMERIC, json_table.insert_low_price::NUMERIC, 
         json_table.insert_volume, json_table.insert_change
         FROM json_table
