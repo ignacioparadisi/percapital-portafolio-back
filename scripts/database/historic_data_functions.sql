@@ -1,3 +1,32 @@
+CREATE OR REPLACE FUNCTION get_stock_historic_by_symbol(symbol_value TEXT, interval_value VARCHAR)
+    RETURNS TABLE(
+        sh_id INTEGER,
+        sh_symbol TEXT,
+        sh_stock_date TIMESTAMP,
+        sh_close_price NUMERIC,
+        sh_open_price NUMERIC,
+        sh_high_price NUMERIC,
+        sh_low_price NUMERIC,
+        sh_volume TEXT,
+        sh_change TEXT
+    )
+AS $$
+BEGIN
+    IF interval_value IS NULL OR interval_value = 'max' THEN
+        RETURN QUERY SELECT * FROM Stock_Historic WHERE symbol = symbol_value ORDER BY stock_date ASC; 
+    ELSE
+        RETURN QUERY SELECT * FROM Stock_Historic 
+        WHERE symbol = symbol_value AND stock_date >= (NOW() - interval_value::INTERVAL) ORDER BY stock_date ASC; 
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+/******************************
+*******************************
+            INSERTS
+*******************************
+*******************************/
+
 CREATE OR REPLACE FUNCTION create_stock_historic(json_data TEXT, data_key VARCHAR, symbol_column_name VARCHAR,
                             date_column_name VARCHAR, close_column_name VARCHAR, open_column_name VARCHAR,
                             high_column_name VARCHAR, low_column_name VARCHAR, volume_column_name VARCHAR,
