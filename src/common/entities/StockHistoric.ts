@@ -35,14 +35,14 @@ export class StockHistoric extends Entity implements Decodable {
     }
 
     codingKeys = {
-        id: 'id',
-        symbol: 'symbol',
-        date: 'stock_date',
-        closePrice: 'close_price',
-        openPrice: 'open_price',
-        lowPrice: 'low_price',
-        highPrice: 'high_price',
-        volume: 'volume',
-        change: 'change'
+        id: 'sh_id',
+        symbol: 'sh_symbol',
+        date: 'sh_stock_date',
+        closePrice: 'sh_close_price',
+        openPrice: 'sh_open_price',
+        lowPrice: 'sh_low_price',
+        highPrice: 'sh_high_price',
+        volume: 'sh_volume',
+        change: 'sh_change'
     }
 }
