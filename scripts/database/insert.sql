@@ -33,9 +33,9 @@ INSERT INTO Constant_Value(constant_type_id, value) VALUES
     (3, 0.001); -- Registro
 
 INSERT INTO Percapital_User(role_id, name, email, password) VALUES
-    (2, 'Raul Pinto', 'raulpinto@gmail.com', '123456');
---     (2, 'Ignacio Paradisi', 'ignaciotfw@gmail.com', '123456'),
---     (1, 'Usuario Normal', 'user@percapital.com', '123456');
+--     (1, 'Raul Pinto', 'raulpinto@gmail.com', '123456');
+    (2, 'Ignacio Paradisi', 'ignaciotfw@gmail.com', '123456'),
+    (1, 'Usuario Normal', 'user@percapital.com', '123456');
 
 -- PRICE RV
 -- INSERT INTO Price_RV(title_id, exchange_rate_id, bolivares_price, close_date, close_price) VALUES
