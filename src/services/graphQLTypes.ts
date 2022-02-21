@@ -6,6 +6,8 @@ export type GraphQLQuery = {
   skip?: number;
   block?: string;
   latest?: boolean;
+  symbol?: string;
+  interval?: string;
 };
 
 export type GraphQLMutation = {

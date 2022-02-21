@@ -19,5 +19,6 @@ export const StockHistoricTypeDef = gql`
     
     type Query {
         getStockFromBVC: [StockHistoric]
+        getStockHistoricBySymbol(symbol: String, interval: String): [StockHistoric]
     }
 `

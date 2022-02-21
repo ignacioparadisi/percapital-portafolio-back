@@ -4,4 +4,8 @@ export class StockHistoricBDFunctions {
             'date', 'closePrice', 'openPrice',
             'highPrice', 'lowPrice', 'volume', 'change')`;
     }
+
+    static getBySymbol(symbol: string, interval?: string): string {
+        return `SELECT * FROM get_stock_historic_by_symbol('${symbol}', ${ interval ? `'${interval}'` : null })`;
+    }
 }

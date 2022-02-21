@@ -14,6 +14,11 @@ export class StockHistoricDAO extends DAO<StockHistoric> implements IStockHistor
         return await Database.shared.execute(query, StockHistoric);
     }
 
+    async getBySymbol(symbol: string, interval?: string): Promise<StockHistoric[]> {
+        let query = StockHistoricBDFunctions.getBySymbol(symbol, interval);
+        return await Database.shared.execute(query, StockHistoric);
+    }
+
     async create(entity: StockHistoric): Promise<StockHistoric> {
         throw GeneralError.METHOD_NOT_IMPLEMENTED;
     }

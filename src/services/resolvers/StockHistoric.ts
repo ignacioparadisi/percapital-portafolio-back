@@ -7,6 +7,10 @@ export const StockHistoricResolver = {
         getStockFromBVC: async (parent: any, args: GraphQLQuery) => {
             let command = StockHistoricCommandFactory.createGetStockFromBVC();
             return command.execute();
+        },
+        getStockHistoricBySymbol: async (parent: any, args: GraphQLQuery) => {
+            console.info('getStockHistoricBySymbol parent:', parent, 'args: ',args);
+            let command = StockHistoricCommandFactory.createGetStockHistoricBySymbol(args.symbol ?? '', args.interval)
         }
     }
 }
