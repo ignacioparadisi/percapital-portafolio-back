@@ -4,10 +4,11 @@ const minimist = require('minimist');
 const parameters = require('./parameters.js');
 
 async function train() {
-    let symbol = minimist(process.argv.slice(2))["symbol"].toUpperCase();
+    let symbol = minimist(process.argv.slice(2))["symbol"];
     if (!symbol) {
         throw new Error('symbol is required to train the model. Example: npm run train -- --symbol=MVZ.A');
     }
+    symbol = symbol.toUpperCase();
     console.log('Symbol', symbol);
     let data = await loadData(symbol, parameters.scale, parameters.lookUpStep, parameters.stepsCount,
         parameters.splitByDate, parameters.shuffle, parameters.testSize);
@@ -30,9 +31,13 @@ async function train() {
         }
     });
 
-    let path = `file://${process.cwd()}/models/model-${symbol.replace('.', '_')}`
+    let path = `${parameters.modelPath}/model-${symbol.replace('.', '_')}`
     console.log(`Saving model into ${path}`);
     await model.save(path);
 }
 
-train();
+train().then(() => {
+    console.log('Training did end.')
+}, err => {
+    console.log(err);
+});

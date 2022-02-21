@@ -12,5 +12,6 @@ module.exports = {
     bidirectional: false,
     dropout: 0.4,
     loss: "meanAbsoluteError",
-    optimizer: "adam"
+    optimizer: "adam",
+    modelPath: `file://${process.cwd()}/scripts/prediction/models`
 }

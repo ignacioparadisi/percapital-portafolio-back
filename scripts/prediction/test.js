@@ -8,12 +8,13 @@ const plotly = plotlyLib('irparadisi.16', 'j8Z1ZlaOADjyBIZkuema');
 const minimist = require('minimist');
 
 async function test() {
-    let symbol = minimist(process.argv.slice(2))["symbol"].toUpperCase();
+    let symbol = minimist(process.argv.slice(2))["symbol"];
     if (!symbol) {
         throw new Error('symbol is required to train the model. Example: npm run train -- --symbol=MVZ.A');
     }
+    symbol = symbol.toUpperCase();
     console.log('Symbol', symbol);
-    let path = `file://${process.cwd()}/models/model-${symbol.replace('.', '_')}`;
+    let path = `${parameters.modelPath}/model-${symbol.replace('.', '_')}`;
     let data = await loadData(symbol, parameters.scale, parameters.lookUpStep, parameters.stepsCount,
         parameters.splitByDate, parameters.shuffle, parameters.testSize);
     let model = await tensorflow.loadLayersModel(`${path}/model.json`);
