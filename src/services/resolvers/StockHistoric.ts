@@ -11,6 +11,7 @@ export const StockHistoricResolver = {
         getStockHistoricBySymbol: async (parent: any, args: GraphQLQuery) => {
             console.info('getStockHistoricBySymbol parent:', parent, 'args: ',args);
             let command = StockHistoricCommandFactory.createGetStockHistoricBySymbol(args.symbol ?? '', args.interval)
+            return command.execute();
         }
     }
 }
