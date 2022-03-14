@@ -1,0 +1,48 @@
+import {Decodable} from "@Common/utils/Decodable";
+import {Entity} from "@Common/entities/Entity";
+
+export class StockHistoric extends Entity implements Decodable {
+    id?: number;
+    symbol?: string;
+    date?: Date;
+    closePrice?: number;
+    openPrice?: number;
+    highPrice?: number;
+    lowPrice?: number;
+    volume?: string;
+    change?: string;
+
+    constructor(entity?: StockHistoric);
+    constructor(symbol: string, closePrice: number);
+    constructor(...args: any[]) {
+        super();
+        if (args.length === 1 && args[0] instanceof StockHistoric) {
+            let entity = args[0] as StockHistoric;
+            this.id = entity.id;
+            this.symbol = entity.symbol;
+            this.date = entity.date;
+            this.closePrice = entity.closePrice;
+            this.openPrice = entity.openPrice;
+            this.highPrice = entity.highPrice;
+            this.lowPrice = entity.lowPrice;
+            this.volume = entity.volume;
+            this.change = entity.change;
+        } else if (args.length === 2) {
+            this.symbol = args[0] as string;
+            this.closePrice = args[1] as number;
+            this.date = new Date();
+        }
+    }
+
+    codingKeys = {
+        id: 'sh_id',
+        symbol: 'sh_symbol',
+        date: 'sh_stock_date',
+        closePrice: 'sh_close_price',
+        openPrice: 'sh_open_price',
+        lowPrice: 'sh_low_price',
+        highPrice: 'sh_high_price',
+        volume: 'sh_volume',
+        change: 'sh_change'
+    }
+}
