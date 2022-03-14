@@ -4,8 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "train": "node ./scripts/train.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-tools/schema": "^8.3.2",
+    "@graphql-tools/utils": "^8.6.2",
+    "@tensorflow/tfjs-node": "^3.14.0",
+    "apollo-server": "^3.6.4",
+    "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
+    "graphql": "^16.3.0",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "csvtojson": "^2.0.10",
+    "danfojs-node": "^1.0.4",
+    "mathjs": "^10.4.0",
+    "plotly": "^1.0.6"
+  }
 }

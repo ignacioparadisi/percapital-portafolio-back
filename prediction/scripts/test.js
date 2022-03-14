@@ -7,10 +7,30 @@ const parameters = require("./parameters.js");
 const plotly = plotlyLib('irparadisi.16', 'j8Z1ZlaOADjyBIZkuema');
 const minimist = require('minimist');
 
-async function test() {
-    let symbol = minimist(process.argv.slice(2))["symbol"];
+function getPredictionData(dataFrame, futurePrice) {
+    let trueData = {
+        x: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].index,
+        y: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].values
+    }
+    let data = {
+        x: dataFrame[`adjustClose${parameters.lookUpStep}`].index,
+        y: dataFrame[`adjustClose${parameters.lookUpStep}`].values
+    }
+    return {
+        trueData,
+        data,
+        futurePrice,
+        days: parameters.lookUpStep
+    }
+}
+
+async function test(symbol) {
     if (!symbol) {
-        throw new Error('symbol is required to train the model. Example: npm run train -- --symbol=MVZ.A');
+        let symbolArg = minimist(process.argv.slice(2))["symbol"];
+        if (!symbolArg) {
+            throw new Error('symbol is required to train the model. Example: npm run train -- --symbol=MVZ.A');
+        }
+        symbol = symbolArg;
     }
     symbol = symbol.toUpperCase();
     console.log('Symbol', symbol);
@@ -37,6 +57,7 @@ async function test() {
     console.log(`Loss: ${loss}`);
     console.log(`Mean Absolute Error: ${meanAbsoluteError}`);
     plotGraph(finalDataFrame);
+    return getPredictionData(finalDataFrame, futurePrice);
 }
 
 function predict(data, model) {
@@ -97,4 +118,6 @@ function plotGraph(dataFrame) {
     });
 }
 
-test();
+module.exports = {
+    test
+}
