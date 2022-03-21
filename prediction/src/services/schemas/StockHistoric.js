@@ -13,10 +13,17 @@ module.exports ={
             volume: String
             change: String
         }
+
+        type PredictionData {
+            x: [String]
+            y: [Float]
+        }
         
         type Prediction {
             futurePrice: Float
             days: Int
+            trueData: PredictionData
+            data: PredictionData
         }
 
         input StockHistoricInput {

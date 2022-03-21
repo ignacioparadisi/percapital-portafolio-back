@@ -56,7 +56,7 @@ async function test(symbol) {
     console.log(`Future price after ${parameters.lookUpStep} days is ${futurePrice}`);
     console.log(`Loss: ${loss}`);
     console.log(`Mean Absolute Error: ${meanAbsoluteError}`);
-    plotGraph(finalDataFrame);
+    // plotGraph(finalDataFrame);
     return getPredictionData(finalDataFrame, futurePrice);
 }
 
@@ -90,33 +90,33 @@ function getFinalDataFrame(data, model) {
     return testDataFrame;
 }
 
-function plotGraph(dataFrame) {
-    dataFrame.print();
-    console.log(dataFrame[`trueAdjustClose${parameters.lookUpStep}`].index);
-    let trueData = {
-        x: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].index,
-        y: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].values,
-        mode: 'line',
-        name: 'Predicted Price',
-        line: {
-            color: 'rgb(255, 0, 0)',
-        }
-    }
-    let data = {
-        x: dataFrame[`adjustClose${parameters.lookUpStep}`].index,
-        y: dataFrame[`adjustClose${parameters.lookUpStep}`].values,
-        mode: 'line',
-        name: 'Actual Price',
-        line: {
-            color: 'rgb(0, 0, 255)',
-        }
-    }
-    let graphOptions = {filename: "date-axes", fileopt: "overwrite"};
-    plotly.plot([data, trueData], graphOptions, function (err, msg) {
-        if (err) return console.log(err);
-        console.log(msg);
-    });
-}
+// function plotGraph(dataFrame) {
+//     dataFrame.print();
+//     console.log(dataFrame[`trueAdjustClose${parameters.lookUpStep}`].index);
+//     let trueData = {
+//         x: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].index,
+//         y: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].values,
+//         mode: 'line',
+//         name: 'Predicted Price',
+//         line: {
+//             color: 'rgb(255, 0, 0)',
+//         }
+//     }
+//     let data = {
+//         x: dataFrame[`adjustClose${parameters.lookUpStep}`].index,
+//         y: dataFrame[`adjustClose${parameters.lookUpStep}`].values,
+//         mode: 'line',
+//         name: 'Actual Price',
+//         line: {
+//             color: 'rgb(0, 0, 255)',
+//         }
+//     }
+//     let graphOptions = {filename: "date-axes", fileopt: "overwrite"};
+//     plotly.plot([data, trueData], graphOptions, function (err, msg) {
+//         if (err) return console.log(err);
+//         console.log(msg);
+//     });
+// }
 
 module.exports = {
     test

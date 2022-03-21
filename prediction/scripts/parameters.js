@@ -1,11 +1,11 @@
 module.exports = {
     scale: true,
     lookUpStep: 15,
-    stepsCount: 50,
+    stepsCount: 3,
     splitByDate: false,
     shuffle: true,
     testSize: 0.2,
-    sequenceLength: 50,
+    sequenceLength: 3,
     featuresCount: 1,
     units: 256,
     layers: 2,
@@ -13,5 +13,5 @@ module.exports = {
     dropout: 0.4,
     loss: "meanAbsoluteError",
     optimizer: "adam",
-    modelPath: `file://${process.cwd()}/scripts/prediction/models`
+    modelPath: `file://${process.cwd()}/models`
 }

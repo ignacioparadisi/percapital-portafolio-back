@@ -6,7 +6,9 @@ class GetPredictionCommand {
         this.symbol = symbol;
     }
     async execute() {
-        return test(this.symbol);
+        let result = await test(this.symbol);
+        console.log(result);
+        return result;
     }
 }
 

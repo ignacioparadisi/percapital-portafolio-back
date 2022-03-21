@@ -43,7 +43,7 @@ function shuffleInUnison(array1, array2) {
 async function requestData(symbol) {
     console.info('Requesting data');
     let url = `https://sandbox.iexapis.com/stable/stock/${symbol}-VS/chart/max?token=Tpk_7ef63a0d0ca94395a15d73c3fd314f0e`;
-    let response = await axios.get(url)
+    let response = await axios.get(url);
     let data = response.data;
     return data.map((value) => {
         return {
