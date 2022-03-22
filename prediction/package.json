@@ -18,7 +18,8 @@
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "graphql": "^16.3.0",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "pg": "^8.7.1"
   },
   "devDependencies": {
     "csvtojson": "^2.0.10",

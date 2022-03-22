@@ -1,8 +1,8 @@
 'use strict';
 
-// import {StockHistoric} from "@Common/entities/StockHistoric";
+const { StockHistoric } = require('../../../common/StockHistoric');
 const axios = require('axios');
-// import {StockHistoricDAO} from "@Persistence/dao/stock_historic/StockHistoricDAO";
+const {StockHistoricDAO} = require("../../../persistence/StockHistoricDAO");
 
 const url = 'https://www.bolsadecaracas.com/resumen-mercado/';
 
@@ -12,10 +12,16 @@ class GetStockFromBVCCommand {
         let data = response.data;
         let decodedData = this.decodeData(data);
         let stocks = decodedData?.map((stock) => {
-            console.log(stock);
-            return stock // StockHistoric(stock.symbol, stock.value);
+            return new StockHistoric(stock.symbol, stock.value);
         }) ?? [];
-        return stocks // new StockHistoricDAO().createMultiple(stocks);
+        let result = await new StockHistoricDAO().createMultiple(stocks);
+        return result.map(item => {
+            return {
+                symbol: item.sh_symbol,
+                date: item.sh_stock_date,
+                closePrice: item.sh_close_price
+            }
+        });
     }
 
     decodeData(data) {
