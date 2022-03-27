@@ -12,7 +12,7 @@ class GetStockFromBVCCommand {
         let data = response.data;
         let decodedData = this.decodeData(data);
         let stocks = decodedData?.map((stock) => {
-            return new StockHistoric(stock.symbol, stock.value);
+            return new StockHistoric({ symbol: stock.symbol, value: stock.value });
         }) ?? [];
         let result = await new StockHistoricDAO().createMultiple(stocks);
         return result.map(item => {

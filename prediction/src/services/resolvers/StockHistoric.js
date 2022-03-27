@@ -18,6 +18,13 @@ module.exports = {
                 let command = StockHistoricCommandFactory.createGetPredictionCommand(args.symbol);
                 return command.execute();
             }
+        },
+        Mutation: {
+            createStockHistoric: async (parent, args) => {
+                console.info('createGetStockHsitoric parent: ', parent, 'args: ', args);
+                const command = StockHistoricCommandFactory.createCreateStockHistoricCommand(args.input);
+                return command.execute();
+            }
         }
     }
 }

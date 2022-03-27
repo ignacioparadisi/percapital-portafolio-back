@@ -27,13 +27,24 @@ module.exports ={
         }
 
         input StockHistoricInput {
-            symbol: String
+            symbol: String!
+            date: String
+            closePrice: Float!
+            openPrice: Float
+            highPrice: Float
+            lowPrice: Float
+            volume: String
+            change: String
         }
 
         type Query {
             getStockFromBVC: [StockHistoric]
             getStockHistoricBySymbol(symbol: String, interval: String): [StockHistoric]
             getPrediction(symbol: String): Prediction
+        }
+        
+        type Mutation {
+            createStockHistoric(input: [StockHistoricInput]): [StockHistoric]
         }
     `
 }
