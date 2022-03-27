@@ -10,7 +10,7 @@ module.exports = {
             },
             getStockHistoricBySymbol: async (parent, args) => {
                 console.info('getStockHistoricBySymbol parent:', parent, 'args: ',args);
-                let command = StockHistoricCommandFactory.createGetStockHistoricBySymbol(args.symbol);
+                let command = StockHistoricCommandFactory.createGetStockHistoricBySymbol(args.symbol, args.interval);
                 return command.execute();
             },
             getPrediction: async (parent, args) => {
