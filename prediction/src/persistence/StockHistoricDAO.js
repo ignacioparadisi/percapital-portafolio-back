@@ -7,10 +7,10 @@ class StockHistoricDAO {
         return await Database.shared.execute(query);
     }
 
-    // async getBySymbol(symbol: string, interval?: string): Promise<StockHistoric[]> {
-    //     let query = StockHistoricBDFunctions.getBySymbol(symbol, interval);
-    //     return await Database.shared.execute(query, StockHistoric);
-    // }
+    async getBySymbol(symbol, interval) {
+        let query = StockHistoricBDFunctions.getBySymbol(symbol, interval);
+        return await Database.shared.execute(query);
+    }
 }
 
 module.exports = {
