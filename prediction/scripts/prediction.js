@@ -60,10 +60,19 @@ async function requestData(symbol) {
  * @returns {Promise<any[]>}
  */
 async function readData(symbol) {
-    let filePath = `./Historico/${symbol}.csv`
-    console.info(`Reading data from file ${filePath}`);
+    const StockHistoricCommandFactory = require('../src/logic/commands/stock_historic/StockHistoricCommandFactory.js');
+    const { config } = require("dotenv");
+    config({ path: `${process.cwd()}/.env` });
     try {
-        return await csvtojson().fromFile(filePath);
+        let data = await StockHistoricCommandFactory.createGetStockHistoricBySymbol(symbol).execute();
+        return data.map(stock => {
+            let date = new Date(stock.date);
+            return {
+                date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
+                close: stock.closePrice,
+                future: undefined
+            }
+        });
     } catch(error) {
         console.error(error);
     }
@@ -175,7 +184,11 @@ function shuffleData(result) {
 
 async function loadData(symbol, scale = true, lookUpStep = 15, stepsCount = 50, splitByDate = true, shuffle = true, testSize = 0.2) {
     let result = {}
-    let data = await requestData(symbol);
+    let data = await readData(symbol);
+    if (data.length === 0) {
+        console.error('Not enough data to train');
+        return;
+    }
     let dataFrame = createDataFrame(data);
     console.log('======================= First DataFrame =======================');
     dataFrame.print();

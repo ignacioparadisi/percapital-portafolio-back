@@ -10,6 +10,7 @@ function createGetStockFromBVC() {
 }
 
 function createGetStockHistoricBySymbol(symbol, interval) {
+    console.info('createGetStockHistoricBySymbol');
     return new GetStockHistoricBySymbolCommand(symbol, interval);
 }
 
