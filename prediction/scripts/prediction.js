@@ -1,7 +1,6 @@
 const axios = require('axios');
 const danfo = require('danfojs-node');
 const tensorflow = require('@tensorflow/tfjs-node');
-const csvtojson = require('csvtojson');
 const trainTestSplit = require("./trainTestSplit.js");
 
 /**
