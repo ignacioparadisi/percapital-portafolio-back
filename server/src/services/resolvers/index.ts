@@ -8,7 +8,6 @@ import { PriceRVResolver } from '@Services/resolvers/PriceRV';
 import { ExchangeRateResolver } from '@Services/resolvers/ExchangeRate';
 import { UserResolver } from "@Services/resolvers/User";
 import { PortfolioResolver } from "./Portfolio";
-import {StockHistoricResolver} from "@Services/resolvers/StockHistoric";
 
 export const resolvers = mergeResolvers([
     ConstantTypeResolver,
@@ -19,6 +18,5 @@ export const resolvers = mergeResolvers([
     PriceRVResolver,
     ExchangeRateResolver,
     UserResolver,
-    PortfolioResolver,
-    StockHistoricResolver
+    PortfolioResolver
 ])

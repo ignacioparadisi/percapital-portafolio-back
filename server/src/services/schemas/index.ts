@@ -10,7 +10,6 @@ import { UserTypeDef } from "@Services/schemas/User";
 import { RoleTypeDef } from "@Services/schemas/Role";
 import { AuthorizationTypeDef } from "@Services/directives/AuthDirective";
 import { PortfolioTypeDef } from "./Portfolio";
-import {StockHistoricTypeDef} from "@Services/schemas/StockHistoric";
 
 export const typeDefs = mergeTypeDefs([
     AuthorizationTypeDef,
@@ -23,6 +22,5 @@ export const typeDefs = mergeTypeDefs([
     ExchangeRateTypeDef,
     UserTypeDef,
     RoleTypeDef,
-    PortfolioTypeDef,
-    StockHistoricTypeDef
+    PortfolioTypeDef
 ])
