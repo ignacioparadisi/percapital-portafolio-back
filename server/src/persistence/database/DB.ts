@@ -20,7 +20,8 @@ export class Database {
       this.database = new Database();
     }
     return this.database;
-  } 
+  }
+
 
   private constructor() {
     let config = {};
