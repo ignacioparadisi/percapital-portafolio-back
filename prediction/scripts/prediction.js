@@ -13,6 +13,8 @@ const trainTestSplit = require("./trainTestSplit.js");
  */
 const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 
+var convertData = false;
+
 /**
  * Shuffles two arrays in the same order
  * @param array1
@@ -41,6 +43,7 @@ function shuffleInUnison(array1, array2) {
  * @returns {Promise<*>} an array with the historical stock values of the title
  */
 async function requestData(symbol) {
+    convertData = true;
     console.info('Requesting data');
     let url = `https://sandbox.iexapis.com/stable/stock/${symbol}-VS/chart/max?token=Tpk_7ef63a0d0ca94395a15d73c3fd314f0e`;
     let response = await axios.get(url);
@@ -63,6 +66,7 @@ async function readData(symbol) {
     const StockHistoricCommandFactory = require('../src/logic/commands/stock_historic/StockHistoricCommandFactory.js');
     const { config } = require("dotenv");
     config({ path: `${process.cwd()}/.env` });
+    convertData = false;
     try {
         let data = await StockHistoricCommandFactory.createGetStockHistoricBySymbol(symbol).execute();
         return data.map(stock => {
@@ -84,17 +88,19 @@ async function readData(symbol) {
  * @returns {DataFrame} DataFrame
  */
 function createDataFrame(data) {
-    for(let index = 0; index < data.length; index++) {
-        let obj = data[index];
-        let date = new Date(obj.date);
-        let price = obj.close;
-        if (date < new Date('2021-10-01')) {
-            price /= 1000000;
+    if (convertData) {
+        for (let index = 0; index < data.length; index++) {
+            let obj = data[index];
+            let date = new Date(obj.date);
+            let price = obj.close;
+            if (date < new Date('2021-10-01')) {
+                price /= 1000000;
+            }
+            if (date < new Date('2018-08-20')) {
+                price /= 100000;
+            }
+            data[index].close = price;
         }
-        if (date < new Date('2018-08-20')) {
-            price /= 100000;
-        }
-        data[index].close = price;
     }
     let dataFrame = new danfo.DataFrame(data);
     dataFrame.setIndex({

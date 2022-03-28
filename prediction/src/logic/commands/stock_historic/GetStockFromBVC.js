@@ -11,8 +11,9 @@ class GetStockFromBVCCommand {
         let response = await axios.get(url)
         let data = response.data;
         let decodedData = this.decodeData(data);
+        console.log(decodedData);
         let stocks = decodedData?.map((stock) => {
-            return new StockHistoric({ symbol: stock.symbol, value: stock.value });
+            return new StockHistoric({ symbol: stock.symbol, closePrice: stock.value, date: new Date() });
         }) ?? [];
         let result = await new StockHistoricDAO().createMultiple(stocks);
         return result.map(item => {

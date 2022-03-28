@@ -9,7 +9,6 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { authDirectiveTransformer } from '@Services/directives/AuthDirective';
 
 config({ path: `${process.cwd()}/.env` });
-console.info(`${process.cwd()}/.env`);
 
 let schema = makeExecutableSchema({
     typeDefs,
