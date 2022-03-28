@@ -2,9 +2,7 @@ const tensorflow = require("@tensorflow/tfjs-node");
 const { loadData } = require("./prediction.js");
 const math = require('mathjs');
 const { expandDims } = require("@tensorflow/tfjs-node");
-const plotlyLib = require('plotly');
 const parameters = require("./parameters.js");
-const plotly = plotlyLib('irparadisi.16', 'j8Z1ZlaOADjyBIZkuema');
 const minimist = require('minimist');
 
 function getPredictionData(dataFrame, futurePrice) {
@@ -89,34 +87,6 @@ function getFinalDataFrame(data, model) {
     testDataFrame.sortIndex({ inplace: true });
     return testDataFrame;
 }
-
-// function plotGraph(dataFrame) {
-//     dataFrame.print();
-//     console.log(dataFrame[`trueAdjustClose${parameters.lookUpStep}`].index);
-//     let trueData = {
-//         x: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].index,
-//         y: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].values,
-//         mode: 'line',
-//         name: 'Predicted Price',
-//         line: {
-//             color: 'rgb(255, 0, 0)',
-//         }
-//     }
-//     let data = {
-//         x: dataFrame[`adjustClose${parameters.lookUpStep}`].index,
-//         y: dataFrame[`adjustClose${parameters.lookUpStep}`].values,
-//         mode: 'line',
-//         name: 'Actual Price',
-//         line: {
-//             color: 'rgb(0, 0, 255)',
-//         }
-//     }
-//     let graphOptions = {filename: "date-axes", fileopt: "overwrite"};
-//     plotly.plot([data, trueData], graphOptions, function (err, msg) {
-//         if (err) return console.log(err);
-//         console.log(msg);
-//     });
-// }
 
 module.exports = {
     test
