@@ -65,3 +65,23 @@ BEGIN
         RETURNING id, symbol, stock_date, close_price, open_price, high_price, low_price, volume, change;
 END;
 $$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_today_stocks()
+    RETURNS TABLE(
+         sh_id INTEGER,
+         sh_symbol TEXT,
+         sh_stock_date TIMESTAMP,
+         sh_close_price NUMERIC,
+         sh_open_price NUMERIC,
+         sh_high_price NUMERIC,
+         sh_low_price NUMERIC,
+         sh_volume TEXT,
+         sh_change TEXT
+    )
+AS $$
+BEGIN
+    RETURN QUERY SELECT id, symbol, stock_date, close_price, open_price, high_price, low_price, volume, change
+    FROM stock_historic WHERE stock_date::DATE = CURRENT_DATE ORDER BY symbol;
+END;
+$$ LANGUAGE plpgsql;
