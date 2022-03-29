@@ -3,7 +3,8 @@ const { StockHistoricDAO } = require("../../../persistence/StockHistoricDAO");
 
 class GetTodayStocks {
     async execute() {
-        let results = await new StockHistoricDAO().getTodayStocks().map(item => {
+        let results = await new StockHistoricDAO().getTodayStocks();
+        return results.map(item => {
             return {
                 id: item.sh_id,
                 symbol: item.sh_symbol,
@@ -16,6 +17,5 @@ class GetTodayStocks {
                 change: item.sh_change
             }
         });
-        return results;
     }
 }
