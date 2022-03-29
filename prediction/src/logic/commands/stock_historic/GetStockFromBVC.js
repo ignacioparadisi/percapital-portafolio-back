@@ -16,7 +16,7 @@ class GetStockFromBVCCommand {
             return new StockHistoric({ symbol: stock.symbol, closePrice: stock.value, date: new Date() });
         }) ?? [];
         let result = await new StockHistoricDAO().createMultiple(stocks);
-        return result.map(item => {
+        result = result.map(item => {
             return {
                 id: item.sh_id,
                 symbol: item.sh_symbol,
@@ -29,6 +29,7 @@ class GetStockFromBVCCommand {
                 change: item.sh_change
             }
         });
+        return result;
     }
 
     decodeData(data) {

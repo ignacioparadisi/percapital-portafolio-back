@@ -8,6 +8,10 @@ class StockHistoricBDFunctions {
     static getBySymbol(symbol, interval) {
         return `SELECT * FROM get_stock_historic_by_symbol('${symbol}', ${ interval ? `'${interval}'` : null })`;
     }
+
+    static getTodayStocks() {
+        return `SELECT * FROM get_today_stocks()`;
+    }
 }
 
 module.exports = {

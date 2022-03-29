@@ -11,6 +11,11 @@ class StockHistoricDAO {
         let query = StockHistoricBDFunctions.getBySymbol(symbol, interval);
         return await Database.shared.execute(query);
     }
+
+    async getTodayStocks() {
+        let query = StockHistoricBDFunctions.getTodayStocks();
+        return await Database.shared.execute(query);
+    }
 }
 
 module.exports = {

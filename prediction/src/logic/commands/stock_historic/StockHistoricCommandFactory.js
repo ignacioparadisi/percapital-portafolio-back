@@ -4,6 +4,7 @@ const { GetStockFromBVCCommand } = require('./GetStockFromBVC');
 const { GetStockHistoricBySymbolCommand } = require('./GetStockHistoricBySymbol');
 const { GetPredictionCommand } = require('./GetPrediction');
 const {CreateStockHistoricCommand} = require("./CreateStockHistoric");
+const {GetTodayStocks, GetTodayStocksCommand} = require("./GetTodayStocks");
 
 function createGetStockFromBVC() {
     return new GetStockFromBVCCommand();
@@ -22,9 +23,14 @@ function createCreateStockHistoricCommand(stockHistoric) {
     return new CreateStockHistoricCommand(stockHistoric);
 }
 
+function createGetTodayStocksCommand() {
+    return new GetTodayStocksCommand();
+}
+
 module.exports = {
     createGetStockFromBVC,
     createGetStockHistoricBySymbol,
     createGetPredictionCommand,
-    createCreateStockHistoricCommand
+    createCreateStockHistoricCommand,
+    createGetTodayStocksCommand
 }
