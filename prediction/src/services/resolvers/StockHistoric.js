@@ -17,6 +17,11 @@ module.exports = {
                 console.info('getPrediction parent:', parent, 'args: ',args);
                 let command = StockHistoricCommandFactory.createGetPredictionCommand(args.symbol);
                 return command.execute();
+            },
+            getTodayStocks: async (parent, args) => {
+                console.info('getTodayStocks parent:', parent, 'args: ', args);
+                let command = StockHistoricCommandFactory.createGetTodayStocksCommand();
+                return command.execute();
             }
         },
         Mutation: {

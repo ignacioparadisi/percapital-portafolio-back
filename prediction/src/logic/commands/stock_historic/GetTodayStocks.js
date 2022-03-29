@@ -1,7 +1,7 @@
 const { StockHistoric } = require('../../../common/StockHistoric');
 const { StockHistoricDAO } = require("../../../persistence/StockHistoricDAO");
 
-class GetTodayStocks {
+class GetTodayStocksCommand {
     async execute() {
         let results = await new StockHistoricDAO().getTodayStocks();
         return results.map(item => {
@@ -18,4 +18,8 @@ class GetTodayStocks {
             }
         });
     }
+}
+
+module.exports = {
+    GetTodayStocksCommand
 }

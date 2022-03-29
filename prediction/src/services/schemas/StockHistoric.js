@@ -41,6 +41,7 @@ module.exports ={
             getStockFromBVC: [StockHistoric]
             getStockHistoricBySymbol(symbol: String, interval: String): [StockHistoric]
             getPrediction(symbol: String): Prediction
+            getTodayStocks: [StockHistoric]
         }
         
         type Mutation {
