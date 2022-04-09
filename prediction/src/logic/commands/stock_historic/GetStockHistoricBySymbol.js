@@ -13,6 +13,7 @@ class GetStockHistoricBySymbolCommand {
 
     async execute() {
         const historic = await new StockHistoricDAO().getBySymbol(this.symbol, this.interval);
+        console.log(historic);
         return historic.map(item => {
             let date = new Date(+item.sh_stock_date);
             let price = item.sh_close_price;
@@ -25,6 +26,7 @@ class GetStockHistoricBySymbolCommand {
             return {
                 id: item.sh_id,
                 symbol: item.sh_symbol,
+                symbolDescription: item.sh_symbol_description,
                 date: item.sh_stock_date,
                 closePrice: price,
                 openPrice: item.sh_open_price,

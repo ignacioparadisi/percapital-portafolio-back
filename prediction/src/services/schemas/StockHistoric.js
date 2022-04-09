@@ -5,6 +5,7 @@ module.exports ={
         type StockHistoric {
             id: Int
             symbol: String
+            symbolDescription: String
             date: String
             closePrice: Float
             openPrice: Float

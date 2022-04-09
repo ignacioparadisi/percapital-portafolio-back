@@ -55,6 +55,7 @@ class Database {
             queryResult = queryResult.rows ? queryResult.rows : queryResult;
             return queryResult;
         } catch (error) {
+            console.error(error);
             throw error;
         } finally {
             client.release();
