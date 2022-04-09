@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/percapital-portafolio-back.iml" filepath="$PROJECT_DIR$/.idea/percapital-portafolio-back.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../percapital-portafolio-front/.idea/percapital-portafolio-front.iml" filepath="$PROJECT_DIR$/../percapital-portafolio-front/.idea/percapital-portafolio-front.iml" />
     </modules>
   </component>
 </project>

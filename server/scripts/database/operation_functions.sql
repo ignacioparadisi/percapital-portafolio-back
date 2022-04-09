@@ -182,7 +182,7 @@ BEGIN
         get_total_computed_value(operation.stock_price, operation.stock_amount, 
         comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value AS dollar_total_cost,
 
-        (get_total_computed_value(operation.stock_price, operation.stock_amount, 
+        (get_total_computed_value(operation.stock_price, operation.stock_amount,
         comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value) / operation.stock_amount AS dollar_unit_total_price,
 
         get_price_rv_close_price(operation.title_id) AS market_price,
@@ -209,15 +209,15 @@ BEGIN
         operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Title.id, Operation_Type.id) AS weight_in_wallet,
 
         operation.stock_amount / get_operations_stock_ammount_by_title(Stock_Title.id, Operation_Type.id) *
-        (((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, 0) - 
-        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) / 
-        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, 1)) *
+        (((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) -
+        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 1)) /
+        get_total_computed_value(operation.stock_price, operation.stock_amount, comission.value, iva.value, register.value,  operation.other_comission, 1)) *
         (360::NUMERIC / NULLIF((CURRENT_DATE - DATE(operation.created_at)), 0))) AS weighted_performance,
 
         (get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) /
         latest_exchange_rate) - 
         (get_total_computed_value(operation.stock_price, operation.stock_amount, 
-        comission.value, iva.value, register.value, 1) / operation.exchange_rate_value) AS dollar_gp,
+        comission.value, iva.value, register.value, operation.other_comission, 1) / operation.exchange_rate_value) AS dollar_gp,
 
         (((get_total_computed_value(get_price_rv_close_price(operation.title_id), operation.stock_amount, comission.value, iva.value, register.value, operation.other_comission, 0) /
         latest_exchange_rate) - 
