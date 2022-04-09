@@ -2,6 +2,7 @@ const axios = require('axios');
 const danfo = require('danfojs-node');
 const tensorflow = require('@tensorflow/tfjs-node');
 const trainTestSplit = require("./trainTestSplit.js");
+const parameters = require("./parameters.js");
 
 /**
  * Combines the elements of two arrays into one array with multiples arraies inside.
@@ -64,7 +65,7 @@ async function requestData(symbol) {
 async function readData(symbol) {
     const StockHistoricCommandFactory = require('../src/logic/commands/stock_historic/StockHistoricCommandFactory.js');
     const { config } = require("dotenv");
-    config({ path: `${process.cwd()}/.env` });
+    config({ path: parameters.envPath });
     convertData = false;
     try {
         let data = await StockHistoricCommandFactory.createGetStockHistoricBySymbol(symbol).execute();

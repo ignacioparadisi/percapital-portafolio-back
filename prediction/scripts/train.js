@@ -10,7 +10,7 @@ async function train() {
     }
     symbol = symbol.toUpperCase();
     console.log('Symbol', symbol);
-    let data = await loadData(symbol, parameters.scale, parameters.lookUpStep, parameters.stepsCount,
+    let data = await loadData(symbol, parameters.scale, parameters.lookUpStep, parameters.sequenceLength,
         parameters.splitByDate, parameters.shuffle, parameters.testSize);
     let model = createModel(parameters.sequenceLength, parameters.featuresCount, parameters.units,
         parameters.layers, parameters.bidirectional, parameters.dropout, parameters.loss, parameters.optimizer);
@@ -19,8 +19,8 @@ async function train() {
     console.log('==================== Y Train ==================');
     console.log(y);
     let history = await model.fit(x, y, {
-        batchSize: 64,
-        epochs: 50,
+        batchSize: parameters.batchSize,
+        epochs: parameters.epochs,
         validationData: [data["x_test"], data["y_test"]],
         verbose: 1,
         callbacks: {

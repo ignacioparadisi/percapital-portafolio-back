@@ -15,8 +15,8 @@ function createGetStockHistoricBySymbol(symbol, interval) {
     return new GetStockHistoricBySymbolCommand(symbol, interval);
 }
 
-function createGetPredictionCommand(symbol) {
-    return new GetPredictionCommand(symbol);
+function createGetPredictionCommand(symbol, lookUpStep) {
+    return new GetPredictionCommand(symbol, lookUpStep);
 }
 
 function createCreateStockHistoricCommand(stockHistoric) {

@@ -5,24 +5,24 @@ const { expandDims } = require("@tensorflow/tfjs-node");
 const parameters = require("./parameters.js");
 const minimist = require('minimist');
 
-function getPredictionData(dataFrame, futurePrice) {
+function getPredictionData(dataFrame, lookUpStep, futurePrice) {
     let trueData = {
-        x: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].index,
-        y: dataFrame[`trueAdjustClose${parameters.lookUpStep}`].values
+        x: dataFrame[`trueAdjustClose${lookUpStep}`].index,
+        y: dataFrame[`trueAdjustClose${lookUpStep}`].values
     }
     let data = {
-        x: dataFrame[`adjustClose${parameters.lookUpStep}`].index,
-        y: dataFrame[`adjustClose${parameters.lookUpStep}`].values
+        x: dataFrame[`adjustClose${lookUpStep}`].index,
+        y: dataFrame[`adjustClose${lookUpStep}`].values
     }
     return {
         trueData,
         data,
         futurePrice,
-        days: parameters.lookUpStep
+        days: lookUpStep
     }
 }
 
-async function test(symbol) {
+async function test(symbol, lookUpStep) {
     if (!symbol) {
         let symbolArg = minimist(process.argv.slice(2))["symbol"];
         if (!symbolArg) {
@@ -33,7 +33,7 @@ async function test(symbol) {
     symbol = symbol.toUpperCase();
     console.log('Symbol', symbol);
     let path = `${parameters.modelPath}/model-${symbol.replace('.', '_')}`;
-    let data = await loadData(symbol, parameters.scale, parameters.lookUpStep, parameters.stepsCount,
+    let data = await loadData(symbol, parameters.scale, lookUpStep, parameters.sequenceLength,
         parameters.splitByDate, parameters.shuffle, parameters.testSize);
     let model = await tensorflow.loadLayersModel(`${path}/model.json`);
     model.compile({
@@ -49,18 +49,18 @@ async function test(symbol) {
         meanAbsoluteError = mae.arraySync()[0];
     }
 
-    let finalDataFrame = getFinalDataFrame(data, model);
+    let finalDataFrame = getFinalDataFrame(data, model, lookUpStep);
     let futurePrice = predict(data, model);
-    console.log(`Future price after ${parameters.lookUpStep} days is ${futurePrice}`);
+    console.log(`Future price after ${lookUpStep} days is ${futurePrice}`);
     console.log(`Loss: ${loss}`);
     console.log(`Mean Absolute Error: ${meanAbsoluteError}`);
     // plotGraph(finalDataFrame);
-    return getPredictionData(finalDataFrame, futurePrice);
+    return getPredictionData(finalDataFrame, lookUpStep, futurePrice);
 }
 
 function predict(data, model) {
     let lastSequence = data.lastSequence.map((value) => value.map((number) => parseFloat(number)));
-    lastSequence = lastSequence.slice(data.lastSequence.length - parameters.stepsCount, data.lastSequence.length);
+    lastSequence = lastSequence.slice(data.lastSequence.length - parameters.sequenceLength, data.lastSequence.length);
     lastSequence = tensorflow.expandDims(lastSequence, 0)
     let prediction = model.predict(lastSequence);
     let predictedPrice;
@@ -72,7 +72,7 @@ function predict(data, model) {
     return predictedPrice
 }
 
-function getFinalDataFrame(data, model) {
+function getFinalDataFrame(data, model, lookUpStep) {
     let xTest = data.x_test;
     let yTest = data.y_test;
     let yPrediction = model.predict(xTest);
@@ -82,8 +82,8 @@ function getFinalDataFrame(data, model) {
     }
     let testDataFrame = data.test_dataframe;
     console.log(testDataFrame["close"].values.length);
-    testDataFrame.addColumn(`adjustClose${parameters.lookUpStep}`, yTest, { inplace: true });
-    testDataFrame.addColumn(`trueAdjustClose${parameters.lookUpStep}`, yPrediction, { inplace: true });
+    testDataFrame.addColumn(`adjustClose${lookUpStep}`, yTest, { inplace: true });
+    testDataFrame.addColumn(`trueAdjustClose${lookUpStep}`, yPrediction, { inplace: true });
     testDataFrame.sortIndex({ inplace: true });
     return testDataFrame;
 }

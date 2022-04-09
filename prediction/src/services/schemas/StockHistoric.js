@@ -40,8 +40,8 @@ module.exports ={
 
         type Query {
             getStockFromBVC: [StockHistoric]
-            getStockHistoricBySymbol(symbol: String, interval: String): [StockHistoric]
-            getPrediction(symbol: String): Prediction
+            getStockHistoricBySymbol(symbol: String!, interval: String): [StockHistoric]
+            getPrediction(symbol: String!, lookUpStep: Int!): Prediction
             getTodayStocks: [StockHistoric]
         }
         

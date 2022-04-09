@@ -15,7 +15,7 @@ module.exports = {
             },
             getPrediction: async (parent, args) => {
                 console.info('getPrediction parent:', parent, 'args: ',args);
-                let command = StockHistoricCommandFactory.createGetPredictionCommand(args.symbol);
+                let command = StockHistoricCommandFactory.createGetPredictionCommand(args.symbol, args.lookUpStep);
                 return command.execute();
             },
             getTodayStocks: async (parent, args) => {
