@@ -12,6 +12,10 @@ class StockHistoricBDFunctions {
     static getTodayStocks() {
         return `SELECT * FROM get_today_stocks()`;
     }
+
+    static syncTitlesAndStocks() {
+        return `CALL sync_historic_and_title_stocks()`;
+    }
 }
 
 module.exports = {

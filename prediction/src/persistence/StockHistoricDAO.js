@@ -4,7 +4,10 @@ const {StockHistoricBDFunctions} = require("./functions/StockHistoricDBFunctions
 class StockHistoricDAO {
     async createMultiple(entities) {
         let query = StockHistoricBDFunctions.insertStocks(JSON.stringify({ data: entities }));
-        return await Database.shared.execute(query);
+        let result = await Database.shared.execute(query);
+        let syncQuery = StockHistoricBDFunctions.syncTitlesAndStocks();
+        Database.shared.execute(syncQuery);
+        return result;
     }
 
     async getBySymbol(symbol, interval) {
