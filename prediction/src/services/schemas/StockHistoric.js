@@ -21,8 +21,9 @@ module.exports ={
         }
         
         type Prediction {
+            symbol: String
             futurePrice: Float
-            days: Int
+            lookUpDays: Int
             trueData: PredictionData
             data: PredictionData
         }
@@ -41,7 +42,7 @@ module.exports ={
         type Query {
             getStockFromBVC: [StockHistoric]
             getStockHistoricBySymbol(symbol: String!, interval: String): [StockHistoric]
-            getPrediction(symbol: String!, lookUpStep: Int!): Prediction
+            getPrediction(symbol: String!, lookUpDays: Int!): Prediction
             getTodayStocks: [StockHistoric]
         }
         

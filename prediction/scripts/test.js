@@ -18,7 +18,7 @@ function getPredictionData(dataFrame, lookUpStep, futurePrice) {
         trueData,
         data,
         futurePrice,
-        days: lookUpStep
+        lookUpDays: lookUpStep
     }
 }
 

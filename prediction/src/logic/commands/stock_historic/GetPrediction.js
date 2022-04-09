@@ -9,7 +9,7 @@ class GetPredictionCommand {
     }
     async execute() {
         let result = await test(this.symbol, this.lookUpStep);
-        console.log(result);
+        result.symbol = this.symbol;
         return result;
     }
 }
