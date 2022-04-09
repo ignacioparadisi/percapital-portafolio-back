@@ -20,9 +20,9 @@ CREATE TABLE Exchange_Rate(
 
 CREATE TABLE Stock_Title(
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
+    name TEXT,
     symbol VARCHAR(100) NOT NULL,
-    isin_code  VARCHAR(100) NOT NULL,
+    isin_code  VARCHAR(100),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -45,7 +45,7 @@ CREATE TABLE Percapital_User(
 CREATE TABLE Price_RV(
     id SERIAL PRIMARY KEY,
     title_id BIGINT NOT NULL,
-    exchange_rate_id BIGINT NOT NULL,
+    exchange_rate_id BIGINT,
     bolivares_price NUMERIC NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     close_date TIMESTAMP NOT NULL,
@@ -83,6 +83,7 @@ CREATE TABLE Operation(
 CREATE TABLE Stock_Historic(
     id SERIAL PRIMARY KEY,
     symbol TEXT NOT NULL,
+    symbol_description TEXT,
     stock_date TIMESTAMP NOT NULL,
     close_price NUMERIC,
     open_price NUMERIC,
@@ -93,3 +94,4 @@ CREATE TABLE Stock_Historic(
 );
 
 CREATE UNIQUE INDEX index_stock_historic_sym_date on Stock_Historic (symbol, stock_date);
+CREATE UNIQUE INDEX index_price_rv_title_date on Price_RV (title_id, close_date);

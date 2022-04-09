@@ -198,11 +198,17 @@ BEGIN
     IF prv_created_at IS NULL THEN
         RETURN QUERY INSERT INTO Price_RV(title_id, exchange_rate_id, bolivares_price, close_date, close_price) 
             VALUES (prv_title_id, prv_exchange_rate_id, prv_bolivares_price, prv_close_date, prv_close_price)
+            ON CONFLICT (title_id, close_date) 
+            DO UPDATE SET exchange_rate_id = EXCLUDED.exchange_rate_id, bolivares_price = EXCLUDED.bolivares_price, 
+            close_date = EXCLUDED.close_date, close_price = EXCLUDED.close_price;
             RETURNING id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date;
     ELSE
 
     RETURN QUERY INSERT INTO Price_RV(title_id, exchange_rate_id, bolivares_price, close_date, close_price, created_at) 
             VALUES (prv_title_id, prv_exchange_rate_id, prv_bolivares_price, prv_close_date, prv_close_price, prv_created_at)
+            ON CONFLICT (title_id, close_date) 
+            DO UPDATE SET exchange_rate_id = EXCLUDED.exchange_rate_id, bolivares_price = EXCLUDED.bolivares_price, 
+            close_date = EXCLUDED.close_date, close_price = EXCLUDED.close_price, created_at = EXCLUDED.created_at;
             RETURNING id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date;
     
     END IF;
