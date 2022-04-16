@@ -32,10 +32,16 @@ async function test(symbol, lookUpStep) {
     }
     symbol = symbol.toUpperCase();
     console.log('Symbol', symbol);
-    let path = `${parameters.modelPath}/model-${symbol.replace('.', '_')}`;
+    let path = `${parameters.modelPath}/model-${symbol.replace('.', '_')}-${lookUpStep}`;
     let data = await loadData(symbol, parameters.scale, lookUpStep, parameters.sequenceLength,
         parameters.splitByDate, parameters.shuffle, parameters.testSize);
-    let model = await tensorflow.loadLayersModel(`${path}/model.json`);
+    let model;
+    try {
+        model = await tensorflow.loadLayersModel(`${path}/model.json`);
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
     model.compile({
         loss: "meanSquaredError",
         metrics: ["accuracy"],
@@ -64,6 +70,7 @@ function predict(data, model) {
     lastSequence = tensorflow.expandDims(lastSequence, 0)
     let prediction = model.predict(lastSequence);
     let predictedPrice;
+    prediction.print();
     if (parameters.scale) {
         predictedPrice = data.columnScaler.close.inverseTransform(prediction).arraySync()[0][0];
     } else {

@@ -31,7 +31,7 @@ async function train() {
         }
     });
 
-    let path = `${parameters.modelPath}/model-${symbol.replace('.', '_')}`
+    let path = `${parameters.modelPath}/model-${symbol.replace('.', '_')}-${parameters.lookUpStep}`
     console.log(`Saving model into ${path}`);
     await model.save(path);
 }

@@ -7,7 +7,7 @@ module.exports = {
     sequenceLength: 50, // Length of the sequence / Window size
     featuresCount: 1, // Number of columns the data has (In this case it's only closePrice)
     units: 256,
-    layers: 2, // Number of layers the neural network will have
+    layers: 10, // Number of layers the neural network will have
     bidirectional: false, // Defines if the neural network is bidirectional or unidirectional
     dropout: 0.4,
     batchSize: 64, // Size of the batch
