@@ -6,17 +6,17 @@ const parameters = require("./parameters.js");
 const minimist = require('minimist');
 
 function getPredictionData(dataFrame, lookUpStep, futurePrice) {
-    let trueData = {
+    let predictedData = {
         x: dataFrame[`trueAdjustClose${lookUpStep}`].index,
         y: dataFrame[`trueAdjustClose${lookUpStep}`].values
     }
-    let data = {
+    let realData = {
         x: dataFrame[`adjustClose${lookUpStep}`].index,
         y: dataFrame[`adjustClose${lookUpStep}`].values
     }
     return {
-        trueData,
-        data,
+        trueData: realData,
+        data: predictedData,
         futurePrice,
         lookUpDays: lookUpStep
     }
