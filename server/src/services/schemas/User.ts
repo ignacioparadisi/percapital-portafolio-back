@@ -26,6 +26,7 @@ export const UserTypeDef = gql`
     }
 
     type Mutation {
+        createUser(insertData: UserInput!): User
         updateUser(where: UserInput!, updateData: UserInput!): [User]
             @auth(requires: ADMIN)
         deleteUser(deleteData: UserInput): Int

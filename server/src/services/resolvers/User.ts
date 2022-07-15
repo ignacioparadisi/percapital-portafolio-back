@@ -24,22 +24,23 @@ export const UserResolver = {
             return command.execute();
         },
     },
-    // Mutation: {
-    //     createUser: async (parent: any, args: GraphQLMutation) => {
-    //         console.info('createUser parent: ', parent, 'args: ',args);
-    //         const createData = new User(args.insertData as User);
-    //         return null;
-    //     },
-    //     updateUser: async (parent: any, args: GraphQLMutation) => {
-    //         console.info('updateUser parent: ', parent, 'args: ',args);
-    //         const where = new User(args.where as User);
-    //         const updateData = new User(args.updateData as User);
-    //         return null;
-    //     },
-    //     deleteUser: async (parent: any, args: GraphQLMutation) => {
-    //         console.info('deleteUser parent: ', parent, 'args: ',args);
-    //         const deleteData = new User(args.deleteData as User);
-    //         return null;
-    //     }
-    // }
+    Mutation: {
+        createUser: async (parent: any, args: GraphQLMutation) => {
+            console.info('createUser parent: ', parent, 'args: ',args);
+            const user = new User(args.insertData as User);
+            const command = UserCommandFactory.createCreateUserCommand(user);
+            return command.execute();
+        },
+        // updateUser: async (parent: any, args: GraphQLMutation) => {
+        //     console.info('updateUser parent: ', parent, 'args: ',args);
+        //     const where = new User(args.where as User);
+        //     const updateData = new User(args.updateData as User);
+        //     return null;
+        // },
+        // deleteUser: async (parent: any, args: GraphQLMutation) => {
+        //     console.info('deleteUser parent: ', parent, 'args: ',args);
+        //     const deleteData = new User(args.deleteData as User);
+        //     return null;
+        // }
+    }
 }

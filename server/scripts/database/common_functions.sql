@@ -3,16 +3,17 @@
 -- params:
 ---- `user_email`: Email of the user
 ---- `user_password`: Encrypted password of the user
-CREATE OR REPLACE FUNCTION login(user_email VARCHAR, user_password VARCHAR)
+CREATE OR REPLACE FUNCTION login(user_email VARCHAR)
     RETURNS TABLE (
         usr_id INTEGER,
         usr_name VARCHAR,
         usr_email VARCHAR,
+        usr_password VARCHAR,
         usr_role_id BIGINT
     )
 AS $$
 BEGIN
-    RETURN QUERY SELECT id, name, email, role_id FROM Percapital_User WHERE email = user_email AND password = user_password;
+    RETURN QUERY SELECT id, name, email, password, role_id FROM Percapital_User WHERE email = user_email;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -31,6 +32,28 @@ BEGIN
         RETURN QUERY SELECT id, name, email, role_id, created_at FROM Percapital_User;
     ELSE
         RETURN QUERY SELECT id, name, email, role_id, created_at FROM Percapital_User WHERE id = user_id;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a new user
+CREATE OR REPLACE FUNCTION create_user(user_name VARCHAR, user_email VARCHAR, user_password VARCHAR, user_role_id BIGINT)
+    RETURNS TABLE (
+        usr_id INTEGER,
+        usr_name VARCHAR,
+        usr_email VARCHAR,
+        usr_role_id BIGINT,
+        usr_created_at TIMESTAMP
+    )
+AS $$
+DECLARE
+    existing_user_id INTEGER;
+BEGIN
+    SELECT id INTO existing_user_id FROM Percapital_User WHERE email = user_email;
+    IF existing_user_id IS NULL THEN
+        RETURN QUERY INSERT INTO Percapital_User(name, email, password, role_id) VALUES (user_name, user_email, user_password, user_role_id) RETURNING id, name, email, role_id, created_at;
+    ELSE
+        RETURN;
     END IF;
 END;
 $$ LANGUAGE plpgsql;

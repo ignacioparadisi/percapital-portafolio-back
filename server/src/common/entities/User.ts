@@ -27,6 +27,7 @@ export class User extends Entity implements Decodable {
        roleId: 'usr_role_id',
        name: 'usr_name',
        email: 'usr_email',
+       password: 'usr_password',
        createdAt: 'usr_created_at'
    }
 }

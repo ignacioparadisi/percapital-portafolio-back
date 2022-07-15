@@ -1,7 +1,6 @@
 import { Role } from "@Common/entities/Role";
 import { User } from "@Common/entities/User";
 import { GeneralError } from "@Common/errors/GeneralError";
-import { RequiredFieldError } from "@Common/errors/RequiredFieldError";
 import { Database } from "@Persistence/database/DB";
 import { UserDBFunctions } from "@Persistence/database/functions/UserDBFunctions";
 import { DAO } from "../DAO";
@@ -11,12 +10,7 @@ export class UserDAO extends DAO<User> implements IUserDAO {
 
     async login(where: User): Promise<User> {
         console.info(`Loging in`, where.email);
-        let email = where.email;
-        let password = where.password;
-        if (!email || !password) {
-            throw new RequiredFieldError('email and password');
-        }
-        let query = UserDBFunctions.login(email, password);
+        let query = UserDBFunctions.login(where.email!);
         let result = await Database.shared.execute(query, User);
         if (result.length > 0) {
             return result[0];
@@ -38,8 +32,14 @@ export class UserDAO extends DAO<User> implements IUserDAO {
         return result;
     }
 
-    create(entity: User): Promise<User> {
-        throw GeneralError.METHOD_NOT_IMPLEMENTED;
+    async create(entity: User): Promise<User> {
+        console.info('Creating user');
+        let query = UserDBFunctions.createUser(entity);
+        let result = await Database.shared.execute(query, User);
+        if (result.length > 0) {
+            return result[0];
+        }
+        return Promise.reject('User with email already exists');
     }
 
     update(where: User, entity: User): Promise<User> {
