@@ -6,7 +6,7 @@ import { UserDAO } from "@Persistence/dao/user/UserDAO";
 
 export class CreateUserCommand extends Command<User, User> {
 
-    execute(): Promise<User | User[]> {
+    async execute(): Promise<User | User[]> {
         let user = this.params;
         if (!user.email) {
             throw new RequiredFieldError('email');
@@ -18,14 +18,14 @@ export class CreateUserCommand extends Command<User, User> {
             throw new RequiredFieldError('password');
         }
         user.roleId = user.roleId ? ([1, 2].includes(user.roleId) ? user.roleId : 1) : 1;
-        let password = this.encryptPassword(user.password);
+        let password = await this.encryptPassword(user.password);
         user.password = password;
         return new UserDAO().create(user);
     }
 
-    private encryptPassword(password: string): string {
+    private async encryptPassword(password: string): Promise<string> {
         const saltRounds = 10;
-        let encryptedPassword = bcrypt.hashSync(password, saltRounds);
+        let encryptedPassword = await bcrypt.hash(password, saltRounds);
         return encryptedPassword;
     }
 

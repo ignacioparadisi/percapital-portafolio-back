@@ -16,12 +16,19 @@ export class LoginCommand extends Command<User, User> {
             throw new RequiredFieldError('password');
         }
         let user = await new UserDAO().login(this.params);
-        if (user && user.password) {
-            if (bcrypt.compareSync(password, user.password)) {
-                user.password = undefined;
-                return Promise.resolve(user);
-            }
+        if (await this.passwordIsCorrect(user, password)) {
+            return user;
         }
         return Promise.reject('Wrong user or password');
+    }
+
+    private async passwordIsCorrect(user: User, password: string): Promise<boolean> {
+        if (user && user.password) {
+            if (await bcrypt.compare(password, user.password)) {
+                user.password = undefined;
+                return true;
+            }
+        }
+        return false;
     }
 }
