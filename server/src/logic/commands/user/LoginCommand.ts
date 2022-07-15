@@ -7,19 +7,21 @@ import * as bcrypt from 'bcryptjs';
 export class LoginCommand extends Command<User, User> {
 
     async execute() {
-        let email = this.params.email;
-        let password = this.params.password;
-        if (!email) {
-            throw new RequiredFieldError('email');
-        }
-        if (!password) {
-            throw new RequiredFieldError('password');
-        }
+        this.validateParams(this.params);
         let user = await new UserDAO().login(this.params);
-        if (await this.passwordIsCorrect(user, password)) {
+        if (await this.passwordIsCorrect(user, this.params.password!)) {
             return user;
         }
         return Promise.reject('Wrong user or password');
+    }
+
+    private validateParams(params: User) {
+        if (!params.email) {
+            throw new RequiredFieldError('email');
+        }
+        if (!params.password) {
+            throw new RequiredFieldError('password');
+        }
     }
 
     private async passwordIsCorrect(user: User, password: string): Promise<boolean> {
