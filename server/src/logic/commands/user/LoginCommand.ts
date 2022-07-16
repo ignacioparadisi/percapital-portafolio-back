@@ -3,6 +3,7 @@ import { RequiredFieldError } from "@Common/errors/RequiredFieldError";
 import { UserDAO } from "@Persistence/dao/user/UserDAO";
 import { Command } from "../Command";
 import * as bcrypt from 'bcryptjs';
+import { GeneralError } from "@Common/errors/GeneralError";
 
 export class LoginCommand extends Command<User, User> {
 
@@ -12,7 +13,7 @@ export class LoginCommand extends Command<User, User> {
         if (await this.passwordIsCorrect(user, this.params.password!)) {
             return user;
         }
-        return Promise.reject('Wrong user or password');
+        throw new GeneralError('Usuario o contraseña inválidos', null, 'INVALID_CREDENTIALS');
     }
 
     private validateParams(params: User) {

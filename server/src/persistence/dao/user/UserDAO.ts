@@ -15,7 +15,7 @@ export class UserDAO extends DAO<User> implements IUserDAO {
         if (result.length > 0) {
             return result[0];
         }
-        return Promise.reject('Email or password empty')
+        throw new GeneralError('Usuario o contraseña inválidos', null, 'INVALID_CREDENTIALS');
     }
 
     async getRoles(where?: User): Promise<Role[]> {
@@ -39,7 +39,7 @@ export class UserDAO extends DAO<User> implements IUserDAO {
         if (result.length > 0) {
             return result[0];
         }
-        return Promise.reject('User with email already exists');
+        throw new GeneralError('El email ingresado ya existe en el sistema.', null, 'EMAIL_ALREADY_EXISTS');
     }
 
     update(where: User, entity: User): Promise<User> {
