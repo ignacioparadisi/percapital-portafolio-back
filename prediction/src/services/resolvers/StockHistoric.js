@@ -27,7 +27,7 @@ module.exports = {
         Mutation: {
             createStockHistoric: async (parent, args) => {
                 console.info('createGetStockHsitoric parent: ', parent, 'args: ', args);
-                const command = StockHistoricCommandFactory.createCreateStockHistoricCommand(args.input);
+                const command = StockHistoricCommandFactory.createCreateStockHistoricCommand(args.insertData);
                 return command.execute();
             }
         }

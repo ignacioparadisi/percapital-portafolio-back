@@ -47,7 +47,7 @@ module.exports ={
         }
         
         type Mutation {
-            createStockHistoric(input: [StockHistoricInput]): [StockHistoric]
+            createStockHistoric(insertData: [StockHistoricInput]): [StockHistoric]
         }
     `
 }
