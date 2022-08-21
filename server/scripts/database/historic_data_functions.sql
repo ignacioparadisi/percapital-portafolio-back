@@ -59,14 +59,14 @@ BEGIN
 
     RETURN QUERY INSERT INTO Stock_Historic(symbol, symbol_description, stock_date, close_price, 
                             open_price, high_price, low_price, volume, change)
-        SELECT json_table.insert_symbol, json_table.insert_symbol_desc, TO_TIMESTAMP(json_table.insert_stock_date, 'YYYY-MM-DD'), 
+        SELECT json_table.insert_symbol, json_table.insert_symbol_desc, TO_TIMESTAMP(json_table.insert_stock_date, 'YYYY-MM-dd'), 
         json_table.insert_close_price::NUMERIC, json_table.insert_open_price::NUMERIC, json_table.insert_high_price::NUMERIC, 
         json_table.insert_low_price::NUMERIC, json_table.insert_volume, json_table.insert_change
         FROM json_table
         ON CONFLICT (symbol, stock_date) 
         DO UPDATE SET close_price = EXCLUDED.close_price, open_price = EXCLUDED.open_price, high_price = EXCLUDED.high_price, 
         low_price = EXCLUDED.low_price, volume = EXCLUDED.volume, change = EXCLUDED.change
-        RETURNING id, symbol, stock_date, close_price, open_price, high_price, low_price, volume, change;
+        RETURNING id, symbol, symbol_description, stock_date, close_price, open_price, high_price, low_price, volume, change;
 END;
 $$ LANGUAGE plpgsql;
 
