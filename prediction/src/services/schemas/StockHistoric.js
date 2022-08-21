@@ -30,6 +30,7 @@ module.exports ={
 
         input StockHistoricInput {
             symbol: String!
+            symbolDescription: String
             date: String
             closePrice: Float!
             openPrice: Float

@@ -1,6 +1,6 @@
 class StockHistoricBDFunctions {
     static insertStocks(data) {
-        return `SELECT * FROM create_stock_historic('${data}', 'data', 'symbol',
+        return `SELECT * FROM create_stock_historic('${data}', 'data', 'symbol', 'symbolDescription',
             'date', 'closePrice', 'openPrice',
             'highPrice', 'lowPrice', 'volume', 'change')`;
     }

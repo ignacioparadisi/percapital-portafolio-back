@@ -3,7 +3,7 @@ const {StockHistoricBDFunctions} = require("./functions/StockHistoricDBFunctions
 
 class StockHistoricDAO {
     async createMultiple(entities) {
-        let query = StockHistoricBDFunctions.insertStocks(JSON.stringify({ data: entities }));
+        let query = StockHistoricBDFunctions.insertStocks(JSON.stringify({ data: entities }, null, 2));
         let result = await Database.shared.execute(query);
         let syncQuery = StockHistoricBDFunctions.syncTitlesAndStocks();
         Database.shared.execute(syncQuery);
