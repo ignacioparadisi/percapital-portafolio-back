@@ -63,7 +63,7 @@ $$ LANGUAGE plpgsql;
 *******************************/
 
 -- Create a Exchange Rate
-CREATE OR REPLACE FUNCTION create_exchange_rate(exchange_value NUMERIC)
+CREATE OR REPLACE FUNCTION create_exchange_rate(exchange_value NUMERIC, exchange_created_at TIMESTAMP)
     RETURNS TABLE(
         er_id INTEGER,
         er_value NUMERIC,
@@ -71,7 +71,12 @@ CREATE OR REPLACE FUNCTION create_exchange_rate(exchange_value NUMERIC)
     )
 AS $$
 BEGIN
-    RETURN QUERY INSERT INTO Exchange_Rate(value) VALUES (exchange_value) 
-        RETURNING id, value, created_at;
+    IF exchange_created_at IS NULL THEN
+        RETURN QUERY INSERT INTO Exchange_Rate(value) VALUES (exchange_value) 
+            RETURNING id, value, created_at;
+    ELSE
+        RETURN QUERY INSERT INTO Exchange_Rate(value, created_at) VALUES (exchange_value, exchange_created_at) 
+            RETURNING id, value, created_at;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;

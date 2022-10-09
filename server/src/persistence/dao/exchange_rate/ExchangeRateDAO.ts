@@ -11,7 +11,7 @@ export class ExchangeRateDAO extends DAO<ExchangeRate> implements IExchangeRateD
         if (!entity.value) {
             throw new RequiredFieldError('value');
         }
-        let query = ExchangeRateDBFunctions.createExchangeRate(entity.value);
+        let query = ExchangeRateDBFunctions.createExchangeRate(entity.value, entity.createdAt);
         let result = await Database.shared.execute(query, ExchangeRate);
         if (result.length > 0) {
             return result[0];

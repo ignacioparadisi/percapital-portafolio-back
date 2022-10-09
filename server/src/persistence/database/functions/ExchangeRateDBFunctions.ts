@@ -1,6 +1,7 @@
 export class ExchangeRateDBFunctions {
-    static createExchangeRate(value: number): string {
-        return `SELECT * FROM create_exchange_rate(${value})`;
+    static createExchangeRate(value: number, date?: Date): string {
+        let dateString = date == undefined ? null : `'${date}'`;
+        return `SELECT * FROM create_exchange_rate(${value}, ${dateString})`;
     }
 
     static getExchangeRate(limit?: number, offset?: number): string {
