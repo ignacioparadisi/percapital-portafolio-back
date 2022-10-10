@@ -72,9 +72,9 @@ BEGIN
     ELSEIF filter_date IS NULL AND filter_title_id IS NOT NULL THEN
         SELECT COUNT(*) INTO total FROM Price_RV WHERE title_id = filter_title_id;
     ELSEIF filter_title_id IS NULL AND filter_date IS NOT NULL THEN
-        SELECT COUNT(*) INTO total FROM Price_RV WHERE created_at::DATE = filter_date::DATE;
+        SELECT COUNT(*) INTO total FROM Price_RV WHERE close_date::DATE = filter_date::DATE;
     ELSE 
-        SELECT COUNT(*) INTO total FROM Price_RV WHERE created_at::DATE = filter_date::DATE AND title_id = filter_title_id;
+        SELECT COUNT(*) INTO total FROM Price_RV WHERE close_date::DATE = filter_date::DATE AND title_id = filter_title_id;
     END IF;
     SELECT * INTO current_exchange_rate FROM get_latest_exchange_rate_value();
     
@@ -86,10 +86,10 @@ BEGIN
         FROM Price_RV WHERE title_id = filter_title_id LIMIT page_limit OFFSET page_offset;
     ELSIF filter_date IS NOT NULL AND filter_title_id IS NULL THEN 
         RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate 
-        FROM Price_RV WHERE created_at::DATE = filter_date::DATE LIMIT page_limit OFFSET page_offset; 
+        FROM Price_RV WHERE close_date::DATE = filter_date::DATE LIMIT page_limit OFFSET page_offset; 
     ELSIF filter_date IS NOT NULL AND filter_title_id IS NOT NULL THEN 
         RETURN QUERY SELECT total, id, title_id, exchange_rate_id, bolivares_price, close_price, created_at, close_date, current_exchange_rate 
-        FROM Price_RV WHERE created_at::DATE = filter_date::DATE AND title_id = filter_title_id LIMIT page_limit OFFSET page_offset; 
+        FROM Price_RV WHERE close_date::DATE = filter_date::DATE AND title_id = filter_title_id LIMIT page_limit OFFSET page_offset; 
     END IF;
 END;
 $$ LANGUAGE plpgsql;
