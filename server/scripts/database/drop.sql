@@ -64,3 +64,7 @@ DROP FUNCTION IF EXISTS create_stock_historic(TEXT, VARCHAR, VARCHAR, VARCHAR, V
 DROP FUNCTION IF EXISTS get_stock_historic_by_symbol(TEXT, VARCHAR);
 DROP FUNCTION IF EXISTS get_today_stocks();
 DROP PROCEDURE IF EXISTS sync_historic_and_title_stocks();
+DROP FUNCTION IF EXISTS get_latest_stock_price_by_title(NUMERIC, INTEGER);
+DROP FUNCTION IF EXISTS get_stock_change_by_title(NUMERIC);
+DROP FUNCTION IF EXISTS get_buy_speculate_by_title(NUMERIC);
+DROP FUNCTION IF EXISTS get_sell_speculate_by_title(NUMERIC);
