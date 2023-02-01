@@ -72,7 +72,7 @@ async function readData(symbol) {
         return data.map(stock => {
             let date = new Date(stock.date);
             return {
-                date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
+                date: date.getTime(),
                 close: stock.closePrice,
                 future: undefined
             }

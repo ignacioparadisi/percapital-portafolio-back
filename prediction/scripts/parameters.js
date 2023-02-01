@@ -1,6 +1,6 @@
 module.exports = {
     scale: true, // Defines if the data should be scaled between 0 and 1
-    lookUpStep: 15, // Days in the future we want to predict
+    lookUpStep: 7, // Days in the future we want to predict
     splitByDate: false, // If the data should be split by day
     shuffle: true, // If the data should be shu  ffled
     testSize: 0.2, // Percentage of the data to be used as test
@@ -15,5 +15,5 @@ module.exports = {
     loss: "meanAbsoluteError",
     optimizer: "adam",
     modelPath: `file://${process.cwd()}/models`,
-    envPath: `${process.cwd()}/.env.prod`
+    envPath: `${process.cwd()}/.env`
 }
